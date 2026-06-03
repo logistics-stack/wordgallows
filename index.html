@@ -2,6 +2,10 @@
 <html lang="ro">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="X-Frame-Options" content="DENY">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WordGallows Plus</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
@@ -241,6 +245,71 @@ input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--glo
 .music-viz{display:flex;gap:3px;align-items:flex-end;height:20px;margin-left:4px;}
 .bar-viz{width:3px;background:var(--accent);border-radius:2px;animation:barDance ease-in-out infinite alternate;}
 @keyframes barDance{from{height:4px;}to{height:18px;}}
+
+/* ═══ COOKIE BANNER ═══ */
+.cookie-banner {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(20,20,30,0.97); backdrop-filter: blur(20px);
+  border-top: 2px solid var(--border);
+  padding: 20px 30px; display: flex; align-items: center;
+  gap: 20px; flex-wrap: wrap;
+  box-shadow: 0 -8px 40px rgba(0,0,0,0.4);
+  animation: slideUp 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes slideUp { from{transform:translateY(100%);} to{transform:none;} }
+.cookie-banner p { color: #ccc; font-size: 0.85rem; flex: 1; min-width: 200px; line-height: 1.5; }
+.cookie-banner a { color: var(--accent); text-decoration: underline; }
+.cookie-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+.cookie-accept {
+  padding: 10px 22px; border-radius: 30px; border: none; cursor: pointer;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white; font-family: 'Nunito', sans-serif; font-weight: 800;
+  font-size: 0.85rem; transition: all 0.3s;
+}
+.cookie-accept:hover { transform: translateY(-2px); box-shadow: 0 6px 20px var(--glow); }
+.cookie-decline {
+  padding: 10px 22px; border-radius: 30px;
+  border: 1.5px solid rgba(255,255,255,0.2); cursor: pointer;
+  background: transparent; color: #aaa;
+  font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.85rem;
+  transition: all 0.3s;
+}
+.cookie-decline:hover { border-color: #fff; color: #fff; }
+
+/* ═══ LEGAL FOOTER ═══ */
+.legal-footer {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
+  padding: 8px 20px; display: flex; justify-content: center;
+  gap: 20px; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.08);
+}
+.legal-footer a {
+  color: rgba(255,255,255,0.4); font-size: 0.72rem; text-decoration: none;
+  transition: color 0.2s; letter-spacing: 0.5px;
+}
+.legal-footer a:hover { color: var(--accent); }
+
+/* ═══ LEGAL MODAL ═══ */
+.legal-modal-bg {
+  display: none; position: fixed; inset: 0; z-index: 600;
+  background: rgba(0,0,0,0.85); backdrop-filter: blur(14px);
+  align-items: center; justify-content: center; padding: 20px;
+}
+.legal-modal-bg.show { display: flex; }
+.legal-modal {
+  background: var(--panel); border: 1.5px solid var(--border);
+  border-radius: 24px; padding: 36px; max-width: 700px; width: 100%;
+  max-height: 80vh; overflow-y: auto;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  animation: modalIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+.legal-modal h2 { font-family: "Playfair Display", serif; font-size: 1.6rem; color: var(--accent); margin-bottom: 16px; }
+.legal-modal h3 { font-size: 1rem; font-weight: 800; color: var(--text); margin: 16px 0 8px; }
+.legal-modal p, .legal-modal li { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 8px; }
+.legal-modal ul { padding-left: 20px; }
+.legal-modal .close-legal { float: right; background: none; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; transition: color 0.2s; }
+.legal-modal .close-legal:hover { color: var(--accent); }
+
 </style>
 </head>
 <body class="theme-fengshui">
@@ -764,5 +833,134 @@ document.addEventListener('keydown',e=>{if(!document.getElementById('s-game').cl
 // ══════════ INIT ══════════
 buildThemeGrid();buildBgFx('fengshui');applyT();setDiff('medium');
 </script>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookie-banner">
+  <p>🍪 Folosim cookies esentiale pentru functionarea jocului si procesarea platilor prin Stripe. 
+  <a href="#" onclick="showLegal('privacy');return false;">Politica de Confidentialitate</a> · 
+  <a href="#" onclick="showLegal('cookies');return false;">Cookie Policy</a></p>
+  <div class="cookie-btns">
+    <button class="cookie-accept" onclick="acceptCookies()">✓ Accept</button>
+    <button class="cookie-decline" onclick="declineCookies()">Doar esentiale</button>
+  </div>
+</div>
+
+<!-- LEGAL FOOTER -->
+<div class="legal-footer" id="legal-footer" style="display:none;">
+  <a href="#" onclick="showLegal('privacy');return false;">Privacy Policy</a>
+  <a href="#" onclick="showLegal('terms');return false;">Terms & Conditions</a>
+  <a href="#" onclick="showLegal('cookies');return false;">Cookie Policy</a>
+  <a href="mailto:legal@wordgallows.com">legal@wordgallows.com</a>
+  <a href="#" style="opacity:0.3;">© 2026 WordGallows Plus</a>
+</div>
+
+<!-- LEGAL MODALS -->
+<div class="legal-modal-bg" id="legal-modal">
+  <div class="legal-modal" id="legal-modal-content">
+    <button class="close-legal" onclick="closeLegal()">✕</button>
+    <div id="legal-text"></div>
+  </div>
+</div>
+
+<script>
+// ═══ COOKIE CONSENT ═══
+const LEGAL_CONTENT = {
+  privacy: `<h2>🔒 Privacy Policy</h2>
+    <h3>Ce date colectam</h3>
+    <ul>
+      <li>Date de plata: procesate exclusiv de Stripe. Nu stocam numere de card.</li>
+      <li>Token-uri de sesiune: temporare, sterse automat dupa 4 ore.</li>
+      <li>Date tehnice: IP anonim, browser — doar pentru securitate.</li>
+      <li>Preferinta de limba: stocata local in browser.</li>
+    </ul>
+    <h3>Nu colectam niciodata</h3>
+    <ul>
+      <li>Nume, adrese email sau date personale identificabile</li>
+      <li>Nu vindem datele tale catre terte parti</li>
+      <li>Nu folosim datele pentru publicitate</li>
+    </ul>
+    <h3>Drepturile tale (GDPR)</h3>
+    <ul>
+      <li>Drept de acces, stergere, portabilitate a datelor</li>
+      <li>Contact: legal@wordgallows.com</li>
+      <li>Reclamatie ICO (UK): ico.org.uk</li>
+    </ul>
+    <h3>Servicii terte</h3>
+    <ul>
+      <li>Stripe: procesare plati (PCI-DSS Level 1)</li>
+      <li>Vercel: hosting website</li>
+    </ul>
+    <p><em>Ultima actualizare: 3 Iunie 2026</em></p>`,
+  
+  terms: `<h2>📋 Terms & Conditions</h2>
+    <h3>Serviciul</h3>
+    <p>WordGallows Plus ofera un joc online de ghicire a cuvintelor in engleza, romana si poloneza.</p>
+    <h3>Plata si Rambursare</h3>
+    <ul>
+      <li>Sesiunile costa £1 / 5 RON / 5 PLN / €1.20 pentru 4 ore de acces</li>
+      <li>Platile sunt procesate securizat de Stripe</li>
+      <li>Sesiunile nu sunt rambursabile odata activate</li>
+      <li>Probleme tehnice: contactati-ne in 24h pentru rambursare completa</li>
+    </ul>
+    <h3>Utilizare interzisa</h3>
+    <ul>
+      <li>Nu folositi boti sau instrumente automate</li>
+      <li>Nu incercati sa eludati sistemul de plata</li>
+      <li>Varsta minima: 13 ani</li>
+    </ul>
+    <h3>Lege aplicabila</h3>
+    <p>Anglia si Tara Galilor + legislatie europeana GDPR.</p>
+    <p>Contact: legal@wordgallows.com</p>
+    <p><em>Ultima actualizare: 3 Iunie 2026</em></p>`,
+
+  cookies: `<h2>🍪 Cookie Policy</h2>
+    <h3>Cookies esentiale (nu pot fi dezactivate)</h3>
+    <ul>
+      <li><strong>wg_session</strong>: valideaza sesiunea platita — 4 ore</li>
+      <li><strong>_stripe_*</strong>: preventia fraudei Stripe — sesiune</li>
+    </ul>
+    <h3>Cookies functionale</h3>
+    <ul>
+      <li><strong>wg_lang</strong>: retine preferinta de limba — 1 an</li>
+      <li><strong>wg_theme</strong>: retine tema aleasa — 1 an</li>
+    </ul>
+    <h3>Nu folosim</h3>
+    <ul>
+      <li>Cookies de publicitate</li>
+      <li>Cookies de tracking cross-site</li>
+      <li>Cookies de social media</li>
+    </ul>
+    <p>Poti gestiona cookies din setarile browserului tau.</p>
+    <p><em>Ultima actualizare: 3 Iunie 2026</em></p>`
+};
+
+function acceptCookies() {
+  localStorage.setItem('wg_cookie_consent', 'accepted');
+  document.getElementById('cookie-banner').style.display = 'none';
+  document.getElementById('legal-footer').style.display = 'flex';
+}
+function declineCookies() {
+  localStorage.setItem('wg_cookie_consent', 'essential');
+  document.getElementById('cookie-banner').style.display = 'none';
+  document.getElementById('legal-footer').style.display = 'flex';
+}
+function showLegal(type) {
+  document.getElementById('legal-text').innerHTML = LEGAL_CONTENT[type] || '';
+  document.getElementById('legal-modal').classList.add('show');
+}
+function closeLegal() {
+  document.getElementById('legal-modal').classList.remove('show');
+}
+
+// Check consent on load
+window.addEventListener('load', () => {
+  const consent = localStorage.getItem('wg_cookie_consent');
+  if (consent) {
+    document.getElementById('cookie-banner').style.display = 'none';
+    document.getElementById('legal-footer').style.display = 'flex';
+  }
+});
+</script>
+
 </body>
 </html>
