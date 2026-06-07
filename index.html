@@ -669,14 +669,15 @@ function buildThemeGrid(){
     const d=document.createElement('div');d.className='theme-card'+(t.id===currentTheme?' sel':'');
     d.style.background=t.grad;
     d.innerHTML=`<div class="tc-icon">${t.icon}</div><div class="tc-name">${t.name}</div>`;
-    d.onclick=()=>applyTheme(t.id);g.appendChild(d);
+    d.onclick=()=>window.applyTheme(t.id);g.appendChild(d);
   });
 }
 function applyTheme(id){
-  currentTheme=id;document.body.className='theme-'+id;
+  currentTheme=id;
+  document.body.className='theme-'+id;
   document.querySelectorAll('.theme-card').forEach((c,i)=>c.classList.toggle('sel',THEMES[i].id===id));
   buildBgFx(id);
-  if(musicOn){stopMusic();setTimeout(startMusic,200);}
+  // Music handled by window.applyTheme override below
 }
 function openThemes(){document.getElementById('theme-drawer').classList.add('open');}
 function closeThemes(){document.getElementById('theme-drawer').classList.remove('open');}
@@ -1086,24 +1087,57 @@ async function playCustomTrack(theme){
     const track = await getTrack(theme);
     if(!track) return false;
 
-    // Stop ALL other custom tracks first
+    // Stop ALL existing audio first
     Object.keys(customAudio).forEach(t => {
       if(customAudio[t]){
-        customAudio[t].pause();
-        customAudio[t].currentTime = 0;
-        try{ URL.revokeObjectURL(customAudio[t].src); }catch(e){}
+        try{ 
+          customAudio[t].pause(); 
+          customAudio[t].currentTime = 0;
+          if(customAudio[t]._url) URL.revokeObjectURL(customAudio[t]._url);
+        }catch(e){}
       }
     });
 
-    // Create fresh audio element
-    const blob = new Blob([track.data], { type: track.type || 'audio/mpeg' });
-    const url = URL.createObjectURL(blob);
-    const audio = new Audio(url);
-    audio.loop = true;
-    audio.volume = 0.3;
-    customAudio[theme] = audio;
-    await audio.play();
+    // Use Web Audio API for better mobile compatibility
+    initAudio(); // ensure audioCtx exists
+    
+    const arrayBuffer = track.data.slice(0); // clone buffer
+    let audioBuffer;
+    try {
+      audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+    } catch(e) {
+      // Fallback to HTML Audio for unsupported formats
+      const blob = new Blob([track.data], { type: track.type || 'audio/mpeg' });
+      const url = URL.createObjectURL(blob);
+      const audio = new Audio(url);
+      audio._url = url;
+      audio.loop = true;
+      audio.volume = 0.3;
+      customAudio[theme] = audio;
+      await audio.play();
+      return true;
+    }
+
+    // Create looping buffer source via Web Audio (works on mobile)
+    const source = audioCtx.createBufferSource();
+    const gainNode = audioCtx.createGain();
+    source.buffer = audioBuffer;
+    source.loop = true;
+    gainNode.gain.value = 0.3;
+    source.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    source.start(0);
+
+    // Store as fake audio element with stop method
+    customAudio[theme] = {
+      _source: source,
+      _gain: gainNode,
+      pause: function(){ try{ source.stop(); }catch(e){} },
+      currentTime: 0,
+      _isWebAudio: true
+    };
     return true;
+
   } catch(e) {
     console.warn('Custom track error:', e);
     return false;
@@ -1119,18 +1153,17 @@ function stopCustomTrack(theme){
 
 // ── MASTER STOP — kills ALL audio sources ──
 function stopAllAudio(){
-  // Stop Web Audio (generated music)
-  musicOn = false;
+  // Stop Web Audio API generated music
   if(melodyInterval){ clearInterval(melodyInterval); melodyInterval = null; }
   musicNodes.forEach(n=>{ try{ n.stop(); }catch(e){} });
   musicNodes = [];
-  // Stop ALL custom audio elements
+  // Stop ALL custom MP3 audio elements
   Object.keys(customAudio).forEach(t => {
     if(customAudio[t]){
-      customAudio[t].pause();
-      customAudio[t].currentTime = 0;
+      try{ customAudio[t].pause(); customAudio[t].currentTime = 0; }catch(e){}
     }
   });
+  musicOn = false;
   updateMusicBtn(false);
 }
 
@@ -1155,12 +1188,22 @@ window.toggleMusic = async function(){
   }
 };
 
-// ── Override applyTheme to switch audio on theme change ──
-const _originalApplyTheme = applyTheme;
+// ── MAIN applyTheme override — handles BOTH visual + audio ──
 window.applyTheme = async function(id){
-  _originalApplyTheme(id); // Visual change
-  if(musicOn){
-    await startMusicWithCustom(); // Switch audio to new theme
+  // 1. Visual update
+  currentTheme = id;
+  document.body.className = 'theme-' + id;
+  document.querySelectorAll('.theme-card').forEach((c,i) => 
+    c.classList.toggle('sel', THEMES[i].id === id));
+  buildBgFx(id);
+
+  // 2. Audio switch — always stop everything first
+  stopAllAudio();
+  
+  // 3. If music was on, restart for new theme
+  if(musicOn || document.getElementById('music-btn').classList.contains('music-on')){
+    musicOn = false; // reset flag so startMusicWithCustom works
+    await startMusicWithCustom();
   }
 };
 
