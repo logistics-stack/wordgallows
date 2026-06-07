@@ -206,7 +206,7 @@ input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--glo
 /* ═══ WORD ═══ */
 .guessing-lbl{font-size:0.73rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);font-weight:700;margin-bottom:7px;}
 .word-row{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin:18px 0;min-height:56px;}
-.lbox{width:37px;height:50px;border-radius:0;border-bottom:3px solid rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);}
+.lbox{width:37px;height:50px;border-radius:0;border-bottom:3px solid rgba(255,255,255,0.6);box-shadow:0 2px 0 rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;transition:all 0.4s cubic-bezier(0.34,1.56,0.64,1);}
 .lbox.revealed{color:var(--accent);border-color:var(--accent);text-shadow:0 0 14px var(--glow);animation:letterReveal 0.5s cubic-bezier(0.34,1.56,0.64,1);}
 @keyframes letterReveal{0%{transform:translateY(-18px) scale(0.4) rotate(-12deg);opacity:0;}60%{transform:translateY(4px) scale(1.12);}100%{transform:none;opacity:1;}}
 .lbox.space{border:none;width:16px;}
@@ -310,6 +310,54 @@ input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--glo
 .legal-modal .close-legal { float: right; background: none; border: none; color: var(--muted); font-size: 1.4rem; cursor: pointer; transition: color 0.2s; }
 .legal-modal .close-legal:hover { color: var(--accent); }
 
+
+/* ═══ MOBILE OPTIMISATION ═══ */
+@media(max-width:640px){
+  header{padding:8px 12px;gap:4px;}
+  .logo{font-size:1.1rem;}
+  .lang-btn,.hdr-btn{padding:5px 9px;font-size:0.7rem;}
+  main{padding:10px 10px 80px;}
+  .hero{padding:14px 0 10px;}
+  .hero-icon{font-size:2.8rem;margin:10px 0;}
+  .diff-row{gap:7px;margin-bottom:16px;}
+  .diff-btn{padding:7px 14px;font-size:0.8rem;}
+  .mode-card{padding:20px 14px;}
+  .card-icon{font-size:2.2rem;margin-bottom:8px;}
+  .mode-card h2{font-size:1.1rem;}
+  .mode-card p{font-size:0.8rem;}
+  /* Game screen: single column, compact */
+  .game-grid{grid-template-columns:1fr;gap:10px;}
+  .gallows-svg{width:130px;height:158px;}
+  .gallows-wrap{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:8px;padding:10px;}
+  .gallows-wrap .lives-strip{margin:0;}
+  .gallows-wrap .cat-badge{margin:0;}
+  .panel{padding:12px;}
+  .word-row{gap:4px;margin:10px 0;}
+  .lbox{width:30px;height:40px;font-size:1.1rem;}
+  .key{width:31px;height:31px;font-size:0.72rem;border-radius:7px;}
+  .keyboard{gap:4px;}
+  .score-val{font-size:1.5rem;}
+  .back-btn{top:56px;left:8px;padding:5px 10px;font-size:0.72rem;}
+  .modal{padding:28px 18px;}
+  .modal-emoji{font-size:3.2rem;}
+  .modal h2{font-size:1.4rem;}
+  .modal-word{font-size:1.4rem;}
+  /* Prevent any screen overflow */
+  html,body{overflow-x:hidden;}
+  .screen.active{overflow-x:hidden;}
+  /* Game score bar compact */
+  .sb-pts{font-size:1.6rem;}
+  .sb-name{font-size:0.78rem;}
+  /* Hide bg orbs on mobile for performance */
+  .bg-orb{display:none;}
+}
+@media(max-width:380px){
+  .key{width:27px;height:27px;font-size:0.65rem;}
+  .lbox{width:26px;height:36px;font-size:0.95rem;}
+  .logo{font-size:0.95rem;}
+  .lang-btn,.hdr-btn{padding:4px 7px;font-size:0.65rem;}
+}
+
 </style>
 </head>
 <body class="theme-fengshui">
@@ -332,6 +380,7 @@ input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--glo
       </span>
     </button>
     <button class="hdr-btn theme-btn" onclick="openThemes()">🎨 Teme</button>
+    <button class="hdr-btn" onclick="openAdmin()" title="Admin Music Upload" style="font-size:0.7rem;padding:5px 9px;">🔑</button>
   </div>
 </header>
 
@@ -482,16 +531,26 @@ input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--glo
 let audioCtx=null, musicOn=false, musicNodes=[], masterGain=null;
 
 const MUSIC_PROFILES = {
-  fengshui: {bpm:72, scale:[261,293,329,392,440,523,587], waveform:'sine',      reverb:0.7, melody:'pentatonic'},
-  ocean:    {bpm:60, scale:[196,220,261,293,329,392,440], waveform:'sine',      reverb:0.9, melody:'flowing'},
-  fire:     {bpm:140,scale:[220,246,261,293,329,370,392], waveform:'sawtooth',  reverb:0.3, melody:'driving'},
-  galaxy:   {bpm:80, scale:[174,195,220,261,293,349,392], waveform:'sine',      reverb:0.95,melody:'cosmic'},
-  neon:     {bpm:128,scale:[220,262,330,392,440,523,659], waveform:'square',    reverb:0.4, melody:'arpeggio'},
-  autumn:   {bpm:80, scale:[220,246,293,330,369,440,493], waveform:'triangle',  reverb:0.6, melody:'folk'},
-  ice:      {bpm:60, scale:[261,311,349,392,466,523,622], waveform:'sine',      reverb:0.85,melody:'crystal'},
-  sakura:   {bpm:76, scale:[261,293,329,349,392,440,493], waveform:'sine',      reverb:0.7, melody:'pentatonic'},
-  retro:    {bpm:160,scale:[220,262,330,392,523,659,784], waveform:'square',    reverb:0.1, melody:'arpeggio'},
-  zen:      {bpm:52, scale:[174,220,261,293,349,392,440], waveform:'sine',      reverb:0.9, melody:'sparse'},
+  // Feng Shui: calm pentatonic, bamboo-flute feel, gentle and balanced
+  fengshui: {bpm:66, scale:[261,293,349,392,523,587,698], waveform:'sine', reverb:0.75, melody:'pentatonic', bass:[130,98,110], bassWave:'sine'},
+  // Ocean: slow, deep, wave-like flowing melody with low bass
+  ocean:    {bpm:52, scale:[130,164,196,220,261,294,330], waveform:'sine', reverb:0.95, melody:'ocean_wave', bass:[65,55,82], bassWave:'sine'},
+  // Fire: aggressive fast sawtooth, driving and intense — heavy metal feel
+  fire:     {bpm:155,scale:[220,233,277,311,370,415,440], waveform:'sawtooth', reverb:0.2, melody:'fire_drive', bass:[110,73,82], bassWave:'sawtooth'},
+  // Galaxy: slow, random twinkling high tones — eerie and vast
+  galaxy:   {bpm:55, scale:[523,587,659,698,784,880,988], waveform:'sine', reverb:0.98, melody:'cosmic', bass:[55,41,49], bassWave:'sine'},
+  // Neon: fast electronic arpeggio, square wave, cyberpunk 80s synth
+  neon:     {bpm:140,scale:[440,523,659,784,880,1046,1318], waveform:'square', reverb:0.35, melody:'neon_arp', bass:[110,82,110], bassWave:'square'},
+  // Autumn: warm folk melody, triangle wave, minor-ish scale, melancholic
+  autumn:   {bpm:76, scale:[220,247,261,294,330,349,392], waveform:'triangle', reverb:0.65, melody:'folk', bass:[110,82,98], bassWave:'triangle'},
+  // Ice: very slow, crystal-clear high sine tones, quiet and fragile
+  ice:      {bpm:44, scale:[523,622,698,784,932,1046,1244], waveform:'sine', reverb:0.92, melody:'crystal', bass:[130,98,130], bassWave:'sine'},
+  // Sakura: gentle pentatonic, airy, Japanese-garden feel
+  sakura:   {bpm:70, scale:[293,329,370,440,493,587,659], waveform:'sine', reverb:0.72, melody:'sakura_drop', bass:[146,110,146], bassWave:'sine'},
+  // Retro: fast 8-bit square wave, game-like arcade tune
+  retro:    {bpm:180,scale:[262,330,392,523,659,784,1046], waveform:'square', reverb:0.05, melody:'retro_game', bass:[131,98,131], bassWave:'square'},
+  // Zen: very sparse, long silences, deep gong-like tones
+  zen:      {bpm:40, scale:[174,220,261,293,349,392,440], waveform:'sine', reverb:0.95, melody:'sparse', bass:[87,65,87], bassWave:'sine'},
 };
 
 function initAudio(){
@@ -548,57 +607,90 @@ function startMusic(){
     musicNodes.push(osc);
   }
 
+  function playBass(freq, dur, vol=0.28){
+    if(!musicOn||!profile.bass) return;
+    playNote(freq, dur, vol, profile.bassWave||'sine');
+  }
+
   const patterns = {
+    // Feng Shui: flowing pentatonic up-down, gentle gaps
     pentatonic: ()=> {
-      const notes = [0,2,4,6,4,2,1,0,5,4,2,4];
+      const notes = [0,2,4,6,4,2,0,4,2,6,4,0,2,4];
       const n = scale[notes[step%notes.length]];
-      playNote(n, bpmMs/900, 0.5);
-      if(step%4===0) playNote(scale[0]/2, bpmMs/600, 0.3, 'triangle');
+      playNote(n, bpmMs/700, 0.42);
+      if(step%6===0) playBass(profile.bass[step%profile.bass.length], bpmMs*2, 0.22);
       step++;
     },
-    arpeggio: ()=> {
-      const chord = [0,2,4,2];
-      const oct = Math.floor(step/4)%2;
-      const n = scale[chord[step%4]] * (oct?2:1);
-      playNote(n, bpmMs/800, 0.4, profile.waveform);
+    // Ocean: slow arpeggiated waves, long notes, deep bass pulses
+    ocean_wave: ()=> {
+      const mel = [0,1,2,3,2,1,0,4,3,2,4,6];
+      const freq = scale[mel[step%mel.length]];
+      playNote(freq, bpmMs*1.4, 0.32);
+      if(step%4===0) playBass(profile.bass[0], bpmMs*3, 0.3);
       step++;
     },
-    flowing: ()=> {
-      const melody = [0,1,2,4,2,1,0,5,4,2,4,6];
-      playNote(scale[melody[step%melody.length]], bpmMs/700, 0.4);
-      if(step%8===0) playNote(scale[0]/2, bpmMs/500, 0.25,'triangle');
+    // Fire: aggressive rapid driving riff with heavy bass
+    fire_drive: ()=> {
+      const riff = [0,0,2,0,3,0,2,4,3,2,0,3];
+      const freq = scale[riff[step%riff.length]];
+      playNote(freq, bpmMs/900, 0.65, 'sawtooth');
+      if(step%2===0) playBass(profile.bass[step%2], bpmMs/600, 0.55);
       step++;
     },
+    // Galaxy: sparse random high tones, ultra long reverb, rare bass
     cosmic: ()=> {
-      const n = scale[Math.floor(Math.random()*scale.length)];
-      const oct = Math.random()>0.5?2:1;
-      playNote(n*oct, bpmMs/600+Math.random()*bpmMs/400, 0.3);
-      if(step%6===0) playNote(scale[0]/4, bpmMs/300, 0.15, 'sine');
-      step++;
-    },
-    driving: ()=> {
-      const melody = [0,0,2,4,4,2,0,4];
-      playNote(scale[melody[step%melody.length]], bpmMs/1000, 0.6, 'sawtooth');
-      if(step%2===0) playNote(scale[0]/2, bpmMs/800, 0.4, 'square');
-      step++;
-    },
-    folk: ()=> {
-      const mel = [0,2,4,5,4,2,4,0];
-      playNote(scale[mel[step%mel.length]], bpmMs/700, 0.45,'triangle');
-      if(step%4===2) playNote(scale[3]/2, bpmMs/500, 0.2,'sine');
-      step++;
-    },
-    crystal: ()=> {
-      const mel = [4,6,5,4,2,4,5,6];
-      playNote(scale[mel[step%mel.length]]*2, bpmMs/900, 0.3,'sine');
-      if(step%6===0) playNote(scale[0], bpmMs/600, 0.15,'sine');
-      step++;
-    },
-    sparse: ()=> {
-      if(step%3===0){
-        const n=scale[Math.floor(Math.random()*4)];
-        playNote(n, bpmMs/300, 0.35,'sine');
+      if(Math.random()>0.4){
+        const n = scale[Math.floor(Math.random()*scale.length)];
+        playNote(n, bpmMs*1.8, 0.22);
       }
+      if(step%8===0) playBass(profile.bass[0], bpmMs*4, 0.15);
+      step++;
+    },
+    // Neon: fast synth arpeggio, cyberpunk 80s, tight and punchy
+    neon_arp: ()=> {
+      const arp = [0,2,4,2,1,3,5,3];
+      const freq = scale[arp[step%arp.length]];
+      playNote(freq, bpmMs/1200, 0.5, 'square');
+      if(step%4===0) playBass(profile.bass[0], bpmMs/600, 0.45);
+      step++;
+    },
+    // Autumn: warm folk, minor feel, triangle, nostalgic
+    folk: ()=> {
+      const mel = [0,2,3,4,3,2,0,4,5,4,3,2];
+      playNote(scale[mel[step%mel.length]], bpmMs/700, 0.4,'triangle');
+      if(step%4===0) playBass(profile.bass[step%3], bpmMs*1.5, 0.25);
+      step++;
+    },
+    // Ice: very sparse crystal highs, near silence, delicate
+    crystal: ()=> {
+      if(Math.random()>0.55){
+        const mel = [0,2,4,6,4,2];
+        playNote(scale[mel[step%mel.length]], bpmMs*1.2, 0.2,'sine');
+      }
+      if(step%10===0) playBass(profile.bass[0], bpmMs*3, 0.12);
+      step++;
+    },
+    // Sakura: pentatonic drops, slightly random, cherry-blossom feel
+    sakura_drop: ()=> {
+      const mel = [4,6,4,2,0,2,4,6,4,2,4,0];
+      playNote(scale[mel[step%mel.length]], bpmMs/600, 0.38,'sine');
+      if(step%5===0) playBass(profile.bass[0], bpmMs*2, 0.18);
+      step++;
+    },
+    // Retro: fast 8-bit game melody, tight square wave
+    retro_game: ()=> {
+      const mel = [0,0,4,4,5,5,4,3,3,2,2,1,1,0];
+      playNote(scale[mel[step%mel.length]], bpmMs/1400, 0.55,'square');
+      if(step%2===0) playNote(scale[0]/2, bpmMs/1000, 0.3,'square');
+      step++;
+    },
+    // Zen: very sparse, 1 note every few beats, long reverb gong
+    sparse: ()=> {
+      if(step%4===0){
+        const n=scale[Math.floor(Math.random()*3)];
+        playNote(n, bpmMs*3, 0.3,'sine');
+      }
+      if(step%12===0) playBass(profile.bass[0], bpmMs*6, 0.2);
       step++;
     }
   };
@@ -679,16 +771,105 @@ function buildLeaves(l){const ls=['🍂','🍁','🍃'];for(let i=0;i<22;i++){co
 
 // ══════════ WORDS & DATA ══════════
 const WORDS={
-  ro:{easy:[{w:'CAT',c:'🐱 Animal'},{w:'ZAR',c:'🎲 Joc'},{w:'RAT',c:'🐀 Animal'},{w:'BAL',c:'⚽ Joc'},{w:'PAR',c:'🌲 Natură'}],
-  medium:[{w:'PISICA',c:'🐱 Animal'},{w:'MASINA',c:'🚗 Transport'},{w:'SCOALA',c:'📚 Educație'},{w:'MUNTE',c:'⛰️ Natură'},{w:'FOTBAL',c:'⚽ Sport'},{w:'FLOARE',c:'🌸 Natură'},{w:'CASTEL',c:'🏰 Loc'},{w:'MUZICA',c:'🎵 Artă'},{w:'DRAGON',c:'🐉 Fantezie'},{w:'BUCURIE',c:'😊 Emoție'}],
-  hard:[{w:'EXTRAORDINAR',c:'✨ Adjectiv'},{w:'CALCULATOR',c:'💻 Tehnologie'},{w:'UNIVERSITATE',c:'🎓 Educație'},{w:'METEOROLOGIE',c:'🌦️ Știință'},{w:'AVENTURA',c:'🗺️ Concept'}]},
-  en:{easy:[{w:'CAT',c:'🐱 Animal'},{w:'DOG',c:'🐶 Animal'},{w:'SUN',c:'☀️ Nature'},{w:'CAR',c:'🚗 Transport'},{w:'BEE',c:'🐝 Animal'}],
-  medium:[{w:'CASTLE',c:'🏰 Place'},{w:'PLANET',c:'🪐 Space'},{w:'DRAGON',c:'🐉 Fantasy'},{w:'FLOWER',c:'🌸 Nature'},{w:'VIOLIN',c:'🎻 Music'},{w:'JUNGLE',c:'🌿 Nature'},{w:'ROCKET',c:'🚀 Space'},{w:'WIZARD',c:'🧙 Fantasy'},{w:'MIRROR',c:'🪞 Object'},{w:'BRIDGE',c:'🌉 Structure'}],
-  hard:[{w:'ENCYCLOPEDIA',c:'📚 Knowledge'},{w:'EXTRAORDINARY',c:'✨ Adjective'},{w:'CONSTELLATION',c:'⭐ Space'},{w:'PHILOSOPHER',c:'🤔 Person'},{w:'MEDITERRANEAN',c:'🌊 Geography'}]},
-  pl:{easy:[{w:'KOT',c:'🐱 Zwierzę'},{w:'DOM',c:'🏠 Miejsce'},{w:'LAS',c:'🌲 Natura'},{w:'SEN',c:'💤 Pojęcie'}],
-  medium:[{w:'ZAMEK',c:'🏰 Miejsce'},{w:'MUZYKA',c:'🎵 Sztuka'},{w:'KWIATY',c:'🌸 Natura'},{w:'SZKOLA',c:'📚 Edukacja'},{w:'RZEKA',c:'🏞️ Natura'},{w:'NIEBO',c:'☁️ Natura'},{w:'MIASTO',c:'🏙️ Miejsce'}],
-  hard:[{w:'BIBLIOTEKA',c:'📚 Miejsce'},{w:'ASTRONOMIA',c:'⭐ Nauka'},{w:'MATEMATYKA',c:'🔢 Nauka'},{w:'FILOZOFIA',c:'🤔 Nauka'}]}
+  ro:{
+    easy:[
+      {w:'CAT',c:'🐱 Animal'},{w:'ZAR',c:'🎲 Joc'},{w:'RAT',c:'🐀 Animal'},{w:'BAL',c:'⚽ Joc'},{w:'PAR',c:'🌲 Natură'},
+      {w:'SOC',c:'⚡ Natură'},{w:'ROD',c:'🍎 Natură'},{w:'POM',c:'🌳 Natură'},{w:'FAC',c:'💼 Acțiune'},{w:'VAS',c:'🏺 Obiect'},
+      {w:'COD',c:'💻 Tehnologie'},{w:'FOC',c:'🔥 Natură'},{w:'NOR',c:'☁️ Natură'},{w:'OAS',c:'🦴 Corp'},{w:'TUN',c:'💣 Obiect'},
+      {w:'REC',c:'❄️ Stare'},{w:'SAC',c:'👜 Obiect'},{w:'POR',c:'🐷 Animal'},{w:'LAC',c:'🏞️ Natură'},{w:'MAC',c:'🌺 Natură'},
+      {w:'HAL',c:'🏭 Loc'},{w:'PIX',c:'✏️ Obiect'},{w:'MAS',c:'🍽️ Loc'},{w:'BOX',c:'🥊 Sport'},{w:'CAP',c:'👤 Corp'}
+    ],
+    medium:[
+      {w:'PISICA',c:'🐱 Animal'},{w:'MASINA',c:'🚗 Transport'},{w:'SCOALA',c:'📚 Educație'},{w:'MUNTE',c:'⛰️ Natură'},
+      {w:'FOTBAL',c:'⚽ Sport'},{w:'FLOARE',c:'🌸 Natură'},{w:'CASTEL',c:'🏰 Loc'},{w:'MUZICA',c:'🎵 Artă'},
+      {w:'DRAGON',c:'🐉 Fantezie'},{w:'BUCURIE',c:'😊 Emoție'},{w:'PADURE',c:'🌲 Natură'},{w:'VAPORAS',c:'🚢 Transport'},
+      {w:'PORTOCALA',c:'🍊 Fruct'},{w:'ELEFANT',c:'🐘 Animal'},{w:'GRADINA',c:'🌻 Loc'},{w:'FEREASTRA',c:'🪟 Obiect'},
+      {w:'BICICLETA',c:'🚲 Transport'},{w:'INGHETATA',c:'🍦 Mâncare'},{w:'CALENDAR',c:'📅 Obiect'},{w:'COMPUTER',c:'💻 Tehnologie'},
+      {w:'VEVERITA',c:'🐿️ Animal'},{w:'COCOSTÂRC',c:'🦢 Animal'},{w:'TRAMVAI',c:'🚋 Transport'},{w:'PESCUIT',c:'🎣 Activitate'},
+      {w:'BALENA',c:'🐋 Animal'},{w:'STRAINAT',c:'✈️ Concept'},{w:'POVESTE',c:'📖 Artă'},{w:'PRIETEN',c:'🤝 Relație'},
+      {w:'VACANTA',c:'🏖️ Activitate'},{w:'CONCURS',c:'🏆 Eveniment'},{w:'PUZZLE',c:'🧩 Joc'},{w:'MAGIE',c:'✨ Concept'},
+      {w:'CURCUBEU',c:'🌈 Natură'},{w:'IEPURE',c:'🐇 Animal'},{w:'FANTOMA',c:'👻 Fantezie'},{w:'VULTURE',c:'🦅 Animal'}
+    ],
+    hard:[
+      {w:'EXTRAORDINAR',c:'✨ Adjectiv'},{w:'CALCULATOR',c:'💻 Tehnologie'},{w:'UNIVERSITATE',c:'🎓 Educație'},
+      {w:'METEOROLOGIE',c:'🌦️ Știință'},{w:'AVENTURA',c:'🗺️ Concept'},{w:'DEMOCRATIE',c:'🗳️ Politică'},
+      {w:'FOTOSINTEZA',c:'🌿 Știință'},{w:'BIODIVERSITATE',c:'🌍 Ecologie'},{w:'INTELIGENTA',c:'🧠 Concept'},
+      {w:'PERSONALITATE',c:'👤 Psihologie'},{w:'REVOLUTIONARA',c:'⚡ Istorie'},{w:'INDEPENDENTA',c:'🗽 Concept'},
+      {w:'RESPONSABILITATE',c:'⚖️ Etică'},{w:'ADMINISTRATIE',c:'🏛️ Politică'},{w:'CHIMIE',c:'⚗️ Știință'}
+    ]
+  },
+  en:{
+    easy:[
+      {w:'CAT',c:'🐱 Animal'},{w:'DOG',c:'🐶 Animal'},{w:'SUN',c:'☀️ Nature'},{w:'CAR',c:'🚗 Transport'},{w:'BEE',c:'🐝 Animal'},
+      {w:'FOX',c:'🦊 Animal'},{w:'OWL',c:'🦉 Animal'},{w:'MAP',c:'🗺️ Object'},{w:'ICE',c:'❄️ Nature'},{w:'EGG',c:'🥚 Food'},
+      {w:'BUS',c:'🚌 Transport'},{w:'HAT',c:'🎩 Object'},{w:'JAM',c:'🍓 Food'},{w:'NET',c:'🕸️ Object'},{w:'PIG',c:'🐷 Animal'},
+      {w:'CUP',c:'☕ Object'},{w:'FLY',c:'🦋 Animal'},{w:'GEM',c:'💎 Object'},{w:'HOP',c:'🐸 Action'},{w:'LOG',c:'🪵 Nature'},
+      {w:'NUT',c:'🥜 Food'},{w:'POP',c:'🎈 Sound'},{w:'RAG',c:'🧹 Object'},{w:'TUB',c:'🛁 Object'},{w:'ZAP',c:'⚡ Action'}
+    ],
+    medium:[
+      {w:'CASTLE',c:'🏰 Place'},{w:'PLANET',c:'🪐 Space'},{w:'DRAGON',c:'🐉 Fantasy'},{w:'FLOWER',c:'🌸 Nature'},
+      {w:'VIOLIN',c:'🎻 Music'},{w:'JUNGLE',c:'🌿 Nature'},{w:'ROCKET',c:'🚀 Space'},{w:'WIZARD',c:'🧙 Fantasy'},
+      {w:'MIRROR',c:'🪞 Object'},{w:'BRIDGE',c:'🌉 Structure'},{w:'OYSTER',c:'🦪 Animal'},{w:'FROZEN',c:'❄️ State'},
+      {w:'PIRATE',c:'🏴‍☠️ Character'},{w:'GARDEN',c:'🌻 Place'},{w:'MONKEY',c:'🐒 Animal'},{w:'SUNSET',c:'🌅 Nature'},
+      {w:'SPIDER',c:'🕷️ Animal'},{w:'ISLAND',c:'🏝️ Place'},{w:'FOREST',c:'🌲 Nature'},{w:'BUTTER',c:'🧈 Food'},
+      {w:'CACTUS',c:'🌵 Nature'},{w:'CANDLE',c:'🕯️ Object'},{w:'COOKIE',c:'🍪 Food'},{w:'FEATHER',c:'🪶 Object'},
+      {w:'LANTERN',c:'🏮 Object'},{w:'COMPASS',c:'🧭 Tool'},{w:'DOLPHIN',c:'🐬 Animal'},{w:'THUNDER',c:'⛈️ Nature'},
+      {w:'MYSTERY',c:'🔍 Concept'},{w:'CRYSTAL',c:'💎 Object'},{w:'BALLOON',c:'🎈 Object'},{w:'CAPTAIN',c:'⚓ Character'},
+      {w:'PENGUIN',c:'🐧 Animal'},{w:'VOLCANO',c:'🌋 Nature'},{w:'RAINBOW',c:'🌈 Nature'},{w:'LANTERN',c:'🏮 Object'}
+    ],
+    hard:[
+      {w:'ENCYCLOPEDIA',c:'📚 Knowledge'},{w:'EXTRAORDINARY',c:'✨ Adjective'},{w:'CONSTELLATION',c:'⭐ Space'},
+      {w:'PHILOSOPHER',c:'🤔 Person'},{w:'MEDITERRANEAN',c:'🌊 Geography'},{w:'BIODIVERSITY',c:'🌿 Science'},
+      {w:'ARCHITECTURE',c:'🏛️ Art'},{w:'PHOTOSYNTHESIS',c:'🌱 Biology'},{w:'METAMORPHOSIS',c:'🦋 Biology'},
+      {w:'PERSEVERANCE',c:'💪 Concept'},{w:'THUNDERSTORM',c:'⛈️ Weather'},{w:'KALEIDOSCOPE',c:'🌈 Object'},
+      {w:'ASTROPHYSICS',c:'🔭 Science'},{w:'BUREAUCRACY',c:'🏛️ Concept'},{w:'SERENDIPITY',c:'✨ Concept'},
+      {w:'QUARANTINE',c:'🏥 Medical'},{w:'HYPOTHESIS',c:'🧪 Science'},{w:'TRAMPOLINE',c:'🤸 Sport'}
+    ]
+  },
+  pl:{
+    easy:[
+      {w:'KOT',c:'🐱 Zwierzę'},{w:'DOM',c:'🏠 Miejsce'},{w:'LAS',c:'🌲 Natura'},{w:'SEN',c:'💤 Pojęcie'},
+      {w:'PES',c:'🐶 Zwierzę'},{w:'BUT',c:'👟 Obiekt'},{w:'LOT',c:'✈️ Podróż'},{w:'ROK',c:'📅 Czas'},
+      {w:'BUS',c:'🚌 Transport'},{w:'GRA',c:'🎮 Zabawa'},{w:'KON',c:'🐴 Zwierzę'},{w:'WIR',c:'🌊 Natura'},
+      {w:'DАМ',c:'🏛️ Budynek'},{w:'FEL',c:'💡 Pojęcie'},{w:'ZUP',c:'🍲 Jedzenie'},{w:'SER',c:'🧀 Jedzenie'},
+      {w:'TOR',c:'🚂 Transport'},{w:'MOR',c:'🌊 Natura'},{w:'BAR',c:'🍺 Miejsce'},{w:'NOC',c:'🌙 Czas'}
+    ],
+    medium:[
+      {w:'ZAMEK',c:'🏰 Miejsce'},{w:'MUZYKA',c:'🎵 Sztuka'},{w:'KWIATY',c:'🌸 Natura'},{w:'SZKOLA',c:'📚 Edukacja'},
+      {w:'RZEKA',c:'🏞️ Natura'},{w:'NIEBO',c:'☁️ Natura'},{w:'MIASTO',c:'🏙️ Miejsce'},{w:'PLANETA',c:'🪐 Kosmos'},
+      {w:'SMOK',c:'🐉 Fantazja'},{w:'KOSCIOL',c:'⛪ Budynek'},{w:'OGROD',c:'🌻 Miejsce'},{w:'SLONKO',c:'☀️ Natura'},
+      {w:'DROGA',c:'🛣️ Miejsce'},{w:'ZEGAR',c:'⏰ Obiekt'},{w:'WIATR',c:'💨 Natura'},{w:'OCEAN',c:'🌊 Natura'},
+      {w:'BAJKA',c:'📖 Sztuka'},{w:'TANIEC',c:'💃 Sztuka'},{w:'KOLORY',c:'🌈 Pojęcie'},{w:'STRZALA',c:'🏹 Obiekt'},
+      {w:'LAPTOP',c:'💻 Technologia'},{w:'ZDJECIE',c:'📷 Obiekt'},{w:'KSIAZKA',c:'📚 Obiekt'},{w:'PINGWIN',c:'🐧 Zwierzę'},
+      {w:'DELFIN',c:'🐬 Zwierzę'},{w:'TECZKA',c:'💼 Obiekt'},{w:'WIOSNA',c:'🌷 Pora roku'},{w:'ZIMA',c:'❄️ Pora roku'}
+    ],
+    hard:[
+      {w:'BIBLIOTEKA',c:'📚 Miejsce'},{w:'ASTRONOMIA',c:'⭐ Nauka'},{w:'MATEMATYKA',c:'🔢 Nauka'},
+      {w:'FILOZOFIA',c:'🤔 Nauka'},{w:'ELEKTRYCZNOSC',c:'⚡ Fizyka'},{w:'NIEPODLEGLOSC',c:'🗽 Historia'},
+      {w:'BIODYWERSYTET',c:'🌿 Ekologia'},{w:'DEMOGRAFICZNY',c:'👥 Socjologia'},{w:'TELEKOMUNIKACJA',c:'📡 Technologia'},
+      {w:'KONSEKWENCJA',c:'⚖️ Pojęcie'},{w:'SPRAWIEDLIWOSC',c:'⚖️ Wartość'},{w:'PRZEMYSLOWY',c:'🏭 Ekonomia'},
+      {w:'ARCHITEKTURA',c:'🏛️ Sztuka'},{w:'ENCYKLOPEDIA',c:'📖 Wiedza'},{w:'FOTOSYNTEZA',c:'🌱 Biologia'}
+    ]
+  }
 };
+
+// Word usage tracker - ensures no repeats until all words exhausted
+const wordUsed = {ro:{easy:[],medium:[],hard:[]}, en:{easy:[],medium:[],hard:[]}, pl:{easy:[],medium:[],hard:[]}};
+
+function getNextWord(language, difficulty) {
+  const list = WORDS[language][difficulty];
+  let used = wordUsed[language][difficulty];
+  // Reset if all used
+  if(used.length >= list.length) {
+    wordUsed[language][difficulty] = [];
+    used = [];
+  }
+  // Get unused indices
+  const available = list.map((_,i)=>i).filter(i=>!used.includes(i));
+  const idx = available[Math.floor(Math.random()*available.length)];
+  wordUsed[language][difficulty].push(idx);
+  return list[idx];
+}
 const ALPHA={ro:'AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ'.split(''),en:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),pl:'AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWYZŹŻ'.split('')};
 
 // Gallows parts order — 6 mistakes max
@@ -729,7 +910,7 @@ function checkWord(){const w=document.getElementById('in-word').value.toUpperCas
 function startMp(){const w=document.getElementById('in-word').value.toUpperCase().trim();if(!w){alert('Introdu un cuvânt!');return;}mode='mp';word=w;category=detectCat(w);document.getElementById('gsb').classList.add('show');document.getElementById('gs-n1').textContent=mpNames[0];document.getElementById('gs-n2').textContent=mpNames[1];updateMpSb();initGame();showScreen('s-game');}
 
 // ══════════ GAME ══════════
-function startSingle(){mode='single';const list=WORDS[lang][diff];const c=list[Math.floor(Math.random()*list.length)];word=c.w;category=c.c;document.getElementById('gsb').classList.remove('show');initGame();showScreen('s-game');}
+function startSingle(){mode='single';const c=getNextWord(lang,diff);word=c.w;category=c.c;document.getElementById('gsb').classList.remove('show');initGame();showScreen('s-game');}
 
 function initGame(){
   guessed=[];wrong=[];
@@ -833,6 +1014,46 @@ document.addEventListener('keydown',e=>{if(!document.getElementById('s-game').cl
 // ══════════ INIT ══════════
 buildThemeGrid();buildBgFx('fengshui');applyT();setDiff('medium');
 </script>
+
+
+<!-- ADMIN MUSIC PANEL -->
+<div class="legal-modal-bg" id="admin-modal">
+  <div class="legal-modal" style="max-width:500px;">
+    <button class="close-legal" onclick="closeAdmin()">✕</button>
+    <h2>🔑 Admin: Music Manager</h2>
+    <div id="admin-auth" style="margin-bottom:16px;">
+      <label style="display:block;font-size:0.78rem;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:6px;">ADMIN PASSWORD</label>
+      <input type="password" id="admin-pwd" placeholder="Enter admin password" style="width:100%;padding:10px;background:rgba(255,255,255,0.06);border:2px solid var(--border);border-radius:10px;color:var(--text);font-family:'Nunito',sans-serif;font-size:0.9rem;outline:none;" onkeydown="if(event.key==='Enter')checkAdmin()">
+      <button onclick="checkAdmin()" style="margin-top:10px;width:100%;padding:10px;border-radius:24px;border:none;background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;font-family:'Nunito',sans-serif;font-weight:800;cursor:pointer;">Unlock →</button>
+    </div>
+    <div id="admin-panel" style="display:none;">
+      <p style="color:var(--muted);font-size:0.83rem;margin-bottom:14px;">Upload MP3 files to replace theme music. Max 10MB per file.</p>
+      <div id="admin-tracks-list"></div>
+      <div style="margin-top:16px;background:rgba(255,255,255,0.04);border:2px dashed var(--border);border-radius:14px;padding:18px;text-align:center;">
+        <div style="font-size:2rem;margin-bottom:8px;">🎵</div>
+        <label style="display:block;font-size:0.78rem;font-weight:700;letter-spacing:1px;color:var(--muted);margin-bottom:10px;">SELECT THEME FOR UPLOAD</label>
+        <select id="admin-theme-select" style="width:100%;padding:9px;background:rgba(255,255,255,0.06);border:1.5px solid var(--border);border-radius:9px;color:var(--text);font-family:'Nunito',sans-serif;margin-bottom:10px;">
+          <option value="fengshui">🌿 Feng Shui</option>
+          <option value="ocean">🌊 Ocean</option>
+          <option value="fire">🔥 Fire</option>
+          <option value="galaxy">🌌 Galaxy</option>
+          <option value="neon">⚡ Neon</option>
+          <option value="autumn">🍂 Autumn</option>
+          <option value="ice">❄️ Ice</option>
+          <option value="sakura">🌸 Sakura</option>
+          <option value="retro">👾 Retro</option>
+          <option value="zen">☯️ Zen</option>
+        </select>
+        <input type="file" id="admin-file-input" accept="audio/mp3,audio/mpeg,audio/ogg,audio/wav" style="display:none;" onchange="handleMusicUpload()">
+        <button onclick="document.getElementById('admin-file-input').click()" style="width:100%;padding:10px;border-radius:24px;border:2px solid var(--border);background:rgba(255,255,255,0.06);color:var(--muted);font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;">📂 Choose Audio File</button>
+        <div id="admin-upload-status" style="margin-top:8px;font-size:0.8rem;color:var(--muted);"></div>
+      </div>
+      <div style="margin-top:14px;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px;">
+        <p style="font-size:0.75rem;color:var(--muted);line-height:1.6;">💡 <strong>How it works:</strong> Uploaded tracks are stored in your browser and play instead of the generated music for that theme. Tracks persist until you clear browser data. Files stay local — nothing is uploaded to a server.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- COOKIE BANNER -->
 <div class="cookie-banner" id="cookie-banner">
@@ -960,6 +1181,100 @@ window.addEventListener('load', () => {
     document.getElementById('legal-footer').style.display = 'flex';
   }
 });
+
+// ═══ ADMIN MUSIC MANAGER ═══
+const ADMIN_PASSWORD = 'wg2026admin'; // Change this!
+let customTracks = {}; // theme -> AudioBuffer or ObjectURL
+
+function openAdmin(){
+  document.getElementById('admin-modal').classList.add('show');
+  document.getElementById('admin-pwd').value='';
+  document.getElementById('admin-panel').style.display='none';
+  document.getElementById('admin-auth').style.display='block';
+  renderAdminTracks();
+}
+function closeAdmin(){
+  document.getElementById('admin-modal').classList.remove('show');
+}
+function checkAdmin(){
+  const pwd = document.getElementById('admin-pwd').value;
+  if(pwd === ADMIN_PASSWORD){
+    document.getElementById('admin-auth').style.display='none';
+    document.getElementById('admin-panel').style.display='block';
+    renderAdminTracks();
+  } else {
+    document.getElementById('admin-pwd').style.borderColor='var(--wrong)';
+    setTimeout(()=>document.getElementById('admin-pwd').style.borderColor='',1500);
+  }
+}
+function renderAdminTracks(){
+  const list = document.getElementById('admin-tracks-list');
+  if(!list) return;
+  const stored = JSON.parse(localStorage.getItem('wg_custom_tracks')||'{}');
+  const themes = ['fengshui','ocean','fire','galaxy','neon','autumn','ice','sakura','retro','zen'];
+  const icons =  ['🌿','🌊','🔥','🌌','⚡','🍂','❄️','🌸','👾','☯️'];
+  list.innerHTML = themes.map((t,i)=>`
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:9px;background:rgba(255,255,255,0.03);margin-bottom:5px;">
+      <span style="font-size:0.85rem;font-weight:700;color:var(--text);">${icons[i]} ${t.charAt(0).toUpperCase()+t.slice(1)}</span>
+      ${stored[t] ? `<span style="color:var(--correct);font-size:0.75rem;font-weight:700;">✓ Custom track</span><button onclick="removeCustomTrack('${t}')" style="padding:3px 9px;border-radius:8px;border:1px solid var(--wrong);background:none;color:var(--wrong);cursor:pointer;font-size:0.7rem;">Remove</button>` : `<span style="color:var(--muted);font-size:0.75rem;">Generated music</span>`}
+    </div>`).join('');
+}
+function handleMusicUpload(){
+  const file = document.getElementById('admin-file-input').files[0];
+  const theme = document.getElementById('admin-theme-select').value;
+  const status = document.getElementById('admin-upload-status');
+  if(!file) return;
+  if(file.size > 10*1024*1024){ status.textContent='❌ File too large (max 10MB)'; status.style.color='var(--wrong)'; return; }
+  status.textContent = '⏳ Loading...'; status.style.color='var(--muted)';
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const stored = JSON.parse(localStorage.getItem('wg_custom_tracks')||'{}');
+    stored[theme] = {name: file.name, data: e.target.result};
+    localStorage.setItem('wg_custom_tracks', JSON.stringify(stored));
+    status.textContent = `✅ ${file.name} loaded for ${theme}!`;
+    status.style.color = 'var(--correct)';
+    renderAdminTracks();
+    document.getElementById('admin-file-input').value='';
+  };
+  reader.readAsDataURL(file);
+}
+function removeCustomTrack(theme){
+  const stored = JSON.parse(localStorage.getItem('wg_custom_tracks')||'{}');
+  delete stored[theme];
+  localStorage.setItem('wg_custom_tracks', JSON.stringify(stored));
+  renderAdminTracks();
+}
+
+// Override startMusic to check for custom track first
+const _origStartMusic = startMusic;
+window.startMusic = function(){
+  const stored = JSON.parse(localStorage.getItem('wg_custom_tracks')||'{}');
+  const track = stored[currentTheme];
+  if(track && track.data){
+    // Play custom audio file
+    stopMusic();
+    musicOn = true;
+    updateMusicBtn(true);
+    if(!audioCtx) initAudio();
+    fetch(track.data)
+      .then(r=>r.arrayBuffer())
+      .then(buf=>audioCtx.decodeAudioData(buf))
+      .then(decoded=>{
+        const src = audioCtx.createBufferSource();
+        src.buffer = decoded;
+        src.loop = true;
+        const gain = audioCtx.createGain();
+        gain.gain.value = 0.5;
+        src.connect(gain);
+        gain.connect(masterGain);
+        src.start();
+        musicNodes.push(src);
+      }).catch(()=>_origStartMusic());
+  } else {
+    _origStartMusic();
+  }
+};
+
 </script>
 
 </body>
