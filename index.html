@@ -870,7 +870,7 @@ function getNextWord(language, difficulty) {
   wordUsed[language][difficulty].push(idx);
   return list[idx];
 }
-const ALPHA={ro:'AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ'.split(''),en:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),pl:'AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWYZŹŻ'.split('')};
+const ALPHA={ro:['A','Ă','Â','B','C','D','E','F','G','H','I','Î','J','K','L','M','N','O','P','Q','R','S','Ş','T','Ţ','U','V','W','X','Y','Z'],en:['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'],pl:['A','Ą','B','C','Ć','D','E','Ę','F','G','H','I','J','K','L','Ł','M','N','Ń','O','Ó','P','R','S','Ś','T','U','W','Y','Z','Ź','Ż']};
 
 // Gallows parts order — 6 mistakes max
 const PARTS_ORDER=['h-head','h-body','h-larm','h-rarm','h-lleg','h-rleg'];
