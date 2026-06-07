@@ -1086,12 +1086,16 @@ async function playCustomTrack(theme){
     const track = await getTrack(theme);
     if(!track) return false;
 
-    // Stop existing
-    if(customAudio[theme]){
-      customAudio[theme].pause();
-      URL.revokeObjectURL(customAudio[theme].src);
-    }
+    // Stop ALL other custom tracks first
+    Object.keys(customAudio).forEach(t => {
+      if(customAudio[t]){
+        customAudio[t].pause();
+        customAudio[t].currentTime = 0;
+        try{ URL.revokeObjectURL(customAudio[t].src); }catch(e){}
+      }
+    });
 
+    // Create fresh audio element
     const blob = new Blob([track.data], { type: track.type || 'audio/mpeg' });
     const url = URL.createObjectURL(blob);
     const audio = new Audio(url);
@@ -1113,29 +1117,50 @@ function stopCustomTrack(theme){
   }
 }
 
-// ── Override startMusic to check for custom track first ──
-const _originalStartMusic = startMusic;
-window.startMusicWithCustom = async function(){
-  // Stop any existing custom tracks
-  Object.keys(customAudio).forEach(t => stopCustomTrack(t));
+// ── MASTER STOP — kills ALL audio sources ──
+function stopAllAudio(){
+  // Stop Web Audio (generated music)
+  musicOn = false;
+  if(melodyInterval){ clearInterval(melodyInterval); melodyInterval = null; }
+  musicNodes.forEach(n=>{ try{ n.stop(); }catch(e){} });
+  musicNodes = [];
+  // Stop ALL custom audio elements
+  Object.keys(customAudio).forEach(t => {
+    if(customAudio[t]){
+      customAudio[t].pause();
+      customAudio[t].currentTime = 0;
+    }
+  });
+  updateMusicBtn(false);
+}
 
-  // Try custom track first
+// ── Play correct audio for current theme ──
+async function startMusicWithCustom(){
+  stopAllAudio(); // Always stop everything first
   const hasCustom = await playCustomTrack(currentTheme);
   if(hasCustom){
     musicOn = true;
     updateMusicBtn(true);
   } else {
-    _originalStartMusic();
+    startMusic(); // Web Audio fallback
+  }
+}
+
+// ── Override toggleMusic ──
+window.toggleMusic = async function(){
+  if(musicOn){
+    stopAllAudio();
+  } else {
+    await startMusicWithCustom();
   }
 };
 
-// Override toggleMusic
-window.toggleMusic = async function(){
+// ── Override applyTheme to switch audio on theme change ──
+const _originalApplyTheme = applyTheme;
+window.applyTheme = async function(id){
+  _originalApplyTheme(id); // Visual change
   if(musicOn){
-    stopCustomTrack(currentTheme);
-    stopMusic();
-  } else {
-    await startMusicWithCustom();
+    await startMusicWithCustom(); // Switch audio to new theme
   }
 };
 
