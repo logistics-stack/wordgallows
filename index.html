@@ -700,15 +700,15 @@ function buildLeaves(l){const ls=['🍂','🍁','🍃'];for(let i=0;i<22;i++){co
 
 // ══════════ WORDS & DATA ══════════
 const WORDS={
-  ro:{easy:[{w:'CAT',c:'🐱 Animal'},{w:'ZAR',c:'🎲 Joc'},{w:'RAT',c:'🐀 Animal'},{w:'BAL',c:'⚽ Joc'},{w:'PAR',c:'🌲 Natură'}],
-  medium:[{w:'PISICA',c:'🐱 Animal'},{w:'MASINA',c:'🚗 Transport'},{w:'SCOALA',c:'📚 Educație'},{w:'MUNTE',c:'⛰️ Natură'},{w:'FOTBAL',c:'⚽ Sport'},{w:'FLOARE',c:'🌸 Natură'},{w:'CASTEL',c:'🏰 Loc'},{w:'MUZICA',c:'🎵 Artă'},{w:'DRAGON',c:'🐉 Fantezie'},{w:'BUCURIE',c:'😊 Emoție'}],
-  hard:[{w:'EXTRAORDINAR',c:'✨ Adjectiv'},{w:'CALCULATOR',c:'💻 Tehnologie'},{w:'UNIVERSITATE',c:'🎓 Educație'},{w:'METEOROLOGIE',c:'🌦️ Știință'},{w:'AVENTURA',c:'🗺️ Concept'}]},
-  en:{easy:[{w:'CAT',c:'🐱 Animal'},{w:'DOG',c:'🐶 Animal'},{w:'SUN',c:'☀️ Nature'},{w:'CAR',c:'🚗 Transport'},{w:'BEE',c:'🐝 Animal'}],
-  medium:[{w:'CASTLE',c:'🏰 Place'},{w:'PLANET',c:'🪐 Space'},{w:'DRAGON',c:'🐉 Fantasy'},{w:'FLOWER',c:'🌸 Nature'},{w:'VIOLIN',c:'🎻 Music'},{w:'JUNGLE',c:'🌿 Nature'},{w:'ROCKET',c:'🚀 Space'},{w:'WIZARD',c:'🧙 Fantasy'},{w:'MIRROR',c:'🪞 Object'},{w:'BRIDGE',c:'🌉 Structure'}],
-  hard:[{w:'ENCYCLOPEDIA',c:'📚 Knowledge'},{w:'EXTRAORDINARY',c:'✨ Adjective'},{w:'CONSTELLATION',c:'⭐ Space'},{w:'PHILOSOPHER',c:'🤔 Person'},{w:'MEDITERRANEAN',c:'🌊 Geography'}]},
-  pl:{easy:[{w:'KOT',c:'🐱 Zwierzę'},{w:'DOM',c:'🏠 Miejsce'},{w:'LAS',c:'🌲 Natura'},{w:'SEN',c:'💤 Pojęcie'}],
-  medium:[{w:'ZAMEK',c:'🏰 Miejsce'},{w:'MUZYKA',c:'🎵 Sztuka'},{w:'KWIATY',c:'🌸 Natura'},{w:'SZKOLA',c:'📚 Edukacja'},{w:'RZEKA',c:'🏞️ Natura'},{w:'NIEBO',c:'☁️ Natura'},{w:'MIASTO',c:'🏙️ Miejsce'}],
-  hard:[{w:'BIBLIOTEKA',c:'📚 Miejsce'},{w:'ASTRONOMIA',c:'⭐ Nauka'},{w:'MATEMATYKA',c:'🔢 Nauka'},{w:'FILOZOFIA',c:'🤔 Nauka'}]}
+  ro:{easy:[{w:'CAL',c:'🐾 Animal'},{w:'RAC',c:'🐾 Animal'},{w:'URS',c:'🐾 Animal'},{w:'BOU',c:'🐾 Animal'},{w:'OAIE',c:'🐾 Animal'},{w:'LUP',c:'🐾 Animal'},{w:'VACA',c:'🐾 Animal'},{w:'CAINE',c:'🐾 Animal'},{w:'VULPE',c:'🐾 Animal'},{w:'ARICI',c:'🐾 Animal'},{w:'BARZA',c:'🐾 Animal'},{w:'SOIM',c:'🐾 Animal'},{w:'COCOS',c:'🐾 Animal'},{w:'GAINA',c:'🐾 Animal'},{w:'RATA',c:'🐾 Animal'},{w:'GASCA',c:'🐾 Animal'},{w:'PORC',c:'🐾 Animal'},{w:'CAPRA',c:'🐾 Animal'},{w:'MAGAR',c:'🐾 Animal'},{w:'CATEL',c:'🐾 Animal'},{w:'PESTE',c:'🐾 Animal'},{w:'MELC',c:'🐾 Animal'},{w:'SARPE',c:'🐾 Animal'},{w:'TIGRU',c:'🐾 Animal'},{w:'PANDA',c:'🐾 Animal'},{w:'SOARE',c:'🌿 Natură'},{w:'LUNA',c:'🌿 Natură'},{w:'CER',c:'🌿 Natură'},{w:'MARE',c:'🌿 Natură'},{w:'RAU',c:'🌿 Natură'},{w:'LAC',c:'🌿 Natură'},{w:'MUNTE',c:'🌿 Natură'},{w:'DEAL',c:'🌿 Natură'},{w:'COPAC',c:'🌿 Natură'},{w:'IARBA',c:'🌿 Natură'},{w:'VANT',c:'🌿 Natură'},{w:'NOR',c:'🌿 Natură'},{w:'VALE',c:'🌿 Natură'},{w:'NISIP',c:'🌿 Natură'},{w:'VAL',c:'🌿 Natură'},{w:'STEA',c:'🌿 Natură'},{w:'CAMP',c:'🌿 Natură'},{w:'PLAJA',c:'🌿 Natură'},{w:'OU',c:'🍎 Mâncare'},{w:'PAINE',c:'🍎 Mâncare'},{w:'LAPTE',c:'🍎 Mâncare'},{w:'CARNE',c:'🍎 Mâncare'},{w:'OREZ',c:'🍎 Mâncare'},{w:'ROSIE',c:'🍎 Mâncare'},{w:'CEAPA',c:'🍎 Mâncare'},{w:'SUPA',c:'🍎 Mâncare'},{w:'TORT',c:'🍎 Mâncare'},{w:'MAR',c:'🍎 Mâncare'},{w:'PARA',c:'🍎 Mâncare'},{w:'PRUNE',c:'🍎 Mâncare'},{w:'MIERE',c:'🍎 Mâncare'},{w:'ZAHAR',c:'🍎 Mâncare'},{w:'SARE',c:'🍎 Mâncare'},{w:'PIPER',c:'🍎 Mâncare'},{w:'FAINA',c:'🍎 Mâncare'},{w:'UNT',c:'🍎 Mâncare'},{w:'ULEI',c:'🍎 Mâncare'},{w:'VIN',c:'🍎 Mâncare'},{w:'BERE',c:'🍎 Mâncare'},{w:'CAFEA',c:'🍎 Mâncare'},{w:'CEAI',c:'🍎 Mâncare'},{w:'TREN',c:'🚗 Transport'},{w:'AVION',c:'🚗 Transport'},{w:'VAPOR',c:'🚗 Transport'},{w:'BARCA',c:'🚗 Transport'},{w:'SANIE',c:'🚗 Transport'},{w:'CASA',c:'🏠 Loc'},{w:'PALAT',c:'🏠 Loc'},{w:'MUZEU',c:'🏠 Loc'},{w:'HOTEL',c:'🏠 Loc'},{w:'PIATA',c:'🏠 Loc'},{w:'PARC',c:'🏠 Loc'},{w:'TURN',c:'🏠 Loc'},{w:'POD',c:'🏠 Loc'},{w:'TUNEL',c:'🏠 Loc'},{w:'ORAS',c:'🏠 Loc'},{w:'SAT',c:'🏠 Loc'},{w:'FAR',c:'🏠 Loc'},{w:'PORT',c:'🏠 Loc'},{w:'NOTA',c:'🎵 Muzică'},{w:'RITM',c:'🎵 Muzică'},{w:'PIAN',c:'🎵 Muzică'},{w:'TOBE',c:'🎵 Muzică'},{w:'FLAUT',c:'🎵 Muzică'},{w:'HARPA',c:'🎵 Muzică'},{w:'COR',c:'🎵 Muzică'},{w:'ECRAN',c:'💻 Tehnologie'},{w:'ROBOT',c:'💻 Tehnologie'},{w:'RETEA',c:'💻 Tehnologie'},{w:'CARTE',c:'📚 Educație'},{w:'CAIET',c:'📚 Educație'},{w:'TABLA',c:'📚 Educație'},{w:'ELEV',c:'📚 Educație'},{w:'MIC',c:'✨ Adjectiv'},{w:'BUN',c:'✨ Adjectiv'},{w:'URAT',c:'✨ Adjectiv'},{w:'RAPID',c:'✨ Adjectiv'},{w:'INCET',c:'✨ Adjectiv'},{w:'CALD',c:'✨ Adjectiv'},{w:'RECE',c:'✨ Adjectiv'},{w:'VESEL',c:'✨ Adjectiv'},{w:'TRIST',c:'✨ Adjectiv'},{w:'BLAND',c:'✨ Adjectiv'},{w:'ENORM',c:'✨ Adjectiv'},{w:'ZMEU',c:'🐉 Fantezie'},{w:'ZANA',c:'🐉 Fantezie'},{w:'URIAS',c:'🐉 Fantezie'},{w:'PITIC',c:'🐉 Fantezie'},{w:'TENIS',c:'⚽ Sport'},{w:'INOT',c:'⚽ Sport'},{w:'SCHI',c:'⚽ Sport'},{w:'BOX',c:'⚽ Sport'},{w:'JUDO',c:'⚽ Sport'},{w:'SAH',c:'⚽ Sport'},{w:'VOLEI',c:'⚽ Sport'},{w:'TIR',c:'⚽ Sport'},{w:'RUGBI',c:'⚽ Sport'},{w:'ROSU',c:'🌈 Culoare'},{w:'VERDE',c:'🌈 Culoare'},{w:'NEGRU',c:'🌈 Culoare'},{w:'ALB',c:'🌈 Culoare'},{w:'ROZ',c:'🌈 Culoare'},{w:'MARO',c:'🌈 Culoare'},{w:'GRI',c:'🌈 Culoare'},{w:'MOV',c:'🌈 Culoare'},{w:'AURIU',c:'🌈 Culoare'},{w:'SOFER',c:'💼 Meserie'},{w:'PILOT',c:'💼 Meserie'},{w:'ACTOR',c:'💼 Meserie'},{w:'POET',c:'💼 Meserie'},{w:'FRICA',c:'😊 Emoție'},{w:'FURIE',c:'😊 Emoție'},{w:'PACE',c:'😊 Emoție'},{w:'CURAJ',c:'😊 Emoție'},{w:'CEATA',c:'🌦️ Vreme'},{w:'BRUMA',c:'🌦️ Vreme'},{w:'TUNET',c:'🌦️ Vreme'},{w:'MARTE',c:'🪐 Spațiu'}],
+  medium:[{w:'PISICA',c:'🐾 Animal'},{w:'IEPURE',c:'🐾 Animal'},{w:'SOARECE',c:'🐾 Animal'},{w:'ELEFANT',c:'🐾 Animal'},{w:'GIRAFA',c:'🐾 Animal'},{w:'MAIMUTA',c:'🐾 Animal'},{w:'BROASCA',c:'🐾 Animal'},{w:'VULTUR',c:'🐾 Animal'},{w:'PASARE',c:'🐾 Animal'},{w:'RECHIN',c:'🐾 Animal'},{w:'DELFIN',c:'🐾 Animal'},{w:'BALENA',c:'🐾 Animal'},{w:'PAPAGAL',c:'🐾 Animal'},{w:'FLUTURE',c:'🐾 Animal'},{w:'FURNICA',c:'🐾 Animal'},{w:'ALBINA',c:'🐾 Animal'},{w:'LEOPARD',c:'🐾 Animal'},{w:'PADURE',c:'🌿 Natură'},{w:'FLOARE',c:'🌿 Natură'},{w:'FRUNZA',c:'🌿 Natură'},{w:'PLOAIE',c:'🌿 Natură'},{w:'ZAPADA',c:'🌿 Natură'},{w:'FURTUNA',c:'🌿 Natură'},{w:'INSULA',c:'🌿 Natură'},{w:'PESTERA',c:'🌿 Natură'},{w:'DESERT',c:'🌿 Natură'},{w:'VULCAN',c:'🌿 Natură'},{w:'GHETAR',c:'🌿 Natură'},{w:'STANCA',c:'🌿 Natură'},{w:'PAMANT',c:'🌿 Natură'},{w:'CASCADA',c:'🌿 Natură'},{w:'GRADINA',c:'🌿 Natură'},{w:'BRANZA',c:'🍎 Mâncare'},{w:'CARTOF',c:'🍎 Mâncare'},{w:'MORCOV',c:'🍎 Mâncare'},{w:'SALATA',c:'🍎 Mâncare'},{w:'CIRESE',c:'🍎 Mâncare'},{w:'CAPSUNI',c:'🍎 Mâncare'},{w:'PEPENE',c:'🍎 Mâncare'},{w:'LAMAIE',c:'🍎 Mâncare'},{w:'BANANA',c:'🍎 Mâncare'},{w:'BISCUIT',c:'🍎 Mâncare'},{w:'MASINA',c:'🚗 Transport'},{w:'AUTOBUZ',c:'🚗 Transport'},{w:'TRAMVAI',c:'🚗 Transport'},{w:'CAMION',c:'🚗 Transport'},{w:'TRACTOR',c:'🚗 Transport'},{w:'RACHETA',c:'🚗 Transport'},{w:'CARUTA',c:'🚗 Transport'},{w:'METROU',c:'🚗 Transport'},{w:'SCOALA',c:'🏠 Loc'},{w:'SPITAL',c:'🏠 Loc'},{w:'CASTEL',c:'🏠 Loc'},{w:'TEATRU',c:'🏠 Loc'},{w:'MAGAZIN',c:'🏠 Loc'},{w:'STADION',c:'🏠 Loc'},{w:'CABANA',c:'🏠 Loc'},{w:'FABRICA',c:'🏠 Loc'},{w:'STRADA',c:'🏠 Loc'},{w:'CAMERA',c:'🏠 Loc'},{w:'CANTEC',c:'🎵 Muzică'},{w:'MELODIE',c:'🎵 Muzică'},{w:'VIOARA',c:'🎵 Muzică'},{w:'CHITARA',c:'🎵 Muzică'},{w:'CONCERT',c:'🎵 Muzică'},{w:'ARMONIE',c:'🎵 Muzică'},{w:'SAXOFON',c:'🎵 Muzică'},{w:'TELEFON',c:'💻 Tehnologie'},{w:'PROGRAM',c:'💻 Tehnologie'},{w:'SORICEL',c:'💻 Tehnologie'},{w:'SATELIT',c:'💻 Tehnologie'},{w:'FISIER',c:'💻 Tehnologie'},{w:'PAROLA',c:'💻 Tehnologie'},{w:'LAPTOP',c:'💻 Tehnologie'},{w:'LECTIE',c:'📚 Educație'},{w:'CREION',c:'📚 Educație'},{w:'ISTORIE',c:'📚 Educație'},{w:'CHIMIE',c:'📚 Educație'},{w:'FIZICA',c:'📚 Educație'},{w:'POEZIE',c:'📚 Educație'},{w:'STIINTA',c:'📚 Educație'},{w:'FRUMOS',c:'✨ Adjectiv'},{w:'CURAJOS',c:'✨ Adjectiv'},{w:'CURIOS',c:'✨ Adjectiv'},{w:'ELEGANT',c:'✨ Adjectiv'},{w:'GENEROS',c:'✨ Adjectiv'},{w:'LUMINOS',c:'✨ Adjectiv'},{w:'MINUNAT',c:'✨ Adjectiv'},{w:'FERICIT',c:'✨ Adjectiv'},{w:'GINGAS',c:'✨ Adjectiv'},{w:'TANDRU',c:'✨ Adjectiv'},{w:'DRAGON',c:'🐉 Fantezie'},{w:'BALAUR',c:'🐉 Fantezie'},{w:'CAVALER',c:'🐉 Fantezie'},{w:'VAMPIR',c:'🐉 Fantezie'},{w:'LICORN',c:'🐉 Fantezie'},{w:'SIRENA',c:'🐉 Fantezie'},{w:'FANTOMA',c:'🐉 Fantezie'},{w:'VRABIE',c:'🐉 Fantezie'},{w:'FOTBAL',c:'⚽ Sport'},{w:'CICLISM',c:'⚽ Sport'},{w:'BASCHET',c:'⚽ Sport'},{w:'HANDBAL',c:'⚽ Sport'},{w:'NATATIE',c:'⚽ Sport'},{w:'SCRIMA',c:'⚽ Sport'},{w:'CALARIE',c:'⚽ Sport'},{w:'PATINAJ',c:'⚽ Sport'},{w:'MARATON',c:'⚽ Sport'},{w:'GALBEN',c:'🌈 Culoare'},{w:'VIOLET',c:'🌈 Culoare'},{w:'TURCOAZ',c:'🌈 Culoare'},{w:'DOCTOR',c:'💼 Meserie'},{w:'BUCATAR',c:'💼 Meserie'},{w:'BRUTAR',c:'💼 Meserie'},{w:'CROITOR',c:'💼 Meserie'},{w:'PICTOR',c:'💼 Meserie'},{w:'AVOCAT',c:'💼 Meserie'},{w:'INGINER',c:'💼 Meserie'},{w:'TAMPLAR',c:'💼 Meserie'},{w:'POMPIER',c:'💼 Meserie'},{w:'MARINAR',c:'💼 Meserie'},{w:'SOLDAT',c:'💼 Meserie'},{w:'BUCURIE',c:'😊 Emoție'},{w:'MANDRIE',c:'😊 Emoție'},{w:'UIMIRE',c:'😊 Emoție'},{w:'DORINTA',c:'😊 Emoție'},{w:'PASIUNE',c:'😊 Emoție'},{w:'GELOZIE',c:'😊 Emoție'},{w:'VIJELIE',c:'🌦️ Vreme'},{w:'VISCOL',c:'🌦️ Vreme'},{w:'FULGER',c:'🌦️ Vreme'},{w:'PLANETA',c:'🪐 Spațiu'},{w:'COMETA',c:'🪐 Spațiu'},{w:'GALAXIE',c:'🪐 Spațiu'},{w:'UNIVERS',c:'🪐 Spațiu'},{w:'ECLIPSA',c:'🪐 Spațiu'}],
+  hard:[{w:'VEVERITA',c:'🐾 Animal'},{w:'CROCODIL',c:'🐾 Animal'},{w:'PAIANJEN',c:'🐾 Animal'},{w:'TESTOASA',c:'🐾 Animal'},{w:'RADACINA',c:'🌿 Natură'},{w:'CURCUBEU',c:'🌿 Natură'},{w:'PRAJITURA',c:'🍎 Mâncare'},{w:'STRUGURI',c:'🍎 Mâncare'},{w:'PORTOCALA',c:'🍎 Mâncare'},{w:'CIOCOLATA',c:'🍎 Mâncare'},{w:'INGHETATA',c:'🍎 Mâncare'},{w:'PLACINTA',c:'🍎 Mâncare'},{w:'BICICLETA',c:'🚗 Transport'},{w:'MOTOCICLETA',c:'🚗 Transport'},{w:'ELICOPTER',c:'🚗 Transport'},{w:'SUBMARIN',c:'🚗 Transport'},{w:'TROLEIBUZ',c:'🚗 Transport'},{w:'BISERICA',c:'🏠 Loc'},{w:'BIBLIOTECA',c:'🏠 Loc'},{w:'RESTAURANT',c:'🏠 Loc'},{w:'FORTAREATA',c:'🏠 Loc'},{w:'CATEDRALA',c:'🏠 Loc'},{w:'AEROPORT',c:'🏠 Loc'},{w:'TROMPETA',c:'🎵 Muzică'},{w:'SIMFONIE',c:'🎵 Muzică'},{w:'ORCHESTRA',c:'🎵 Muzică'},{w:'CLARINET',c:'🎵 Muzică'},{w:'ACORDEON',c:'🎵 Muzică'},{w:'VIOLONCEL',c:'🎵 Muzică'},{w:'CALCULATOR',c:'💻 Tehnologie'},{w:'INTERNET',c:'💻 Tehnologie'},{w:'TASTATURA',c:'💻 Tehnologie'},{w:'APLICATIE',c:'💻 Tehnologie'},{w:'PROCESOR',c:'💻 Tehnologie'},{w:'TEHNOLOGIE',c:'💻 Tehnologie'},{w:'PROFESOR',c:'📚 Educație'},{w:'UNIVERSITATE',c:'📚 Educație'},{w:'MATEMATICA',c:'📚 Educație'},{w:'GEOGRAFIE',c:'📚 Educație'},{w:'BIOLOGIE',c:'📚 Educație'},{w:'GRAMATICA',c:'📚 Educație'},{w:'ASTRONOMIE',c:'📚 Educație'},{w:'FILOZOFIE',c:'📚 Educație'},{w:'DICTIONAR',c:'📚 Educație'},{w:'CUNOASTERE',c:'📚 Educație'},{w:'EDUCATIE',c:'📚 Educație'},{w:'GEOMETRIE',c:'📚 Educație'},{w:'INTELEPT',c:'✨ Adjectiv'},{w:'PUTERNIC',c:'✨ Adjectiv'},{w:'LINISTIT',c:'✨ Adjectiv'},{w:'DELICIOS',c:'✨ Adjectiv'},{w:'MISTERIOS',c:'✨ Adjectiv'},{w:'EXTRAORDINAR',c:'✨ Adjectiv'},{w:'SPLENDID',c:'✨ Adjectiv'},{w:'VRAJITOR',c:'🐉 Fantezie'},{w:'VRAJITOARE',c:'🐉 Fantezie'},{w:'SPIRIDUS',c:'🐉 Fantezie'},{w:'ALERGARE',c:'⚽ Sport'},{w:'GIMNASTICA',c:'⚽ Sport'},{w:'ALBASTRU',c:'🌈 Culoare'},{w:'PORTOCALIU',c:'🌈 Culoare'},{w:'ARGINTIU',c:'🌈 Culoare'},{w:'CANTARET',c:'💼 Meserie'},{w:'DANSATOR',c:'💼 Meserie'},{w:'SCRIITOR',c:'💼 Meserie'},{w:'JUDECATOR',c:'💼 Meserie'},{w:'ASISTENTA',c:'💼 Meserie'},{w:'MUZICIAN',c:'💼 Meserie'},{w:'ARHITECT',c:'💼 Meserie'},{w:'INSTALATOR',c:'💼 Meserie'},{w:'ELECTRICIAN',c:'💼 Meserie'},{w:'FOTOGRAF',c:'💼 Meserie'},{w:'ASTRONAUT',c:'💼 Meserie'},{w:'POLITIST',c:'💼 Meserie'},{w:'GRADINAR',c:'💼 Meserie'},{w:'DRAGOSTE',c:'😊 Emoție'},{w:'SPERANTA',c:'😊 Emoție'},{w:'TRISTETE',c:'😊 Emoție'},{w:'INCREDERE',c:'😊 Emoție'},{w:'DISPERARE',c:'😊 Emoție'},{w:'RECUNOSTINTA',c:'😊 Emoție'},{w:'CURIOZITATE',c:'😊 Emoție'},{w:'FERICIRE',c:'😊 Emoție'},{w:'SINGURATATE',c:'😊 Emoție'},{w:'ENTUZIASM',c:'😊 Emoție'},{w:'GRINDINA',c:'🌦️ Vreme'},{w:'UMIDITATE',c:'🌦️ Vreme'},{w:'TEMPERATURA',c:'🌦️ Vreme'},{w:'NEBULOASA',c:'🪐 Spațiu'},{w:'ASTEROID',c:'🪐 Spațiu'},{w:'TELESCOP',c:'🪐 Spațiu'},{w:'METEORIT',c:'🪐 Spațiu'}]},
+  en:{easy:[{w:'CAT',c:'🐾 Animal'},{w:'DOG',c:'🐾 Animal'},{w:'COW',c:'🐾 Animal'},{w:'FOX',c:'🐾 Animal'},{w:'BEE',c:'🐾 Animal'},{w:'ANT',c:'🐾 Animal'},{w:'OWL',c:'🐾 Animal'},{w:'PIG',c:'🐾 Animal'},{w:'HEN',c:'🐾 Animal'},{w:'RAM',c:'🐾 Animal'},{w:'BAT',c:'🐾 Animal'},{w:'RAT',c:'🐾 Animal'},{w:'ELK',c:'🐾 Animal'},{w:'APE',c:'🐾 Animal'},{w:'EEL',c:'🐾 Animal'},{w:'JAY',c:'🐾 Animal'},{w:'SOW',c:'🐾 Animal'},{w:'YAK',c:'🐾 Animal'},{w:'ASP',c:'🐾 Animal'},{w:'DOE',c:'🐾 Animal'},{w:'FAWN',c:'🐾 Animal'},{w:'FROG',c:'🐾 Animal'},{w:'GOAT',c:'🐾 Animal'},{w:'LION',c:'🐾 Animal'},{w:'BEAR',c:'🐾 Animal'},{w:'WOLF',c:'🐾 Animal'},{w:'DEER',c:'🐾 Animal'},{w:'HAWK',c:'🐾 Animal'},{w:'CRAB',c:'🐾 Animal'},{w:'MOLE',c:'🐾 Animal'},{w:'SEAL',c:'🐾 Animal'},{w:'SWAN',c:'🐾 Animal'},{w:'TOAD',c:'🐾 Animal'},{w:'WASP',c:'🐾 Animal'},{w:'MULE',c:'🐾 Animal'},{w:'LAMB',c:'🐾 Animal'},{w:'COLT',c:'🐾 Animal'},{w:'CROW',c:'🐾 Animal'},{w:'DOVE',c:'🐾 Animal'},{w:'DUCK',c:'🐾 Animal'},{w:'HARE',c:'🐾 Animal'},{w:'LYNX',c:'🐾 Animal'},{w:'NEWT',c:'🐾 Animal'},{w:'PUMA',c:'🐾 Animal'},{w:'SLUG',c:'🐾 Animal'},{w:'TERN',c:'🐾 Animal'},{w:'VOLE',c:'🐾 Animal'},{w:'WREN',c:'🐾 Animal'},{w:'SUN',c:'🌿 Nature'},{w:'SKY',c:'🌿 Nature'},{w:'SEA',c:'🌿 Nature'},{w:'MUD',c:'🌿 Nature'},{w:'ICE',c:'🌿 Nature'},{w:'FOG',c:'🌿 Nature'},{w:'DEW',c:'🌿 Nature'},{w:'BAY',c:'🌿 Nature'},{w:'OAK',c:'🌿 Nature'},{w:'ELM',c:'🌿 Nature'},{w:'FIR',c:'🌿 Nature'},{w:'LOG',c:'🌿 Nature'},{w:'SAP',c:'🌿 Nature'},{w:'POD',c:'🌿 Nature'},{w:'ASH',c:'🌿 Nature'},{w:'BUD',c:'🌿 Nature'},{w:'VINE',c:'🌿 Nature'},{w:'LEAF',c:'🌿 Nature'},{w:'TREE',c:'🌿 Nature'},{w:'ROCK',c:'🌿 Nature'},{w:'SAND',c:'🌿 Nature'},{w:'RAIN',c:'🌿 Nature'},{w:'SNOW',c:'🌿 Nature'},{w:'WIND',c:'🌿 Nature'},{w:'WAVE',c:'🌿 Nature'},{w:'LAKE',c:'🌿 Nature'},{w:'HILL',c:'🌿 Nature'},{w:'CAVE',c:'🌿 Nature'},{w:'REEF',c:'🌿 Nature'},{w:'DUNE',c:'🌿 Nature'},{w:'MOSS',c:'🌿 Nature'},{w:'FERN',c:'🌿 Nature'},{w:'ROSE',c:'🌿 Nature'},{w:'LILY',c:'🌿 Nature'},{w:'PALM',c:'🌿 Nature'},{w:'REED',c:'🌿 Nature'},{w:'SEED',c:'🌿 Nature'},{w:'SOIL',c:'🌿 Nature'},{w:'PEAK',c:'🌿 Nature'},{w:'CLAY',c:'🌿 Nature'},{w:'STAR',c:'🌿 Nature'},{w:'MOON',c:'🌿 Nature'},{w:'MIST',c:'🌿 Nature'},{w:'MARSH',c:'🌿 Nature'},{w:'SWAMP',c:'🌿 Nature'},{w:'PIE',c:'🍎 Food'},{w:'JAM',c:'🍎 Food'},{w:'EGG',c:'🍎 Food'},{w:'HAM',c:'🍎 Food'},{w:'TEA',c:'🍎 Food'},{w:'RYE',c:'🍎 Food'},{w:'FIG',c:'🍎 Food'},{w:'OAT',c:'🍎 Food'},{w:'YAM',c:'🍎 Food'},{w:'COD',c:'🍎 Food'},{w:'SOY',c:'🍎 Food'},{w:'NUT',c:'🍎 Food'},{w:'RICE',c:'🍎 Food'},{w:'MILK',c:'🍎 Food'},{w:'CORN',c:'🍎 Food'},{w:'BEAN',c:'🍎 Food'},{w:'CAKE',c:'🍎 Food'},{w:'SOUP',c:'🍎 Food'},{w:'MEAT',c:'🍎 Food'},{w:'FISH',c:'🍎 Food'},{w:'SALT',c:'🍎 Food'},{w:'HERB',c:'🍎 Food'},{w:'MINT',c:'🍎 Food'},{w:'PLUM',c:'🍎 Food'},{w:'PEAR',c:'🍎 Food'},{w:'LIME',c:'🍎 Food'},{w:'KALE',c:'🍎 Food'},{w:'TACO',c:'🍎 Food'},{w:'BEEF',c:'🍎 Food'},{w:'TUNA',c:'🍎 Food'},{w:'WINE',c:'🍎 Food'},{w:'BEER',c:'🍎 Food'},{w:'CURD',c:'🍎 Food'},{w:'SAGE',c:'🍎 Food'},{w:'APPLE',c:'🍎 Food'},{w:'BREAD',c:'🍎 Food'},{w:'HONEY',c:'🍎 Food'},{w:'LEMON',c:'🍎 Food'},{w:'ONION',c:'🍎 Food'},{w:'PASTA',c:'🍎 Food'},{w:'PIZZA',c:'🍎 Food'},{w:'SALAD',c:'🍎 Food'},{w:'SUGAR',c:'🍎 Food'},{w:'SYRUP',c:'🍎 Food'},{w:'TOAST',c:'🍎 Food'},{w:'WHEAT',c:'🍎 Food'},{w:'GRAPE',c:'🍎 Food'},{w:'PEACH',c:'🍎 Food'},{w:'MANGO',c:'🍎 Food'},{w:'MELON',c:'🍎 Food'},{w:'OLIVE',c:'🍎 Food'},{w:'BERRY',c:'🍎 Food'},{w:'COCOA',c:'🍎 Food'},{w:'CREAM',c:'🍎 Food'},{w:'DOUGH',c:'🍎 Food'},{w:'FLOUR',c:'🍎 Food'},{w:'JUICE',c:'🍎 Food'},{w:'SPICE',c:'🍎 Food'},{w:'STEAK',c:'🍎 Food'},{w:'CANDY',c:'🍎 Food'},{w:'BACON',c:'🍎 Food'},{w:'CAR',c:'🚗 Transport'},{w:'BUS',c:'🚗 Transport'},{w:'VAN',c:'🚗 Transport'},{w:'JET',c:'🚗 Transport'},{w:'CAB',c:'🚗 Transport'},{w:'TUG',c:'🚗 Transport'},{w:'SHIP',c:'🚗 Transport'},{w:'BOAT',c:'🚗 Transport'},{w:'BIKE',c:'🚗 Transport'},{w:'TRAM',c:'🚗 Transport'},{w:'SLED',c:'🚗 Transport'},{w:'RAFT',c:'🚗 Transport'},{w:'KAYAK',c:'🚗 Transport'},{w:'TRAIN',c:'🚗 Transport'},{w:'TRUCK',c:'🚗 Transport'},{w:'CANOE',c:'🚗 Transport'},{w:'FERRY',c:'🚗 Transport'},{w:'WAGON',c:'🚗 Transport'},{w:'YACHT',c:'🚗 Transport'},{w:'INN',c:'🏠 Place'},{w:'HUT',c:'🏠 Place'},{w:'DEN',c:'🏠 Place'},{w:'PUB',c:'🏠 Place'},{w:'ZOO',c:'🏠 Place'},{w:'SPA',c:'🏠 Place'},{w:'FARM',c:'🏠 Place'},{w:'BARN',c:'🏠 Place'},{w:'DOCK',c:'🏠 Place'},{w:'FORT',c:'🏠 Place'},{w:'MALL',c:'🏠 Place'},{w:'CAFE',c:'🏠 Place'},{w:'SHOP',c:'🏠 Place'},{w:'TENT',c:'🏠 Place'},{w:'PARK',c:'🏠 Place'},{w:'PORT',c:'🏠 Place'},{w:'ROOM',c:'🏠 Place'},{w:'ROAD',c:'🏠 Place'},{w:'TOWN',c:'🏠 Place'},{w:'CITY',c:'🏠 Place'},{w:'HOUSE',c:'🏠 Place'},{w:'TOWER',c:'🏠 Place'},{w:'HOTEL',c:'🏠 Place'},{w:'MANOR',c:'🏠 Place'},{w:'ABBEY',c:'🏠 Place'},{w:'ARENA',c:'🏠 Place'},{w:'BEACH',c:'🏠 Place'},{w:'DRUM',c:'🎵 Music'},{w:'HORN',c:'🎵 Music'},{w:'NOTE',c:'🎵 Music'},{w:'TUNE',c:'🎵 Music'},{w:'SONG',c:'🎵 Music'},{w:'JAZZ',c:'🎵 Music'},{w:'BEAT',c:'🎵 Music'},{w:'ARIA',c:'🎵 Music'},{w:'CHOIR',c:'🎵 Music'},{w:'FLUTE',c:'🎵 Music'},{w:'ORGAN',c:'🎵 Music'},{w:'PIANO',c:'🎵 Music'},{w:'TEMPO',c:'🎵 Music'},{w:'VIOLA',c:'🎵 Music'},{w:'BUGLE',c:'🎵 Music'},{w:'CELLO',c:'🎵 Music'},{w:'TUBA',c:'🎵 Music'},{w:'BANJO',c:'🎵 Music'},{w:'APP',c:'💻 Tech'},{w:'WEB',c:'💻 Tech'},{w:'CODE',c:'💻 Tech'},{w:'DATA',c:'💻 Tech'},{w:'CHIP',c:'💻 Tech'},{w:'BYTE',c:'💻 Tech'},{w:'WIFI',c:'💻 Tech'},{w:'DISK',c:'💻 Tech'},{w:'FILE',c:'💻 Tech'},{w:'LINK',c:'💻 Tech'},{w:'MOUSE',c:'💻 Tech'},{w:'ROBOT',c:'💻 Tech'},{w:'BOOK',c:'📚 Knowledge'},{w:'MATH',c:'📚 Knowledge'},{w:'QUIZ',c:'📚 Knowledge'},{w:'WORD',c:'📚 Knowledge'},{w:'IDEA',c:'📚 Knowledge'},{w:'FACT',c:'📚 Knowledge'},{w:'PAGE',c:'📚 Knowledge'},{w:'TEST',c:'📚 Knowledge'},{w:'STUDY',c:'📚 Knowledge'},{w:'NOVEL',c:'📚 Knowledge'},{w:'ESSAY',c:'📚 Knowledge'},{w:'BIG',c:'✨ Adjective'},{w:'OLD',c:'✨ Adjective'},{w:'WET',c:'✨ Adjective'},{w:'RED',c:'✨ Adjective'},{w:'SHY',c:'✨ Adjective'},{w:'ODD',c:'✨ Adjective'},{w:'ICY',c:'✨ Adjective'},{w:'DRY',c:'✨ Adjective'},{w:'RAW',c:'✨ Adjective'},{w:'VAST',c:'✨ Adjective'},{w:'BOLD',c:'✨ Adjective'},{w:'CALM',c:'✨ Adjective'},{w:'DARK',c:'✨ Adjective'},{w:'FAIR',c:'✨ Adjective'},{w:'GLAD',c:'✨ Adjective'},{w:'KIND',c:'✨ Adjective'},{w:'PURE',c:'✨ Adjective'},{w:'RARE',c:'✨ Adjective'},{w:'SOFT',c:'✨ Adjective'},{w:'TALL',c:'✨ Adjective'},{w:'WARM',c:'✨ Adjective'},{w:'WISE',c:'✨ Adjective'},{w:'BRAVE',c:'✨ Adjective'},{w:'EAGER',c:'✨ Adjective'},{w:'FANCY',c:'✨ Adjective'},{w:'GIANT',c:'✨ Adjective'},{w:'JOLLY',c:'✨ Adjective'},{w:'QUIET',c:'✨ Adjective'},{w:'SHARP',c:'✨ Adjective'},{w:'SUNNY',c:'✨ Adjective'},{w:'TENSE',c:'✨ Adjective'},{w:'VIVID',c:'✨ Adjective'},{w:'ELF',c:'🐉 Fantasy'},{w:'ORC',c:'🐉 Fantasy'},{w:'IMP',c:'🐉 Fantasy'},{w:'FAE',c:'🐉 Fantasy'},{w:'OGRE',c:'🐉 Fantasy'},{w:'TROLL',c:'🐉 Fantasy'},{w:'FAIRY',c:'🐉 Fantasy'},{w:'GENIE',c:'🐉 Fantasy'},{w:'WITCH',c:'🐉 Fantasy'},{w:'DWARF',c:'🐉 Fantasy'},{w:'GYM',c:'⚽ Sport'},{w:'RUN',c:'⚽ Sport'},{w:'SKI',c:'⚽ Sport'},{w:'ROW',c:'⚽ Sport'},{w:'GOLF',c:'⚽ Sport'},{w:'SWIM',c:'⚽ Sport'},{w:'DIVE',c:'⚽ Sport'},{w:'RACE',c:'⚽ Sport'},{w:'JUDO',c:'⚽ Sport'},{w:'POLO',c:'⚽ Sport'},{w:'YOGA',c:'⚽ Sport'},{w:'RUGBY',c:'⚽ Sport'},{w:'TAN',c:'🌈 Color'},{w:'BLUE',c:'🌈 Color'},{w:'CYAN',c:'🌈 Color'},{w:'GOLD',c:'🌈 Color'},{w:'GRAY',c:'🌈 Color'},{w:'NAVY',c:'🌈 Color'},{w:'PINK',c:'🌈 Color'},{w:'TEAL',c:'🌈 Color'},{w:'AMBER',c:'🌈 Color'},{w:'BEIGE',c:'🌈 Color'},{w:'BLACK',c:'🌈 Color'},{w:'BROWN',c:'🌈 Color'},{w:'CORAL',c:'🌈 Color'},{w:'GREEN',c:'🌈 Color'},{w:'IVORY',c:'🌈 Color'},{w:'LILAC',c:'🌈 Color'},{w:'WHITE',c:'🌈 Color'},{w:'CHEF',c:'💼 Job'},{w:'POET',c:'💼 Job'},{w:'MONK',c:'💼 Job'},{w:'CLERK',c:'💼 Job'},{w:'ACTOR',c:'💼 Job'},{w:'BAKER',c:'💼 Job'},{w:'GUARD',c:'💼 Job'},{w:'JUDGE',c:'💼 Job'},{w:'MAYOR',c:'💼 Job'},{w:'NURSE',c:'💼 Job'},{w:'PILOT',c:'💼 Job'},{w:'TUTOR',c:'💼 Job'},{w:'JOY',c:'😊 Emotion'},{w:'FEAR',c:'😊 Emotion'},{w:'LOVE',c:'😊 Emotion'},{w:'HOPE',c:'😊 Emotion'},{w:'ENVY',c:'😊 Emotion'},{w:'PRIDE',c:'😊 Emotion'},{w:'ANGER',c:'😊 Emotion'},{w:'GRIEF',c:'😊 Emotion'},{w:'PEACE',c:'😊 Emotion'},{w:'TRUST',c:'😊 Emotion'},{w:'HAIL',c:'🌦️ Weather'},{w:'FROST',c:'🌦️ Weather'},{w:'CLOUD',c:'🌦️ Weather'},{w:'STORM',c:'🌦️ Weather'},{w:'WINDY',c:'🌦️ Weather'},{w:'RAINY',c:'🌦️ Weather'},{w:'FOGGY',c:'🌦️ Weather'},{w:'MARS',c:'🪐 Space'},{w:'ORBIT',c:'🪐 Space'},{w:'COMET',c:'🪐 Space'},{w:'VENUS',c:'🪐 Space'},{w:'PLUTO',c:'🪐 Space'},{w:'KEY',c:'🧩 Object'},{w:'CUP',c:'🧩 Object'},{w:'PEN',c:'🧩 Object'},{w:'JAR',c:'🧩 Object'},{w:'BOX',c:'🧩 Object'},{w:'NET',c:'🧩 Object'},{w:'RUG',c:'🧩 Object'},{w:'FAN',c:'🧩 Object'},{w:'LAMP',c:'🧩 Object'},{w:'BELL',c:'🧩 Object'},{w:'CLOCK',c:'🧩 Object'},{w:'CHAIR',c:'🧩 Object'},{w:'TABLE',c:'🧩 Object'},{w:'KNIFE',c:'🧩 Object'},{w:'SPOON',c:'🧩 Object'},{w:'PLATE',c:'🧩 Object'},{w:'GLASS',c:'🧩 Object'},{w:'BRUSH',c:'🧩 Object'}],
+  medium:[{w:'RABBIT',c:'🐾 Animal'},{w:'DONKEY',c:'🐾 Animal'},{w:'MONKEY',c:'🐾 Animal'},{w:'BADGER',c:'🐾 Animal'},{w:'BEAVER',c:'🐾 Animal'},{w:'JAGUAR',c:'🐾 Animal'},{w:'WALRUS',c:'🐾 Animal'},{w:'TURTLE',c:'🐾 Animal'},{w:'SALMON',c:'🐾 Animal'},{w:'SPIDER',c:'🐾 Animal'},{w:'IGUANA',c:'🐾 Animal'},{w:'PYTHON',c:'🐾 Animal'},{w:'FALCON',c:'🐾 Animal'},{w:'PARROT',c:'🐾 Animal'},{w:'ROOSTER',c:'🐾 Animal'},{w:'PANTHER',c:'🐾 Animal'},{w:'DOLPHIN',c:'🐾 Animal'},{w:'PENGUIN',c:'🐾 Animal'},{w:'OCTOPUS',c:'🐾 Animal'},{w:'LEOPARD',c:'🐾 Animal'},{w:'BUFFALO',c:'🐾 Animal'},{w:'GORILLA',c:'🐾 Animal'},{w:'PEACOCK',c:'🐾 Animal'},{w:'SPARROW',c:'🐾 Animal'},{w:'HAMSTER',c:'🐾 Animal'},{w:'TADPOLE',c:'🐾 Animal'},{w:'OSTRICH',c:'🐾 Animal'},{w:'RACCOON',c:'🐾 Animal'},{w:'FLOWER',c:'🌿 Nature'},{w:'FOREST',c:'🌿 Nature'},{w:'DESERT',c:'🌿 Nature'},{w:'MEADOW',c:'🌿 Nature'},{w:'CANYON',c:'🌿 Nature'},{w:'JUNGLE',c:'🌿 Nature'},{w:'VALLEY',c:'🌿 Nature'},{w:'ISLAND',c:'🌿 Nature'},{w:'GLACIER',c:'🌿 Nature'},{w:'VOLCANO',c:'🌿 Nature'},{w:'BLOSSOM',c:'🌿 Nature'},{w:'THUNDER',c:'🌿 Nature'},{w:'RAINBOW',c:'🌿 Nature'},{w:'TORNADO',c:'🌿 Nature'},{w:'HORIZON',c:'🌿 Nature'},{w:'PRAIRIE',c:'🌿 Nature'},{w:'PLATEAU',c:'🌿 Nature'},{w:'ESTUARY',c:'🌿 Nature'},{w:'CRATER',c:'🌿 Nature'},{w:'TUNDRA',c:'🌿 Nature'},{w:'ICEBERG',c:'🌿 Nature'},{w:'GEYSER',c:'🌿 Nature'},{w:'LAGOON',c:'🌿 Nature'},{w:'SAVANNA',c:'🌿 Nature'},{w:'CHERRY',c:'🍎 Food'},{w:'BANANA',c:'🍎 Food'},{w:'CARROT',c:'🍎 Food'},{w:'GARLIC',c:'🍎 Food'},{w:'MUFFIN',c:'🍎 Food'},{w:'NOODLE',c:'🍎 Food'},{w:'ORANGE',c:'🍎 Food'},{w:'PEPPER',c:'🍎 Food'},{w:'POTATO',c:'🍎 Food'},{w:'TOMATO',c:'🍎 Food'},{w:'WALNUT',c:'🍎 Food'},{w:'BISCUIT',c:'🍎 Food'},{w:'CABBAGE',c:'🍎 Food'},{w:'PANCAKE',c:'🍎 Food'},{w:'GLIDER',c:'🚗 Transport'},{w:'ROCKET',c:'🚗 Transport'},{w:'SUBWAY',c:'🚗 Transport'},{w:'SCOOTER',c:'🚗 Transport'},{w:'BICYCLE',c:'🚗 Transport'},{w:'TRACTOR',c:'🚗 Transport'},{w:'TROLLEY',c:'🚗 Transport'},{w:'AIRSHIP',c:'🚗 Transport'},{w:'BRIDGE',c:'🏠 Place'},{w:'CASTLE',c:'🏠 Place'},{w:'CHURCH',c:'🏠 Place'},{w:'GARDEN',c:'🏠 Place'},{w:'MARKET',c:'🏠 Place'},{w:'MUSEUM',c:'🏠 Place'},{w:'PALACE',c:'🏠 Place'},{w:'PRISON',c:'🏠 Place'},{w:'SCHOOL',c:'🏠 Place'},{w:'TEMPLE',c:'🏠 Place'},{w:'TUNNEL',c:'🏠 Place'},{w:'VILLAGE',c:'🏠 Place'},{w:'AIRPORT',c:'🏠 Place'},{w:'COTTAGE',c:'🏠 Place'},{w:'FACTORY',c:'🏠 Place'},{w:'HARBOR',c:'🏠 Place'},{w:'LIBRARY',c:'🏠 Place'},{w:'STADIUM',c:'🏠 Place'},{w:'THEATER',c:'🏠 Place'},{w:'MELODY',c:'🎵 Music'},{w:'GUITAR',c:'🎵 Music'},{w:'RHYTHM',c:'🎵 Music'},{w:'VIOLIN',c:'🎵 Music'},{w:'ANTHEM',c:'🎵 Music'},{w:'BALLAD',c:'🎵 Music'},{w:'CONCERT',c:'🎵 Music'},{w:'TRUMPET',c:'🎵 Music'},{w:'HARMONY',c:'🎵 Music'},{w:'LAPTOP',c:'💻 Tech'},{w:'ROUTER',c:'💻 Tech'},{w:'SCREEN',c:'💻 Tech'},{w:'SERVER',c:'💻 Tech'},{w:'CURSOR',c:'💻 Tech'},{w:'GADGET',c:'💻 Tech'},{w:'THEORY',c:'📚 Knowledge'},{w:'LESSON',c:'📚 Knowledge'},{w:'POETRY',c:'📚 Knowledge'},{w:'GRAMMAR',c:'📚 Knowledge'},{w:'HISTORY',c:'📚 Knowledge'},{w:'SCIENCE',c:'📚 Knowledge'},{w:'BIOLOGY',c:'📚 Knowledge'},{w:'PHYSICS',c:'📚 Knowledge'},{w:'BRIGHT',c:'✨ Adjective'},{w:'CLEVER',c:'✨ Adjective'},{w:'FIERCE',c:'✨ Adjective'},{w:'GENTLE',c:'✨ Adjective'},{w:'GOLDEN',c:'✨ Adjective'},{w:'HUMBLE',c:'✨ Adjective'},{w:'MIGHTY',c:'✨ Adjective'},{w:'SILENT',c:'✨ Adjective'},{w:'TENDER',c:'✨ Adjective'},{w:'CURIOUS',c:'✨ Adjective'},{w:'ELEGANT',c:'✨ Adjective'},{w:'FRAGILE',c:'✨ Adjective'},{w:'DRAGON',c:'🐉 Fantasy'},{w:'GOBLIN',c:'🐉 Fantasy'},{w:'KNIGHT',c:'🐉 Fantasy'},{w:'WIZARD',c:'🐉 Fantasy'},{w:'PHOENIX',c:'🐉 Fantasy'},{w:'GRIFFIN',c:'🐉 Fantasy'},{w:'UNICORN',c:'🐉 Fantasy'},{w:'MERMAID',c:'🐉 Fantasy'},{w:'VAMPIRE',c:'🐉 Fantasy'},{w:'CENTAUR',c:'🐉 Fantasy'},{w:'WARLOCK',c:'🐉 Fantasy'},{w:'BOXING',c:'⚽ Sport'},{w:'HOCKEY',c:'⚽ Sport'},{w:'SOCCER',c:'⚽ Sport'},{w:'TENNIS',c:'⚽ Sport'},{w:'KARATE',c:'⚽ Sport'},{w:'CRICKET',c:'⚽ Sport'},{w:'ARCHERY',c:'⚽ Sport'},{w:'CYCLING',c:'⚽ Sport'},{w:'FENCING',c:'⚽ Sport'},{w:'RUNNING',c:'⚽ Sport'},{w:'SAILING',c:'⚽ Sport'},{w:'SKATING',c:'⚽ Sport'},{w:'SURFING',c:'⚽ Sport'},{w:'BOWLING',c:'⚽ Sport'},{w:'INDIGO',c:'🌈 Color'},{w:'MAROON',c:'🌈 Color'},{w:'PURPLE',c:'🌈 Color'},{w:'SILVER',c:'🌈 Color'},{w:'VIOLET',c:'🌈 Color'},{w:'CRIMSON',c:'🌈 Color'},{w:'MAGENTA',c:'🌈 Color'},{w:'ARTIST',c:'💼 Job'},{w:'AUTHOR',c:'💼 Job'},{w:'DANCER',c:'💼 Job'},{w:'DOCTOR',c:'💼 Job'},{w:'DRIVER',c:'💼 Job'},{w:'FARMER',c:'💼 Job'},{w:'LAWYER',c:'💼 Job'},{w:'SAILOR',c:'💼 Job'},{w:'SINGER',c:'💼 Job'},{w:'TAILOR',c:'💼 Job'},{w:'WAITER',c:'💼 Job'},{w:'CAPTAIN',c:'💼 Job'},{w:'DENTIST',c:'💼 Job'},{w:'PAINTER',c:'💼 Job'},{w:'SOLDIER',c:'💼 Job'},{w:'TEACHER',c:'💼 Job'},{w:'BUILDER',c:'💼 Job'},{w:'PLUMBER',c:'💼 Job'},{w:'WONDER',c:'😊 Emotion'},{w:'DESIRE',c:'😊 Emotion'},{w:'SORROW',c:'😊 Emotion'},{w:'RELIEF',c:'😊 Emotion'},{w:'DISMAY',c:'😊 Emotion'},{w:'DELIGHT',c:'😊 Emotion'},{w:'COURAGE',c:'😊 Emotion'},{w:'DESPAIR',c:'😊 Emotion'},{w:'PASSION',c:'😊 Emotion'},{w:'SADNESS',c:'😊 Emotion'},{w:'BREEZE',c:'🌦️ Weather'},{w:'CLOUDY',c:'🌦️ Weather'},{w:'DRIZZLE',c:'🌦️ Weather'},{w:'SATURN',c:'🪐 Space'},{w:'URANUS',c:'🪐 Space'},{w:'METEOR',c:'🪐 Space'},{w:'GALAXY',c:'🪐 Space'},{w:'NEBULA',c:'🪐 Space'},{w:'PLANET',c:'🪐 Space'},{w:'COSMOS',c:'🪐 Space'},{w:'JUPITER',c:'🪐 Space'},{w:'MERCURY',c:'🪐 Space'},{w:'NEPTUNE',c:'🪐 Space'},{w:'ECLIPSE',c:'🪐 Space'},{w:'MIRROR',c:'🧩 Object'},{w:'CANDLE',c:'🧩 Object'},{w:'BASKET',c:'🧩 Object'},{w:'BOTTLE',c:'🧩 Object'},{w:'BLANKET',c:'🧩 Object'},{w:'PILLOW',c:'🧩 Object'}],
+  hard:[{w:'REINDEER',c:'🐾 Animal'},{w:'SQUIRREL',c:'🐾 Animal'},{w:'ELEPHANT',c:'🐾 Animal'},{w:'FLAMINGO',c:'🐾 Animal'},{w:'KANGAROO',c:'🐾 Animal'},{w:'MONGOOSE',c:'🐾 Animal'},{w:'ANTELOPE',c:'🐾 Animal'},{w:'CROCODILE',c:'🐾 Animal'},{w:'BUTTERFLY',c:'🐾 Animal'},{w:'PORCUPINE',c:'🐾 Animal'},{w:'CHIMPANZEE',c:'🐾 Animal'},{w:'RHINOCEROS',c:'🐾 Animal'},{w:'SALAMANDER',c:'🐾 Animal'},{w:'GRASSHOPPER',c:'🐾 Animal'},{w:'HIPPOPOTAMUS',c:'🐾 Animal'},{w:'MOUNTAIN',c:'🌿 Nature'},{w:'WATERFALL',c:'🌿 Nature'},{w:'AVALANCHE',c:'🌿 Nature'},{w:'WILDERNESS',c:'🌿 Nature'},{w:'PENINSULA',c:'🌿 Nature'},{w:'RAINFOREST',c:'🌿 Nature'},{w:'WILDFLOWER',c:'🌿 Nature'},{w:'CONSTELLATION',c:'🌿 Nature'},{w:'CUCUMBER',c:'🍎 Food'},{w:'MUSHROOM',c:'🍎 Food'},{w:'SANDWICH',c:'🍎 Food'},{w:'CHOCOLATE',c:'🍎 Food'},{w:'STRAWBERRY',c:'🍎 Food'},{w:'WATERMELON',c:'🍎 Food'},{w:'AIRPLANE',c:'🚗 Transport'},{w:'CARRIAGE',c:'🚗 Transport'},{w:'SAILBOAT',c:'🚗 Transport'},{w:'SUBMARINE',c:'🚗 Transport'},{w:'HELICOPTER',c:'🚗 Transport'},{w:'MOTORCYCLE',c:'🚗 Transport'},{w:'SPACESHIP',c:'🚗 Transport'},{w:'AQUARIUM',c:'🏠 Place'},{w:'CATHEDRAL',c:'🏠 Place'},{w:'RESTAURANT',c:'🏠 Place'},{w:'CLARINET',c:'🎵 Music'},{w:'TROMBONE',c:'🎵 Music'},{w:'XYLOPHONE',c:'🎵 Music'},{w:'SAXOPHONE',c:'🎵 Music'},{w:'ORCHESTRA',c:'🎵 Music'},{w:'SYMPHONY',c:'🎵 Music'},{w:'KEYBOARD',c:'💻 Tech'},{w:'INTERNET',c:'💻 Tech'},{w:'SOFTWARE',c:'💻 Tech'},{w:'HARDWARE',c:'💻 Tech'},{w:'COMPUTER',c:'💻 Tech'},{w:'PASSWORD',c:'💻 Tech'},{w:'DOWNLOAD',c:'💻 Tech'},{w:'ALGORITHM',c:'💻 Tech'},{w:'PROCESSOR',c:'💻 Tech'},{w:'SATELLITE',c:'💻 Tech'},{w:'SMARTPHONE',c:'💻 Tech'},{w:'TECHNOLOGY',c:'💻 Tech'},{w:'GEOMETRY',c:'📚 Knowledge'},{w:'LANGUAGE',c:'📚 Knowledge'},{w:'PROFESSOR',c:'📚 Knowledge'},{w:'CHEMISTRY',c:'📚 Knowledge'},{w:'GEOGRAPHY',c:'📚 Knowledge'},{w:'KNOWLEDGE',c:'📚 Knowledge'},{w:'ASTRONOMY',c:'📚 Knowledge'},{w:'EDUCATION',c:'📚 Knowledge'},{w:'PHILOSOPHY',c:'📚 Knowledge'},{w:'UNIVERSITY',c:'📚 Knowledge'},{w:'DICTIONARY',c:'📚 Knowledge'},{w:'MATHEMATICS',c:'📚 Knowledge'},{w:'PSYCHOLOGY',c:'📚 Knowledge'},{w:'ENCYCLOPEDIA',c:'📚 Knowledge'},{w:'GENEROUS',c:'✨ Adjective'},{w:'PEACEFUL',c:'✨ Adjective'},{w:'SPLENDID',c:'✨ Adjective'},{w:'GRACEFUL',c:'✨ Adjective'},{w:'LUMINOUS',c:'✨ Adjective'},{w:'ENORMOUS',c:'✨ Adjective'},{w:'BEAUTIFUL',c:'✨ Adjective'},{w:'DANGEROUS',c:'✨ Adjective'},{w:'WONDERFUL',c:'✨ Adjective'},{w:'DELICIOUS',c:'✨ Adjective'},{w:'MARVELOUS',c:'✨ Adjective'},{w:'MYSTERIOUS',c:'✨ Adjective'},{w:'MAGNIFICENT',c:'✨ Adjective'},{w:'EXTRAORDINARY',c:'✨ Adjective'},{w:'SORCERER',c:'🐉 Fantasy'},{w:'ENCHANTER',c:'🐉 Fantasy'},{w:'MINOTAUR',c:'🐉 Fantasy'},{w:'WEREWOLF',c:'🐉 Fantasy'},{w:'SORCERESS',c:'🐉 Fantasy'},{w:'CLIMBING',c:'⚽ Sport'},{w:'FOOTBALL',c:'⚽ Sport'},{w:'BASEBALL',c:'⚽ Sport'},{w:'SWIMMING',c:'⚽ Sport'},{w:'MARATHON',c:'⚽ Sport'},{w:'WRESTLING',c:'⚽ Sport'},{w:'BADMINTON',c:'⚽ Sport'},{w:'BASKETBALL',c:'⚽ Sport'},{w:'VOLLEYBALL',c:'⚽ Sport'},{w:'GYMNASTICS',c:'⚽ Sport'},{w:'SNOWBOARDING',c:'⚽ Sport'},{w:'LAVENDER',c:'🌈 Color'},{w:'TURQUOISE',c:'🌈 Color'},{w:'ENGINEER',c:'💼 Job'},{w:'MUSICIAN',c:'💼 Job'},{w:'REPORTER',c:'💼 Job'},{w:'DETECTIVE',c:'💼 Job'},{w:'ARCHITECT',c:'💼 Job'},{w:'SCIENTIST',c:'💼 Job'},{w:'CARPENTER',c:'💼 Job'},{w:'ASTRONAUT',c:'💼 Job'},{w:'FIREFIGHTER',c:'💼 Job'},{w:'ELECTRICIAN',c:'💼 Job'},{w:'PHOTOGRAPHER',c:'💼 Job'},{w:'GRATITUDE',c:'😊 Emotion'},{w:'CURIOSITY',c:'😊 Emotion'},{w:'HAPPINESS',c:'😊 Emotion'},{w:'JEALOUSY',c:'😊 Emotion'},{w:'EXCITEMENT',c:'😊 Emotion'},{w:'LONELINESS',c:'😊 Emotion'},{w:'ENTHUSIASM',c:'😊 Emotion'},{w:'BLIZZARD',c:'🌦️ Weather'},{w:'HUMIDITY',c:'🌦️ Weather'},{w:'LIGHTNING',c:'🌦️ Weather'},{w:'HURRICANE',c:'🌦️ Weather'},{w:'OVERCAST',c:'🌦️ Weather'},{w:'TEMPERATURE',c:'🌦️ Weather'},{w:'ASTEROID',c:'🪐 Space'},{w:'UNIVERSE',c:'🪐 Space'},{w:'TELESCOPE',c:'🪐 Space'},{w:'SPACECRAFT',c:'🪐 Space'},{w:'UMBRELLA',c:'🧩 Object'},{w:'TELEPHONE',c:'🧩 Object'},{w:'CALCULATOR',c:'🧩 Object'},{w:'BINOCULARS',c:'🧩 Object'}]},
+  pl:{easy:[{w:'KOT',c:'🐾 Zwierzę'},{w:'PIES',c:'🐾 Zwierzę'},{w:'LEW',c:'🐾 Zwierzę'},{w:'SOWA',c:'🐾 Zwierzę'},{w:'BYK',c:'🐾 Zwierzę'},{w:'OSA',c:'🐾 Zwierzę'},{w:'KURA',c:'🐾 Zwierzę'},{w:'KOZA',c:'🐾 Zwierzę'},{w:'OWCA',c:'🐾 Zwierzę'},{w:'WILK',c:'🐾 Zwierzę'},{w:'LIS',c:'🐾 Zwierzę'},{w:'MYSZ',c:'🐾 Zwierzę'},{w:'SLON',c:'🐾 Zwierzę'},{w:'MALPA',c:'🐾 Zwierzę'},{w:'ZABA',c:'🐾 Zwierzę'},{w:'JEZ',c:'🐾 Zwierzę'},{w:'ORZEL',c:'🐾 Zwierzę'},{w:'SOKOL',c:'🐾 Zwierzę'},{w:'KOGUT',c:'🐾 Zwierzę'},{w:'GES',c:'🐾 Zwierzę'},{w:'OSIOL',c:'🐾 Zwierzę'},{w:'PTAK',c:'🐾 Zwierzę'},{w:'RYBA',c:'🐾 Zwierzę'},{w:'REKIN',c:'🐾 Zwierzę'},{w:'MOTYL',c:'🐾 Zwierzę'},{w:'WAZ',c:'🐾 Zwierzę'},{w:'ZOLW',c:'🐾 Zwierzę'},{w:'PANDA',c:'🐾 Zwierzę'},{w:'NIEBO',c:'🌿 Natura'},{w:'MORZE',c:'🌿 Natura'},{w:'RZEKA',c:'🌿 Natura'},{w:'GORA',c:'🌿 Natura'},{w:'LAS',c:'🌿 Natura'},{w:'KWIAT',c:'🌿 Natura'},{w:'TRAWA',c:'🌿 Natura'},{w:'LISC',c:'🌿 Natura'},{w:'SNIEG',c:'🌿 Natura'},{w:'WIATR',c:'🌿 Natura'},{w:'BURZA',c:'🌿 Natura'},{w:'TECZA',c:'🌿 Natura'},{w:'WYSPA',c:'🌿 Natura'},{w:'SKALA',c:'🌿 Natura'},{w:'FALA',c:'🌿 Natura'},{w:'POLE',c:'🌿 Natura'},{w:'PLAZA',c:'🌿 Natura'},{w:'OGROD',c:'🌿 Natura'},{w:'JAJKO',c:'🍎 Jedzenie'},{w:'CHLEB',c:'🍎 Jedzenie'},{w:'MLEKO',c:'🍎 Jedzenie'},{w:'SER',c:'🍎 Jedzenie'},{w:'MIESO',c:'🍎 Jedzenie'},{w:'RYZ',c:'🍎 Jedzenie'},{w:'ZUPA',c:'🍎 Jedzenie'},{w:'TORT',c:'🍎 Jedzenie'},{w:'ARBUZ',c:'🍎 Jedzenie'},{w:'BANAN',c:'🍎 Jedzenie'},{w:'LODY',c:'🍎 Jedzenie'},{w:'MIOD',c:'🍎 Jedzenie'},{w:'SOL',c:'🍎 Jedzenie'},{w:'MAKA',c:'🍎 Jedzenie'},{w:'MASLO',c:'🍎 Jedzenie'},{w:'OLEJ',c:'🍎 Jedzenie'},{w:'WINO',c:'🍎 Jedzenie'},{w:'PIWO',c:'🍎 Jedzenie'},{w:'KAWA',c:'🍎 Jedzenie'},{w:'LODZ',c:'🚗 Transport'},{w:'ROWER',c:'🚗 Transport'},{w:'METRO',c:'🚗 Transport'},{w:'SANIE',c:'🚗 Transport'},{w:'PROM',c:'🚗 Transport'},{w:'DOM',c:'🏠 Miejsce'},{w:'ZAMEK',c:'🏠 Miejsce'},{w:'PALAC',c:'🏠 Miejsce'},{w:'TEATR',c:'🏠 Miejsce'},{w:'HOTEL',c:'🏠 Miejsce'},{w:'SKLEP',c:'🏠 Miejsce'},{w:'RYNEK',c:'🏠 Miejsce'},{w:'PARK',c:'🏠 Miejsce'},{w:'WIEZA',c:'🏠 Miejsce'},{w:'MOST',c:'🏠 Miejsce'},{w:'TUNEL',c:'🏠 Miejsce'},{w:'WIES',c:'🏠 Miejsce'},{w:'CHATA',c:'🏠 Miejsce'},{w:'PORT',c:'🏠 Miejsce'},{w:'ULICA',c:'🏠 Miejsce'},{w:'POKOJ',c:'🏠 Miejsce'},{w:'NUTA',c:'🎵 Muzyka'},{w:'RYTM',c:'🎵 Muzyka'},{w:'BEBEN',c:'🎵 Muzyka'},{w:'FLET',c:'🎵 Muzyka'},{w:'HARFA',c:'🎵 Muzyka'},{w:'CHOR',c:'🎵 Muzyka'},{w:'EKRAN',c:'💻 Technologia'},{w:'ROBOT',c:'💻 Technologia'},{w:'SIEC',c:'💻 Technologia'},{w:'PLIK',c:'💻 Technologia'},{w:'HASLO',c:'💻 Technologia'},{w:'UCZEN',c:'📚 Edukacja'},{w:'NAUKA',c:'📚 Edukacja'},{w:'DUZY',c:'✨ Przymiotnik'},{w:'MALY',c:'✨ Przymiotnik'},{w:'DOBRY',c:'✨ Przymiotnik'},{w:'ZLY',c:'✨ Przymiotnik'},{w:'WOLNY',c:'✨ Przymiotnik'},{w:'ZIMNY',c:'✨ Przymiotnik'},{w:'MADRY',c:'✨ Przymiotnik'},{w:'HOJNY',c:'✨ Przymiotnik'},{w:'SILNY',c:'✨ Przymiotnik'},{w:'JASNY',c:'✨ Przymiotnik'},{w:'CZULY',c:'✨ Przymiotnik'},{w:'SMOK',c:'🐉 Fantazja'},{w:'DUCH',c:'🐉 Fantazja'},{w:'ELF',c:'🐉 Fantazja'},{w:'PILKA',c:'⚽ Sport'},{w:'TENIS',c:'⚽ Sport'},{w:'BOKS',c:'⚽ Sport'},{w:'JUDO',c:'⚽ Sport'},{w:'JAZDA',c:'⚽ Sport'},{w:'RUGBY',c:'⚽ Sport'},{w:'ZOLTY',c:'🌈 Kolor'},{w:'BIALY',c:'🌈 Kolor'},{w:'SZARY',c:'🌈 Kolor'},{w:'ZLOTY',c:'🌈 Kolor'},{w:'PILOT',c:'💼 Zawod'},{w:'AKTOR',c:'💼 Zawod'},{w:'POETA',c:'💼 Zawod'},{w:'MUZYK',c:'💼 Zawod'},{w:'DUMA',c:'😊 Emocja'},{w:'GNIEW',c:'😊 Emocja'},{w:'PASJA',c:'😊 Emocja'},{w:'GRAD',c:'🌦️ Pogoda'},{w:'MGLA',c:'🌦️ Pogoda'},{w:'SZRON',c:'🌦️ Pogoda'},{w:'MARS',c:'🪐 Kosmos'}],
+  medium:[{w:'ZYRAFA',c:'🐾 Zwierzę'},{w:'BOCIAN',c:'🐾 Zwierzę'},{w:'KACZKA',c:'🐾 Zwierzę'},{w:'SWINIA',c:'🐾 Zwierzę'},{w:'DELFIN',c:'🐾 Zwierzę'},{w:'PAPUGA',c:'🐾 Zwierzę'},{w:'MROWKA',c:'🐾 Zwierzę'},{w:'SLIMAK',c:'🐾 Zwierzę'},{w:'LAMPART',c:'🐾 Zwierzę'},{w:'TYGRYS',c:'🐾 Zwierzę'},{w:'SLONCE',c:'🌿 Natura'},{w:'KSIEZYC',c:'🌿 Natura'},{w:'JEZIORO',c:'🌿 Natura'},{w:'WZGORZE',c:'🌿 Natura'},{w:'DRZEWO',c:'🌿 Natura'},{w:'KORZEN',c:'🌿 Natura'},{w:'DESZCZ',c:'🌿 Natura'},{w:'CHMURA',c:'🌿 Natura'},{w:'DOLINA',c:'🌿 Natura'},{w:'WULKAN',c:'🌿 Natura'},{w:'PIASEK',c:'🌿 Natura'},{w:'ZIEMIA',c:'🌿 Natura'},{w:'GWIAZDA',c:'🌿 Natura'},{w:'POMIDOR',c:'🍎 Jedzenie'},{w:'CEBULA',c:'🍎 Jedzenie'},{w:'MARCHEW',c:'🍎 Jedzenie'},{w:'SALATKA',c:'🍎 Jedzenie'},{w:'CIASTO',c:'🍎 Jedzenie'},{w:'JABLKO',c:'🍎 Jedzenie'},{w:'GRUSZKA',c:'🍎 Jedzenie'},{w:'SLIWKA',c:'🍎 Jedzenie'},{w:'WISNIA',c:'🍎 Jedzenie'},{w:'CYTRYNA',c:'🍎 Jedzenie'},{w:'CUKIER',c:'🍎 Jedzenie'},{w:'PIEPRZ',c:'🍎 Jedzenie'},{w:'HERBATA',c:'🍎 Jedzenie'},{w:'CIASTKO',c:'🍎 Jedzenie'},{w:'POCIAG',c:'🚗 Transport'},{w:'SAMOLOT',c:'🚗 Transport'},{w:'STATEK',c:'🚗 Transport'},{w:'AUTOBUS',c:'🚗 Transport'},{w:'TRAMWAJ',c:'🚗 Transport'},{w:'TRAKTOR',c:'🚗 Transport'},{w:'RAKIETA',c:'🚗 Transport'},{w:'SZKOLA',c:'🏠 Miejsce'},{w:'SZPITAL',c:'🏠 Miejsce'},{w:'KOSCIOL',c:'🏠 Miejsce'},{w:'MUZEUM',c:'🏠 Miejsce'},{w:'MIASTO',c:'🏠 Miejsce'},{w:'KATEDRA',c:'🏠 Miejsce'},{w:'STADION',c:'🏠 Miejsce'},{w:'FABRYKA',c:'🏠 Miejsce'},{w:'MELODIA',c:'🎵 Muzyka'},{w:'GITARA',c:'🎵 Muzyka'},{w:'TRABKA',c:'🎵 Muzyka'},{w:'KONCERT',c:'🎵 Muzyka'},{w:'KLARNET',c:'🎵 Muzyka'},{w:'TELEFON',c:'💻 Technologia'},{w:'PROGRAM',c:'💻 Technologia'},{w:'MYSZKA',c:'💻 Technologia'},{w:'LAPTOP',c:'💻 Technologia'},{w:'KSIAZKA',c:'📚 Edukacja'},{w:'LEKCJA',c:'📚 Edukacja'},{w:'ZESZYT',c:'📚 Edukacja'},{w:'OLOWEK',c:'📚 Edukacja'},{w:'TABLICA',c:'📚 Edukacja'},{w:'CHEMIA',c:'📚 Edukacja'},{w:'FIZYKA',c:'📚 Edukacja'},{w:'POEZJA',c:'📚 Edukacja'},{w:'SLOWNIK',c:'📚 Edukacja'},{w:'WIEDZA',c:'📚 Edukacja'},{w:'PIEKNY',c:'✨ Przymiotnik'},{w:'BRZYDKI',c:'✨ Przymiotnik'},{w:'SZYBKI',c:'✨ Przymiotnik'},{w:'CIEPLY',c:'✨ Przymiotnik'},{w:'WESOLY',c:'✨ Przymiotnik'},{w:'SMUTNY',c:'✨ Przymiotnik'},{w:'ODWAZNY',c:'✨ Przymiotnik'},{w:'LAGODNY',c:'✨ Przymiotnik'},{w:'CIEKAWY',c:'✨ Przymiotnik'},{w:'OGROMNY',c:'✨ Przymiotnik'},{w:'PYSZNY',c:'✨ Przymiotnik'},{w:'WROZKA',c:'🐉 Fantazja'},{w:'OLBRZYM',c:'🐉 Fantazja'},{w:'SKRZAT',c:'🐉 Fantazja'},{w:'RYCERZ',c:'🐉 Fantazja'},{w:'WAMPIR',c:'🐉 Fantazja'},{w:'SYRENA',c:'🐉 Fantazja'},{w:'KRASNAL',c:'🐉 Fantazja'},{w:'POTWOR',c:'🐉 Fantazja'},{w:'SZACHY',c:'⚽ Sport'},{w:'MARATON',c:'⚽ Sport'},{w:'ZAPASY',c:'⚽ Sport'},{w:'ZIELONY',c:'🌈 Kolor'},{w:'CZARNY',c:'🌈 Kolor'},{w:'ROZOWY',c:'🌈 Kolor'},{w:'BRAZOWY',c:'🌈 Kolor'},{w:'SREBRNY',c:'🌈 Kolor'},{w:'LEKARZ',c:'💼 Zawod'},{w:'KUCHARZ',c:'💼 Zawod'},{w:'PIEKARZ',c:'💼 Zawod'},{w:'KRAWIEC',c:'💼 Zawod'},{w:'MALARZ',c:'💼 Zawod'},{w:'TANCERZ',c:'💼 Zawod'},{w:'PISARZ',c:'💼 Zawod'},{w:'SEDZIA',c:'💼 Zawod'},{w:'PRAWNIK',c:'💼 Zawod'},{w:'STOLARZ',c:'💼 Zawod'},{w:'STRAZAK',c:'💼 Zawod'},{w:'RADOSC',c:'😊 Emocja'},{w:'STRACH',c:'😊 Emocja'},{w:'MILOSC',c:'😊 Emocja'},{w:'SMUTEK',c:'😊 Emocja'},{w:'ODWAGA',c:'😊 Emocja'},{w:'ROZPACZ',c:'😊 Emocja'},{w:'WICHURA',c:'🌦️ Pogoda'},{w:'ZAMIEC',c:'🌦️ Pogoda'},{w:'GRZMOT',c:'🌦️ Pogoda'},{w:'PLANETA',c:'🪐 Kosmos'},{w:'KOMETA',c:'🪐 Kosmos'}],
+  hard:[{w:'WIEWIORKA',c:'🐾 Zwierzę'},{w:'SZCZENIAK',c:'🐾 Zwierzę'},{w:'WIELORYB',c:'🐾 Zwierzę'},{w:'PSZCZOLA',c:'🐾 Zwierzę'},{w:'NIEDZWIEDZ',c:'🐾 Zwierzę'},{w:'KROKODYL',c:'🐾 Zwierzę'},{w:'JASZCZURKA',c:'🐾 Zwierzę'},{w:'JASKINIA',c:'🌿 Natura'},{w:'PUSTYNIA',c:'🌿 Natura'},{w:'LODOWIEC',c:'🌿 Natura'},{w:'WODOSPAD',c:'🌿 Natura'},{w:'ZIEMNIAK',c:'🍎 Jedzenie'},{w:'TRUSKAWKA',c:'🍎 Jedzenie'},{w:'WINOGRONA',c:'🍎 Jedzenie'},{w:'POMARANCZA',c:'🍎 Jedzenie'},{w:'CZEKOLADA',c:'🍎 Jedzenie'},{w:'NATURALNY',c:'🍎 Jedzenie'},{w:'SAMOCHOD',c:'🚗 Transport'},{w:'MOTOCYKL',c:'🚗 Transport'},{w:'CIEZAROWKA',c:'🚗 Transport'},{w:'HELIKOPTER',c:'🚗 Transport'},{w:'TROLEJBUS',c:'🚗 Transport'},{w:'BIBLIOTEKA',c:'🏠 Miejsce'},{w:'RESTAURACJA',c:'🏠 Miejsce'},{w:'TWIERDZA',c:'🏠 Miejsce'},{w:'LOTNISKO',c:'🏠 Miejsce'},{w:'LATARNIA',c:'🏠 Miejsce'},{w:'PIOSENKA',c:'🎵 Muzyka'},{w:'SKRZYPCE',c:'🎵 Muzyka'},{w:'FORTEPIAN',c:'🎵 Muzyka'},{w:'SYMFONIA',c:'🎵 Muzyka'},{w:'ORKIESTRA',c:'🎵 Muzyka'},{w:'HARMONIA',c:'🎵 Muzyka'},{w:'AKORDEON',c:'🎵 Muzyka'},{w:'WIOLONCZELA',c:'🎵 Muzyka'},{w:'SAKSOFON',c:'🎵 Muzyka'},{w:'KOMPUTER',c:'💻 Technologia'},{w:'INTERNET',c:'💻 Technologia'},{w:'KLAWIATURA',c:'💻 Technologia'},{w:'SATELITA',c:'💻 Technologia'},{w:'APLIKACJA',c:'💻 Technologia'},{w:'PROCESOR',c:'💻 Technologia'},{w:'TECHNOLOGIA',c:'💻 Technologia'},{w:'NAUCZYCIEL',c:'📚 Edukacja'},{w:'UNIWERSYTET',c:'📚 Edukacja'},{w:'MATEMATYKA',c:'📚 Edukacja'},{w:'HISTORIA',c:'📚 Edukacja'},{w:'GEOGRAFIA',c:'📚 Edukacja'},{w:'BIOLOGIA',c:'📚 Edukacja'},{w:'GRAMATYKA',c:'📚 Edukacja'},{w:'ASTRONOMIA',c:'📚 Edukacja'},{w:'FILOZOFIA',c:'📚 Edukacja'},{w:'EDUKACJA',c:'📚 Edukacja'},{w:'GEOMETRIA',c:'📚 Edukacja'},{w:'ELEGANCKI',c:'✨ Przymiotnik'},{w:'SPOKOJNY',c:'✨ Przymiotnik'},{w:'WSPANIALY',c:'✨ Przymiotnik'},{w:'TAJEMNICZY',c:'✨ Przymiotnik'},{w:'NIEZWYKLY',c:'✨ Przymiotnik'},{w:'SZCZESLIWY',c:'✨ Przymiotnik'},{w:'WYTWORNY',c:'✨ Przymiotnik'},{w:'DELIKATNY',c:'✨ Przymiotnik'},{w:'CZARODZIEJ',c:'🐉 Fantazja'},{w:'CZAROWNICA',c:'🐉 Fantazja'},{w:'WIEDZMIN',c:'🐉 Fantazja'},{w:'JEDNOROZEC',c:'🐉 Fantazja'},{w:'PLYWANIE',c:'⚽ Sport'},{w:'NARCIARSTWO',c:'⚽ Sport'},{w:'KOLARSTWO',c:'⚽ Sport'},{w:'BIEGANIE',c:'⚽ Sport'},{w:'KOSZYKOWKA',c:'⚽ Sport'},{w:'SIATKOWKA',c:'⚽ Sport'},{w:'GIMNASTYKA',c:'⚽ Sport'},{w:'SZERMIERKA',c:'⚽ Sport'},{w:'LYZWIARSTWO',c:'⚽ Sport'},{w:'STRZELECTWO',c:'⚽ Sport'},{w:'WSPINACZKA',c:'⚽ Sport'},{w:'CZERWONY',c:'🌈 Kolor'},{w:'NIEBIESKI',c:'🌈 Kolor'},{w:'FIOLETOWY',c:'🌈 Kolor'},{w:'POMARANCZOWY',c:'🌈 Kolor'},{w:'TURKUSOWY',c:'🌈 Kolor'},{w:'GRANATOWY',c:'🌈 Kolor'},{w:'KIEROWCA',c:'💼 Zawod'},{w:'PIOSENKARZ',c:'💼 Zawod'},{w:'PIELEGNIARKA',c:'💼 Zawod'},{w:'INZYNIER',c:'💼 Zawod'},{w:'ARCHITEKT',c:'💼 Zawod'},{w:'NAUKOWIEC',c:'💼 Zawod'},{w:'HYDRAULIK',c:'💼 Zawod'},{w:'ELEKTRYK',c:'💼 Zawod'},{w:'FOTOGRAF',c:'💼 Zawod'},{w:'ASTRONAUTA',c:'💼 Zawod'},{w:'MARYNARZ',c:'💼 Zawod'},{w:'ZOLNIERZ',c:'💼 Zawod'},{w:'POLICJANT',c:'💼 Zawod'},{w:'OGRODNIK',c:'💼 Zawod'},{w:'NADZIEJA',c:'😊 Emocja'},{w:'ZAUFANIE',c:'😊 Emocja'},{w:'ZDUMIENIE',c:'😊 Emocja'},{w:'PRAGNIENIE',c:'😊 Emocja'},{w:'WDZIECZNOSC',c:'😊 Emocja'},{w:'CIEKAWOSC',c:'😊 Emocja'},{w:'SZCZESCIE',c:'😊 Emocja'},{w:'SAMOTNOSC',c:'😊 Emocja'},{w:'ENTUZJAZM',c:'😊 Emocja'},{w:'ZAZDROSC',c:'😊 Emocja'},{w:'BLYSKAWICA',c:'🌦️ Pogoda'},{w:'WILGOTNOSC',c:'🌦️ Pogoda'},{w:'TEMPERATURA',c:'🌦️ Pogoda'},{w:'GALAKTYKA',c:'🪐 Kosmos'},{w:'MGLAWICA',c:'🪐 Kosmos'},{w:'WSZECHSWIAT',c:'🪐 Kosmos'},{w:'ZACMIENIE',c:'🪐 Kosmos'},{w:'ASTEROIDA',c:'🪐 Kosmos'},{w:'TELESKOP',c:'🪐 Kosmos'},{w:'METEORYT',c:'🪐 Kosmos'}]}
 };
 const ALPHA={ro:'AĂÂBCDEFGHIÎJKLMNOPQRSȘTȚUVWXYZ'.split(''),en:'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split(''),pl:'AĄBCĆDEĘFGHIJKLŁMNŃOÓPRSŚTUWYZŹŻ'.split('')};
 
@@ -750,7 +750,23 @@ function checkWord(){const w=document.getElementById('in-word').value.toUpperCas
 function startMp(){const w=document.getElementById('in-word').value.toUpperCase().trim();if(!w){alert('Introdu un cuvânt!');return;}mode='mp';word=w;category=detectCat(w);document.getElementById('gsb').classList.add('show');document.getElementById('gs-n1').textContent=mpNames[0];document.getElementById('gs-n2').textContent=mpNames[1];updateMpSb();initGame();showScreen('s-game');}
 
 // ══════════ GAME ══════════
-function startSingle(){mode='single';const list=WORDS[lang][diff];const c=list[Math.floor(Math.random()*list.length)];word=c.w;category=c.c;document.getElementById('gsb').classList.remove('show');initGame();showScreen('s-game');}
+// ── No-repeat word bag: shuffles a list and serves each word once before reshuffling ──
+const wordBags = {};
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function nextWord(lang, diff){
+  const key = lang + '|' + diff;
+  const list = WORDS[lang][diff];
+  if(!wordBags[key] || wordBags[key].length === 0){
+    wordBags[key] = shuffle(list.map((_,i)=>i));   // refill with all indices, shuffled
+    // avoid the very first word repeating the last one shown
+    if(wordBags[key].length > 1 && list[wordBags[key][wordBags[key].length-1]].w === word){
+      [wordBags[key][0], wordBags[key][wordBags[key].length-1]] =
+        [wordBags[key][wordBags[key].length-1], wordBags[key][0]];
+    }
+  }
+  return list[wordBags[key].pop()];
+}
+function startSingle(){mode='single';const c=nextWord(lang,diff);word=c.w;category=c.c;document.getElementById('gsb').classList.remove('show');initGame();showScreen('s-game');}
 
 function initGame(){
   guessed=[];wrong=[];
@@ -1005,7 +1021,7 @@ window.addEventListener('load', () => {
 
     <!-- PANEL -->
     <div id="admin-panel" style="display:none;">
-      <p style="color:var(--muted);font-size:0.82rem;margin-bottom:14px;">Upload custom MP3 tracks per theme. Stored in browser IndexedDB — survives page refreshes.</p>
+      <p style="color:var(--muted);font-size:0.82rem;margin-bottom:14px;">Upload MP3s here to preview them on THIS device only (saved in your browser). To make music play for EVERY user, commit the files to a /music/ folder in your GitHub repo named fengshui.mp3, ocean.mp3, fire.mp3, galaxy.mp3, neon.mp3, autumn.mp3, ice.mp3, sakura.mp3, retro.mp3, zen.mp3.</p>
       <div class="idb-status" id="idb-status">⏳ Checking storage...</div>
       <div style="margin-top:14px;" id="admin-tracks-list"></div>
       <button class="btn btn-secondary" onclick="clearAllTracks()" style="margin-top:16px;font-size:0.8rem;">🗑️ Clear All Custom Tracks</button>
@@ -1079,134 +1095,115 @@ async function getAllStoredThemes(){
   });
 }
 
-// ── Custom audio elements per theme ──
-const customAudio = {};
+// ── Single active audio manager (prevents overlap, unlocks audio on tap) ──
+let activeTrack = null;   // current file/track control {stop()}
+let audioGen = 0;         // generation token: only the newest request may start sound
 
-async function playCustomTrack(theme){
-  try {
-    const track = await getTrack(theme);
-    if(!track) return false;
+// Per-theme music files served from the repo to ALL users (commit them to a /music/ folder
+// next to index.html). Filenames must match exactly. Missing files fall back to generated music.
+const BUNDLED_MUSIC = {
+  fengshui:'music/fengshui.mp3', ocean:'music/ocean.mp3', fire:'music/fire.mp3',
+  galaxy:'music/galaxy.mp3', neon:'music/neon.mp3', autumn:'music/autumn.mp3',
+  ice:'music/ice.mp3', sakura:'music/sakura.mp3', retro:'music/retro.mp3', zen:'music/zen.mp3'
+};
 
-    // Stop ALL existing audio first
-    Object.keys(customAudio).forEach(t => {
-      if(customAudio[t]){
-        try{ 
-          customAudio[t].pause(); 
-          customAudio[t].currentTime = 0;
-          if(customAudio[t]._url) URL.revokeObjectURL(customAudio[t]._url);
-        }catch(e){}
-      }
-    });
-
-    // Use Web Audio API for better mobile compatibility
-    initAudio(); // ensure audioCtx exists
-    
-    const arrayBuffer = track.data.slice(0); // clone buffer
-    let audioBuffer;
-    try {
-      audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-    } catch(e) {
-      // Fallback to HTML Audio for unsupported formats
-      const blob = new Blob([track.data], { type: track.type || 'audio/mpeg' });
-      const url = URL.createObjectURL(blob);
-      const audio = new Audio(url);
-      audio._url = url;
-      audio.loop = true;
-      audio.volume = 0.3;
-      customAudio[theme] = audio;
-      await audio.play();
-      return true;
-    }
-
-    // Create looping buffer source via Web Audio (works on mobile)
-    const source = audioCtx.createBufferSource();
-    const gainNode = audioCtx.createGain();
-    source.buffer = audioBuffer;
-    source.loop = true;
-    gainNode.gain.value = 0.3;
-    source.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-    source.start(0);
-
-    // Store as fake audio element with stop method
-    customAudio[theme] = {
-      _source: source,
-      _gain: gainNode,
-      pause: function(){ try{ source.stop(); }catch(e){} },
-      currentTime: 0,
-      _isWebAudio: true
-    };
-    return true;
-
-  } catch(e) {
-    console.warn('Custom track error:', e);
-    return false;
-  }
+// Must run synchronously inside a tap so the browser unlocks audio for the session.
+function unlockAudio(){
+  initAudio();
+  if(audioCtx.state === 'suspended'){ audioCtx.resume().catch(()=>{}); }
 }
 
-function stopCustomTrack(theme){
-  if(customAudio[theme]){
-    customAudio[theme].pause();
-    customAudio[theme].currentTime = 0;
-  }
+function killActiveTrack(){
+  if(activeTrack){ try{ activeTrack.stop(); }catch(e){} activeTrack = null; }
 }
 
-// ── MASTER STOP — kills ALL audio sources ──
+// ── MASTER STOP — kills generated melody AND any file track ──
 function stopAllAudio(){
-  // Stop Web Audio API generated music
   if(melodyInterval){ clearInterval(melodyInterval); melodyInterval = null; }
   musicNodes.forEach(n=>{ try{ n.stop(); }catch(e){} });
   musicNodes = [];
-  // Stop ALL custom MP3 audio elements
-  Object.keys(customAudio).forEach(t => {
-    if(customAudio[t]){
-      try{ customAudio[t].pause(); customAudio[t].currentTime = 0; }catch(e){}
-    }
-  });
+  killActiveTrack();
   musicOn = false;
   updateMusicBtn(false);
 }
 
-// ── Play correct audio for current theme ──
-async function startMusicWithCustom(){
-  stopAllAudio(); // Always stop everything first
-  const hasCustom = await playCustomTrack(currentTheme);
-  if(hasCustom){
-    musicOn = true;
-    updateMusicBtn(true);
+// Play an MP3 (as ArrayBuffer) through the unlocked Web Audio context, looping.
+// Routing through the context avoids the autoplay block that <audio> elements hit
+// after an async step. Returns a control object {stop()}, or null on failure.
+async function startBuffer(arrayBuffer, myGen){
+  let buf;
+  try { buf = await audioCtx.decodeAudioData(arrayBuffer.slice(0)); } // slice = keep original intact
+  catch(e){ return null; }
+  if(myGen !== audioGen) return null;
+  const src = audioCtx.createBufferSource();
+  const g = audioCtx.createGain();
+  g.gain.value = 0.3;
+  src.buffer = buf; src.loop = true;
+  src.connect(g); g.connect(audioCtx.destination);
+  try { src.start(0); } catch(e){ return null; }
+  return { stop(){ try{ src.stop(); }catch(e){} } };
+}
+
+// Track stored in THIS browser's IndexedDB (admin's own device only).
+async function playStoredTrack(theme, myGen){
+  let track;
+  try { track = await getTrack(theme); } catch(e){ return null; }
+  if(!track || myGen !== audioGen) return null;
+  return await startBuffer(track.data, myGen);
+}
+
+// Shared track fetched from the repo (heard by every user).
+async function playFileUrl(url, myGen){
+  try {
+    const resp = await fetch(url);
+    if(!resp.ok) return null;
+    const ab = await resp.arrayBuffer();
+    if(myGen !== audioGen) return null;
+    return await startBuffer(ab, myGen);
+  } catch(e){ return null; }
+}
+
+// Decide and play the right audio for a theme.
+// Priority: this-device upload  →  shared repo file  →  generated music.
+async function playThemeAudio(theme){
+  unlockAudio();                       // resume context within the tap
+  const myGen = ++audioGen;            // claim the newest slot
+  if(melodyInterval){ clearInterval(melodyInterval); melodyInterval = null; }
+  musicNodes.forEach(n=>{ try{ n.stop(); }catch(e){} });
+  musicNodes = [];
+  killActiveTrack();
+
+  let ctrl = await playStoredTrack(theme, myGen);                 // 1. admin upload (this device)
+  if(!ctrl && BUNDLED_MUSIC[theme])                               // 2. shared repo file (everyone)
+    ctrl = await playFileUrl(BUNDLED_MUSIC[theme], myGen);
+
+  if(myGen !== audioGen){ if(ctrl) ctrl.stop(); return; }         // superseded while awaiting
+
+  if(ctrl){
+    activeTrack = ctrl;
+    musicOn = true; updateMusicBtn(true);
   } else {
-    startMusic(); // Web Audio fallback
+    startMusic();                                                 // 3. generated fallback
   }
 }
 
-// ── Override toggleMusic ──
+// ── Toggle ──
 window.toggleMusic = async function(){
-  if(musicOn){
-    stopAllAudio();
-  } else {
-    await startMusicWithCustom();
-  }
+  if(musicOn){ stopAllAudio(); }
+  else { await playThemeAudio(currentTheme); }
 };
 
-// ── MAIN applyTheme override — handles BOTH visual + audio ──
+// ── MAIN applyTheme — visual + audio, with correct restart on theme change ──
 window.applyTheme = async function(id){
-  // 1. Visual update
+  const wasPlaying = musicOn;          // capture BEFORE we stop anything (fixes the auto-mute bug)
   currentTheme = id;
   document.body.className = 'theme-' + id;
-  document.querySelectorAll('.theme-card').forEach((c,i) => 
+  document.querySelectorAll('.theme-card').forEach((c,i) =>
     c.classList.toggle('sel', THEMES[i].id === id));
   buildBgFx(id);
-
-  // 2. Audio switch — always stop everything first
   stopAllAudio();
-  
-  // 3. If music was on, restart for new theme
-  if(musicOn || document.getElementById('music-btn').classList.contains('music-on')){
-    musicOn = false; // reset flag so startMusicWithCustom works
-    await startMusicWithCustom();
-  }
+  if(wasPlaying){ await playThemeAudio(id); }   // restart in the NEW theme
 };
-
 // ══════════ ADMIN PANEL ══════════
 const ADMIN_PASSWORD = 'wg2026admin';
 const THEMES_LIST = [
@@ -1284,10 +1281,9 @@ async function handleUpload(theme, input){
     statusEl.className = 'track-status';
     // Refresh panel
     setTimeout(initAdminPanel, 500);
-    // If this is the current theme and music is on, switch to custom
+    // If this is the current theme and music is on, switch to the new upload now
     if(theme === currentTheme && musicOn){
-      stopMusic();
-      await playCustomTrack(theme);
+      await playThemeAudio(theme);
     }
   } catch(e) {
     statusEl.textContent = '❌ Error: ' + e.message;
@@ -1296,7 +1292,7 @@ async function handleUpload(theme, input){
 
 async function removeTrack(theme){
   await deleteTrack(theme);
-  stopCustomTrack(theme);
+  if(theme === currentTheme && musicOn){ await playThemeAudio(theme); } // fall back to repo/generated
   initAdminPanel();
 }
 
