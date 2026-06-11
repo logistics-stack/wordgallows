@@ -1833,6 +1833,7 @@ snakeDrawIdle();
 .on-key.bad{background:var(--wrong);color:#fff;border-color:transparent;opacity:1;}
 .on-lives{font-size:1.15rem;letter-spacing:.15em;margin:4px 0;}
 .spec-note{display:inline-block;background:var(--key);border:1px dashed var(--keyborder);border-radius:20px;padding:6px 16px;color:var(--muted);font-size:.85rem;margin-bottom:8px;}
+@keyframes bannerIn{from{opacity:0;transform:translateX(-50%) translateY(-14px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
 </style>
 
 <!-- ══ ONLINE LOBBY ══ -->
@@ -1841,6 +1842,7 @@ snakeDrawIdle();
 <main><div class="on-wrap">
   <div class="mini-title">🌐 <span id="on-title">Online cu Invitație</span></div>
   <div class="mini-sub" id="on-sub">Joacă WordGallows de pe telefoane diferite</div>
+  <div id="on-banner" style="display:none;position:fixed;top:112px;left:50%;transform:translateX(-50%);width:min(92vw,440px);z-index:60;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-radius:14px;padding:13px 16px;font-weight:700;text-align:center;box-shadow:0 6px 22px var(--glow);animation:bannerIn .45s ease-out;"></div>
 
   <!-- step 1: name + create/join -->
   <div id="on-step-start">
@@ -1898,10 +1900,10 @@ snakeDrawIdle();
 // G: după ce creezi proiectul Firebase (vezi ghidul), înlocuiește valorile de mai jos
 // cu cele din consola ta. Aceste chei sunt publice prin design — NU sunt secrete.
 const FIREBASE_CONFIG = {
-  apiKey: "PASTE_API_KEY_AICI",
-  authDomain: "PASTE_PROJECT.firebaseapp.com",
-  databaseURL: "https://PASTE_PROJECT-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "PASTE_PROJECT"
+  apiKey: "AIzaSyDMFoOkgHsHBL3g8tCxZgFe4f8FqUwIeo8",
+  authDomain: "wordgallows.firebaseapp.com",
+  databaseURL: "https://wordgallows-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "wordgallows"
 };
 
 // ── 2. Cârligul de plată (host-pays) ──
@@ -1945,10 +1947,19 @@ function openOnline(){
   applyT3();
   onStep('start');
   document.getElementById('on-start-status').textContent='';
-  showScreen('s-online');
+  const banner=document.getElementById('on-banner');
+  const form=document.getElementById('on-step-start');
   if(!fbConfigured()){
-    document.getElementById('on-start-status').textContent=t3().needCfg;
+    banner.textContent=t3().needCfg;
+    banner.style.display='block';
+    form.style.opacity='0.35';
+    form.style.pointerEvents='none';
+  }else{
+    banner.style.display='none';
+    form.style.opacity='1';
+    form.style.pointerEvents='auto';
   }
+  showScreen('s-online');
 }
 function onStep(step){
   ['start','lobby','choose','game'].forEach(s=>{
