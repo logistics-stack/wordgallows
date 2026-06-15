@@ -2283,38 +2283,25 @@ let accessToken = null;
 async function validateToken(){try{const tok=localStorage.getItem('wg_access_token');if(!tok)return false;const r=await fetch('/api/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:tok})});const j=await r.json();if(j.valid){accessToken=tok;return true;}localStorage.removeItem('wg_access_token');return false;}catch(e){return false;}}
 async function checkout(priceId){try{const r=await fetch('/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({priceId})});const j=await r.json();if(j.url)window.location=j.url;else alert('❌ Checkout failed: '+(j.error||'unknown error'));}catch(e){alert('❌ Error: '+e.message);}}
 validateToken(); 
-// ════════════ FREE TRIAL v1 ════════════
-const TRIAL_DURATION = 120; // 2 minutes in seconds
+// ════════════ FREE TRIAL v2 — ALL GAMES PAID ════════════
+const TRIAL_DURATION = 120;
 let trialActive = false;
 let trialTimeLeft = TRIAL_DURATION;
 let trialInterval = null;
 let trialUsed = false;
 
 function initTrial() {
-  try { 
-    trialUsed = localStorage.getItem('wg_trial_used') === 'true';
-  } catch(e) { 
-    trialUsed = false; 
-  }
-  
-  // If user has valid access token, don't show trial
+  try { trialUsed = localStorage.getItem('wg_trial_used') === 'true'; } catch(e) { trialUsed = false; }
   if (accessToken) return;
-  
-  // If trial was already used, don't start it again
   if (trialUsed) return;
-  
-  // Trial is available
   trialActive = true;
   trialTimeLeft = TRIAL_DURATION;
-  startTrialTimer();
 }
 
 function startTrialTimer() {
   if (trialInterval) clearInterval(trialInterval);
   trialInterval = setInterval(() => {
     trialTimeLeft--;
-    updateTrialDisplay();
-    
     if (trialTimeLeft <= 0) {
       clearInterval(trialInterval);
       endTrial();
@@ -2322,65 +2309,30 @@ function startTrialTimer() {
   }, 1000);
 }
 
-function updateTrialDisplay() {
-  const mins = Math.floor(trialTimeLeft / 60);
-  const secs = trialTimeLeft % 60;
-  const display = `${mins}:${secs.toString().padStart(2, '0')}`;
-  
-  const badges = document.querySelectorAll('[id*="trial"]');
-  badges.forEach(b => {
-    if (b.id === 'trial-badge') {
-      b.textContent = `⏳ Trial: ${display}`;
-      if (trialTimeLeft <= 30) {
-        b.style.color = '#ff6060';
-      }
-    }
-  });
-}
-
 function endTrial() {
   trialActive = false;
-  try { 
-    localStorage.setItem('wg_trial_used', 'true'); 
-  } catch(e) {}
-  
-  // Show paywall
+  try { localStorage.setItem('wg_trial_used', 'true'); } catch(e) {}
   document.getElementById('m-emoji').textContent = '⏳';
-  document.getElementById('m-title').textContent = t3().trialExpired || 'Trial Expired';
-  document.getElementById('m-msg').textContent = t3().trialMsg || 'Your 2-minute trial has ended. Unlock unlimited play!';
+  document.getElementById('m-title').textContent = '⏳ Trial Expired';
+  document.getElementById('m-msg').textContent = 'Your 2-minute free trial ended. Unlock unlimited access!';
   document.getElementById('m-word').textContent = '';
   document.getElementById('m-btn1').textContent = '🔓 Unlock (£1 / 24h)';
-  document.getElementById('m-btn1').onclick = () => {
-    closeModal();
-    showScreen('s-paywall');
-    setPWCurrency('gbp');
-  };
+  document.getElementById('m-btn1').onclick = () => { closeModal(); showScreen('s-paywall'); setPWCurrency('gbp'); };
   document.getElementById('modal').classList.add('show');
 }
 
-// Hook into game start
 const _origShowScreen_trial = showScreen;
 showScreen = function(s) {
-  _origShowScreen_trial(s);
-  if ((s === 's-game' || s === 's-online') && !accessToken && trialActive) {
-    startTrialTimer();
+  if (!accessToken && (s === 's-game' || s === 's-online' || s === 's-ttt' || s === 's-snake')) {
+    if (!trialActive) {
+      showScreen('s-paywall');
+      return;
+    }
+    if (!trialInterval) startTrialTimer();
   }
+  _origShowScreen_trial(s);
 };
 
-// Translations
-const PWL_TRIAL = {
-  ro: { trialExpired: '⏳ Trial-ul a expirat', trialMsg: 'Ai folosit cei 2 minute liberi. Deblochează jocul nelimitat!' },
-  en: { trialExpired: '⏳ Trial Expired', trialMsg: 'Your 2-minute free trial has ended. Unlock unlimited play!' },
-  pl: { trialExpired: '⏳ Okres próbny wygasł', trialMsg: 'Twój 2-minutowy bezpłatny okres próbny się skończył. Odblokuj nieograniczoną grę!' }
-};
-
-function addTrialText(key) {
-  const txt = (PWL_TRIAL[lang] || PWL_TRIAL.ro)[key];
-  if (key === 'trialExpired') document.getElementById('m-title').textContent = txt;
-  if (key === 'trialMsg') document.getElementById('m-msg').textContent = txt;
-}
-
-// Init on page load
 initTrial();
 
 let pwCurrency = 'gbp';
