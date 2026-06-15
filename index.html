@@ -2368,12 +2368,12 @@ applyT3();
 <script> 
 // ════════════ STRIPE CONFIGURATION ════════════
 const STRIPE_PRICES = {
-  '24h_gbp': 'price_1Tib5Y214XxP2PCdga4JqvBm',
-  '24h_ron': 'price_1TibAi214XxP2PCdwbIcHFqK',
-  '24h_pln': 'price_1Tib9f214XxP2PCdFSCP8qAk',
-  '30d_gbp': 'price_1TibDv214XxP2PCd9n3Wc4tc',
-  '30d_ron': 'price_1TibFX214XxP2PCdi9Xq0pdr',
-  '30d_pln': 'price_1TibF5214XxP2PCdyzbdPP2j'
+  '24h_gbp': 'price_1Tid2s1sBFQIZzS4Ssk8MyUZ',
+  '24h_ron': 'price_1Tid4f1sBFQIZzS44SARu9D6',
+  '24h_pln': 'price_1Tid5M1sBFQIZzS4TSqWlpOR',
+  '30d_gbp': 'price_1Tid8U1sBFQIZzS4btwRC6SA',
+  '30d_ron': 'price_1Tid9Y1sBFQIZzS405zBceHS',
+  '30d_pln': 'price_1Tid951sBFQIZzS46hiQSEf6',
 };
 let accessToken = null;
 async function validateToken(){try{const tok=localStorage.getItem('wg_access_token');if(!tok)return false;const r=await fetch('/api/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:tok})});const j=await r.json();if(j.valid){accessToken=tok;return true;}localStorage.removeItem('wg_access_token');return false;}catch(e){return false;}}
