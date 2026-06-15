@@ -2221,7 +2221,192 @@ const _origSetLang3=setLang;
 setLang=function(l){_origSetLang3(l);try{applyT3();}catch(e){}};
 applyT3();
 </script>
-<!-- ════════════════ END ONLINE MULTIPLAYER v9 ════════════════ -->
+<!-- ════════════════ END ONLINE MULTIPLAYER v9 ════════════════ --> 
+<!-- PAYWALL SCREEN — Insert before </body> in index.html -->
+<div id="s-paywall" class="screen">
+<button class="back-btn" onclick="backHome()" id="pw-back">← Înapoi</button>
+<main><div class="mini-wrap" style="max-width:520px;">
+  <div class="mini-title" id="pw-title">🎮 Unlock Online Play</div>
+  <div class="mini-sub" id="pw-sub">Joacă cu prietenii pe orice dispozitiv</div>
+  
+  <div style="margin-top:24px;text-align:center;color:var(--muted);font-size:.9rem;margin-bottom:18px;">
+    <span id="pw-cur">Select currency:</span>
+  </div>
+  
+  <div style="display:flex;gap:10px;justify-content:center;margin-bottom:20px;flex-wrap:wrap;">
+    <button class="mini-mode-btn active" id="pw-cur-gbp" onclick="setPWCurrency('gbp')">🇬🇧 GBP</button>
+    <button class="mini-mode-btn" id="pw-cur-ron" onclick="setPWCurrency('ron')">🇷🇴 RON</button>
+    <button class="mini-mode-btn" id="pw-cur-pln" onclick="setPWCurrency('pln')">🇵🇱 PLN</button>
+  </div>
+  
+  <div class="on-panel" style="margin-bottom:14px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div style="background:var(--key);border-radius:14px;padding:16px;text-align:center;">
+        <div style="font-size:.85rem;color:var(--muted);margin-bottom:6px;" id="pw-24h-l">24 Hours</div>
+        <div style="font-size:1.6rem;font-weight:800;color:var(--accent);" id="pw-24h-p">£1.00</div>
+        <button class="btn btn-primary" onclick="checkout('24h')" id="pw-24h-btn" style="width:100%;margin-top:10px;font-size:.85rem;padding:9px;">Get Access</button>
+      </div>
+      <div style="background:var(--key);border-radius:14px;padding:16px;text-align:center;border:2px solid var(--accent);">
+        <div style="font-size:.75rem;background:var(--accent);color:#fff;border-radius:8px;padding:4px 8px;display:inline-block;margin-bottom:6px;">💰 BEST</div>
+        <div style="font-size:.85rem;color:var(--muted);margin-bottom:6px;" id="pw-30d-l">30 Days</div>
+        <div style="font-size:1.6rem;font-weight:800;color:var(--accent);" id="pw-30d-p">£5.00</div>
+        <button class="btn btn-primary" onclick="checkout('30d')" id="pw-30d-btn" style="width:100%;margin-top:10px;font-size:.85rem;padding:9px;">Get Access</button>
+      </div>
+    </div>
+  </div>
+  
+  <div style="text-align:center;color:var(--muted);font-size:.8rem;line-height:1.6;">
+    <p id="pw-info">💳 Secure payment via Stripe<br>🔒 No subscription — one-time payment</p>
+  </div>
+</div></main>
+</div>
+
+<style>
+#s-paywall main { padding-bottom: 80px; }
+.mini-mode-btn { padding: 11px 18px; border-radius: 12px; border: 1.5px solid var(--keyborder); background: var(--key); color: var(--text); font-family: inherit; font-weight: 700; font-size: .9rem; cursor: pointer; transition: all .25s; }
+.mini-mode-btn:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: 0 0 12px var(--glow); }
+.mini-mode-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-color: transparent; }
+.on-panel { background: var(--panel); border: 1.5px solid var(--border); border-radius: 18px; padding: 20px; backdrop-filter: blur(8px); }
+</style>
+
+<script> 
+// ════════════ STRIPE CONFIGURATION ════════════
+const STRIPE_PRICES = {
+  '24h_gbp': 'price_1Tib5Y214XxP2PCdga4JqvBm',
+  '24h_ron': 'price_1TibAi214XxP2PCdwbIcHFqK',
+  '24h_pln': 'price_1Tib9f214XxP2PCdFSCP8qAk',
+  '30d_gbp': 'price_1TibDv214XxP2PCd9n3Wc4tc',
+  '30d_ron': 'price_1TibFX214XxP2PCdi9Xq0pdr',
+  '30d_pln': 'price_1TibF5214XxP2PCdyzbdPP2j'
+};
+let accessToken = null;
+async function validateToken(){try{const tok=localStorage.getItem('wg_access_token');if(!tok)return false;const r=await fetch('/api/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:tok})});const j=await r.json();if(j.valid){accessToken=tok;return true;}localStorage.removeItem('wg_access_token');return false;}catch(e){return false;}}
+async function checkout(priceId){try{const r=await fetch('/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({priceId})});const j=await r.json();if(j.url)window.location=j.url;else alert('❌ Checkout failed: '+(j.error||'unknown error'));}catch(e){alert('❌ Error: '+e.message);}}
+validateToken(); 
+// ════════════ FREE TRIAL v1 ════════════
+const TRIAL_DURATION = 120; // 2 minutes in seconds
+let trialActive = false;
+let trialTimeLeft = TRIAL_DURATION;
+let trialInterval = null;
+let trialUsed = false;
+
+function initTrial() {
+  try { 
+    trialUsed = localStorage.getItem('wg_trial_used') === 'true';
+  } catch(e) { 
+    trialUsed = false; 
+  }
+  
+  // If user has valid access token, don't show trial
+  if (accessToken) return;
+  
+  // If trial was already used, don't start it again
+  if (trialUsed) return;
+  
+  // Trial is available
+  trialActive = true;
+  trialTimeLeft = TRIAL_DURATION;
+  startTrialTimer();
+}
+
+function startTrialTimer() {
+  if (trialInterval) clearInterval(trialInterval);
+  trialInterval = setInterval(() => {
+    trialTimeLeft--;
+    updateTrialDisplay();
+    
+    if (trialTimeLeft <= 0) {
+      clearInterval(trialInterval);
+      endTrial();
+    }
+  }, 1000);
+}
+
+function updateTrialDisplay() {
+  const mins = Math.floor(trialTimeLeft / 60);
+  const secs = trialTimeLeft % 60;
+  const display = `${mins}:${secs.toString().padStart(2, '0')}`;
+  
+  const badges = document.querySelectorAll('[id*="trial"]');
+  badges.forEach(b => {
+    if (b.id === 'trial-badge') {
+      b.textContent = `⏳ Trial: ${display}`;
+      if (trialTimeLeft <= 30) {
+        b.style.color = '#ff6060';
+      }
+    }
+  });
+}
+
+function endTrial() {
+  trialActive = false;
+  try { 
+    localStorage.setItem('wg_trial_used', 'true'); 
+  } catch(e) {}
+  
+  // Show paywall
+  document.getElementById('m-emoji').textContent = '⏳';
+  document.getElementById('m-title').textContent = t3().trialExpired || 'Trial Expired';
+  document.getElementById('m-msg').textContent = t3().trialMsg || 'Your 2-minute trial has ended. Unlock unlimited play!';
+  document.getElementById('m-word').textContent = '';
+  document.getElementById('m-btn1').textContent = '🔓 Unlock (£1 / 24h)';
+  document.getElementById('m-btn1').onclick = () => {
+    closeModal();
+    showScreen('s-paywall');
+    setPWCurrency('gbp');
+  };
+  document.getElementById('modal').classList.add('show');
+}
+
+// Hook into game start
+const _origShowScreen_trial = showScreen;
+showScreen = function(s) {
+  _origShowScreen_trial(s);
+  if ((s === 's-game' || s === 's-online') && !accessToken && trialActive) {
+    startTrialTimer();
+  }
+};
+
+// Translations
+const PWL_TRIAL = {
+  ro: { trialExpired: '⏳ Trial-ul a expirat', trialMsg: 'Ai folosit cei 2 minute liberi. Deblochează jocul nelimitat!' },
+  en: { trialExpired: '⏳ Trial Expired', trialMsg: 'Your 2-minute free trial has ended. Unlock unlimited play!' },
+  pl: { trialExpired: '⏳ Okres próbny wygasł', trialMsg: 'Twój 2-minutowy bezpłatny okres próbny się skończył. Odblokuj nieograniczoną grę!' }
+};
+
+function addTrialText(key) {
+  const txt = (PWL_TRIAL[lang] || PWL_TRIAL.ro)[key];
+  if (key === 'trialExpired') document.getElementById('m-title').textContent = txt;
+  if (key === 'trialMsg') document.getElementById('m-msg').textContent = txt;
+}
+
+// Init on page load
+initTrial();
+
+let pwCurrency = 'gbp';
+const PWL = {
+  ro: { title: '🎮 Unlock Online Play', sub: 'Joacă cu prietenii pe orice dispozitiv', cur: 'Alege moneda:', info: '💳 Plată secură via Stripe<br>🔒 Fără abonament — plată unică', back: '← Înapoi', '24h': '24 de ore', '30d': '30 de zile', get: 'Obține acces' },
+  en: { title: '🎮 Unlock Online Play', sub: 'Play with friends on any device', cur: 'Select currency:', info: '💳 Secure payment via Stripe<br>🔒 No subscription — one-time payment', back: '← Back', '24h': '24 Hours', '30d': '30 Days', get: 'Get Access' },
+  pl: { title: '🎮 Odblokuj grę online', sub: 'Graj z przyjaciółmi na dowolnym urządzeniu', cur: 'Wybierz walutę:', info: '💳 Bezpieczna płatność przez Stripe<br>🔒 Bez subskrypcji — jednorazowa płatność', back: '← Wstecz', '24h': '24 godziny', '30d': '30 dni', get: 'Uzyskaj dostęp' }
+};
+function pwL() { return PWL[lang] || PWL.ro; }
+function setPWCurrency(c) { 
+  pwCurrency = c; 
+  document.querySelectorAll('[id^="pw-cur-"]').forEach(b => b.classList.remove('active')); 
+  document.getElementById('pw-cur-' + c).classList.add('active');
+  updatePWPrices();
+}
+function updatePWPrices() {
+  const prices = { gbp: { '24h': '£1.00', '30d': '£5.00' }, ron: { '24h': '4 RON', '30d': '10 RON' }, pln: { '24h': '10 PLN', '30d': '40 PLN' } };
+  document.getElementById('pw-24h-p').textContent = prices[pwCurrency]['24h'];
+  document.getElementById('pw-30d-p').textContent = prices[pwCurrency]['30d'];
+}
+function applyPWL() { const l = pwL(); document.getElementById('pw-title').textContent = l.title; document.getElementById('pw-sub').textContent = l.sub; document.getElementById('pw-cur').textContent = l.cur; document.getElementById('pw-24h-l').textContent = l['24h']; document.getElementById('pw-30d-l').textContent = l['30d']; document.getElementById('pw-info').innerHTML = l.info; document.getElementById('pw-back').textContent = l.back; document.getElementById('pw-24h-btn').textContent = l.get; document.getElementById('pw-30d-btn').textContent = l.get; updatePWPrices(); }
+async function checkout(plan) { const priceKey = plan + '_' + pwCurrency; const priceId = STRIPE_PRICES[priceKey]; if (!priceId) { alert('Price not found'); return; } checkout(priceId); }
+const origShowScreen = showScreen; showScreen = function(s) { origShowScreen(s); if (s === 's-online' && !accessToken) showScreen('s-paywall'); if (s === 's-paywall') applyPWL(); };
+applyPWL();
+</script>
+
 
 </body>
 </html>
