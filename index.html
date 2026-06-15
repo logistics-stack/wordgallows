@@ -330,6 +330,30 @@ input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--glo
 .admin-key-btn:hover{border-color:var(--accent);box-shadow:0 0 16px var(--glow);transform:scale(1.1);}
 .idb-status{font-size:0.75rem;padding:4px 10px;border-radius:8px;background:rgba(0,255,0,0.1);border:1px solid rgba(0,255,0,0.2);color:var(--correct);margin-top:8px;display:inline-block;}
 
+
+/* PAYWALL FIX - ALWAYS AT TOP */
+#s-paywall.active {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding-top: 40px !important;
+  overflow-y: auto !important;
+  background: var(--bg1) !important;
+}
+
+#s-paywall.active main {
+  max-width: 520px !important;
+  width: 90% !important;
+  padding: 0 20px !important;
+}
+
 </style>
 </head>
 <body class="theme-fengshui">
@@ -868,8 +892,8 @@ function showResult(won){
   }
   document.getElementById('modal').classList.add('show');
 }
-function nextMp(){closeModal();mpPlayer=1-mpPlayer;mpRound++;const s=mpPlayer===0?mpNames[0]:mpNames[1];const g=mpPlayer===0?mpNames[1]:mpNames[0];document.getElementById('lword').textContent=`Cuvântul ales de ${s} (pentru ${g} să ghicească)`;document.getElementById('in-word').value='';document.getElementById('word-hint').textContent='💡 Scrie un cuvânt și îl verificăm';document.getElementById('word-hint').style.color='';showScreen('s-setup');}
-function showFinal(){closeModal();let t;if(mpScore[0]>mpScore[1])t=`🏆 ${mpNames[0]} câștigă meciul!`;else if(mpScore[1]>mpScore[0])t=`🏆 ${mpNames[1]} câștigă meciul!`;else t='🤝 Egalitate!';document.getElementById('m-emoji').textContent='🏆';document.getElementById('m-title').textContent=t;document.getElementById('m-msg').textContent=`${mpScore[0]} - ${mpScore[1]}`;document.getElementById('m-word').textContent='';document.getElementById('m-btn1').textContent='🔄 Joc Nou';document.getElementById('m-btn1').onclick=()=>{mpScore=[0,0];mpRound=1;mpPlayer=0;document.getElementById('sb-s1').textContent='0';document.getElementById('sb-s2').textContent='0';document.getElementById('in-word').value='';closeModal();showScreen('s-setup');};confetti();document.getElementById('modal').classList.add('show');}
+function nextMp(){closeModal();mpPlayer=1-mpPlayer;mpRound++;const s=mpPlayer===0?mpNames[0]:mpNames[1];const g=mpPlayer===0?mpNames[1]:mpNames[0];document.getElementById('lword').textContent=`Cuvântul ales de ${s} (pentru ${g} să ghicească)`;document.getElementById('in-word').value='';document.getElementById('word-hint').textContent='💡 Scrie un cuvânt și îl verificăm';document.getElementById('word-hint').style.color='';showScreen('s-home');}
+function showFinal(){closeModal();let t;if(mpScore[0]>mpScore[1])t=`🏆 ${mpNames[0]} câștigă meciul!`;else if(mpScore[1]>mpScore[0])t=`🏆 ${mpNames[1]} câștigă meciul!`;else t='🤝 Egalitate!';document.getElementById('m-emoji').textContent='🏆';document.getElementById('m-title').textContent=t;document.getElementById('m-msg').textContent=`${mpScore[0]} - ${mpScore[1]}`;document.getElementById('m-word').textContent='';document.getElementById('m-btn1').textContent='🔄 Joc Nou';document.getElementById('m-btn1').onclick=()=>{mpScore=[0,0];mpRound=1;mpPlayer=0;document.getElementById('sb-s1').textContent='0';document.getElementById('sb-s2').textContent='0';document.getElementById('in-word').value='';closeModal();showScreen('s-home');};confetti();document.getElementById('modal').classList.add('show');}
 function updateMpSb(){document.getElementById('sb-s1').textContent=mpScore[0];document.getElementById('sb-s2').textContent=mpScore[1];document.getElementById('gs-s1').textContent=mpScore[0];document.getElementById('gs-s2').textContent=mpScore[1];}
 function confirmExit(){if(confirm('Ești sigur că vrei să ieși?')){closeModal();showScreen('s-home');}}
 
@@ -1378,6 +1402,30 @@ openDB().then(() => console.log('IndexedDB ready'));
 .mode-card:nth-child(2){animation-delay:-2.2s;}
 @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
 .key:active,.btn:active,.diff-btn:active{transform:scale(.88) !important;}
+
+/* PAYWALL FIX - ALWAYS AT TOP */
+#s-paywall.active {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding-top: 40px !important;
+  overflow-y: auto !important;
+  background: var(--bg1) !important;
+}
+
+#s-paywall.active main {
+  max-width: 520px !important;
+  width: 90% !important;
+  padding: 0 20px !important;
+}
+
 </style>
 
 <!-- ══ X și 0 SCREEN ══ -->
@@ -1834,6 +1882,30 @@ snakeDrawIdle();
 .on-lives{font-size:1.15rem;letter-spacing:.15em;margin:4px 0;}
 .spec-note{display:inline-block;background:var(--key);border:1px dashed var(--keyborder);border-radius:20px;padding:6px 16px;color:var(--muted);font-size:.85rem;margin-bottom:8px;}
 @keyframes bannerIn{from{opacity:0;transform:translateX(-50%) translateY(-14px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
+
+/* PAYWALL FIX - ALWAYS AT TOP */
+#s-paywall.active {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding-top: 40px !important;
+  overflow-y: auto !important;
+  background: var(--bg1) !important;
+}
+
+#s-paywall.active main {
+  max-width: 520px !important;
+  width: 90% !important;
+  padding: 0 20px !important;
+}
+
 </style>
 
 <!-- ══ ONLINE LOBBY ══ -->
@@ -2267,6 +2339,30 @@ applyT3();
 .mini-mode-btn:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: 0 0 12px var(--glow); }
 .mini-mode-btn.active { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; border-color: transparent; }
 .on-panel { background: var(--panel); border: 1.5px solid var(--border); border-radius: 18px; padding: 20px; backdrop-filter: blur(8px); }
+
+/* PAYWALL FIX - ALWAYS AT TOP */
+#s-paywall.active {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  padding-top: 40px !important;
+  overflow-y: auto !important;
+  background: var(--bg1) !important;
+}
+
+#s-paywall.active main {
+  max-width: 520px !important;
+  width: 90% !important;
+  padding: 0 20px !important;
+}
+
 </style>
 
 <script> 
