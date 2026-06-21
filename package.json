@@ -1,13 +1,11 @@
 {
-  "name": "wordgallows-api",
-  "version": "1.0.0",
-  "description": "WordGallows Stripe Payment API",
+  "name": "WordGallows Stripe Payment API",
   "main": "api/checkout.js",
   "type": "module",
   "dependencies": {
     "stripe": "^16.0.0"
   },
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   }
 }
