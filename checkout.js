@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Price ID required' });
     }
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card', 'google_pay', 'apple_pay'],
+     
       line_items: [{ price: priceId, quantity: 1 }],
       mode: 'payment',
       success_url: 'https://wordgallows.com?payment=success&session={CHECKOUT_SESSION_ID}',
