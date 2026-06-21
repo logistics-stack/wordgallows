@@ -2415,6 +2415,64 @@ const STRIPE_PRICES = {
 let accessToken = null;
 async function validateToken(){try{const tok=localStorage.getItem('wg_access_token');if(!tok)return false;const r=await fetch('/api/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:tok})});const j=await r.json();if(j.valid){accessToken=tok;return true;}localStorage.removeItem('wg_access_token');return false;}catch(e){return false;}}
 async function checkout(priceId){try{const r=await fetch('/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({priceId})});const j=await r.json();if(j.url)window.location=j.url;else alert('❌ Checkout failed: '+(j.error||'unknown error'));}catch(e){alert('❌ Error: '+e.message);}}
+
+// ════════ PAYMENT SUCCESS HANDLER ════════
+async function handlePaymentSuccess(sessionId) {
+  try {
+    document.getElementById('m-emoji').textContent = '⏳';
+    document.getElementById('m-title').textContent = 'Se activează accesul...';
+    document.getElementById('m-msg').textContent = 'Te rugăm să aștepți câteva secunde.';
+    document.getElementById('m-word').textContent = '';
+    document.getElementById('m-btn1').style.display = 'none';
+    document.getElementById('modal').classList.add('show');
+
+    const r = await fetch('/api/confirm?session_id=' + sessionId);
+    const j = await r.json();
+
+    if (j.success && j.token) {
+      localStorage.setItem('wg_access_token', j.token);
+      accessToken = j.token;
+      // Clear URL params
+      window.history.replaceState({}, document.title, '/');
+      // Show success
+      document.getElementById('m-emoji').textContent = '🎉';
+      document.getElementById('m-title').textContent = 'Acces activat!';
+      document.getElementById('m-msg').textContent = j.duration === '24h' ? 'Ai acces pentru 24 de ore!' : 'Ai acces pentru 30 de zile!';
+      document.getElementById('m-word').textContent = '';
+      document.getElementById('m-btn1').textContent = '🎮 Începe să joci!';
+      document.getElementById('m-btn1').style.display = 'block';
+      document.getElementById('m-btn1').onclick = () => { closeModal(); startSingle(); };
+    } else {
+      document.getElementById('m-emoji').textContent = '❌';
+      document.getElementById('m-title').textContent = 'Eroare la activare';
+      document.getElementById('m-msg').textContent = 'Plata a fost procesată dar accesul nu s-a activat. Contactează-ne la legal@wordgallows.com';
+      document.getElementById('m-btn1').textContent = 'OK';
+      document.getElementById('m-btn1').style.display = 'block';
+      document.getElementById('m-btn1').onclick = () => closeModal();
+    }
+  } catch(e) {
+    document.getElementById('m-emoji').textContent = '❌';
+    document.getElementById('m-title').textContent = 'Eroare de conexiune';
+    document.getElementById('m-msg').textContent = 'Reîncarcă pagina sau contactează-ne la legal@wordgallows.com';
+    document.getElementById('m-btn1').textContent = 'OK';
+    document.getElementById('m-btn1').style.display = 'block';
+    document.getElementById('m-btn1').onclick = () => closeModal();
+  }
+}
+
+// Check URL for payment result on page load
+(function checkPaymentResult() {
+  const params = new URLSearchParams(window.location.search);
+  const payment = params.get('payment');
+  const sessionId = params.get('session');
+  if (payment === 'success' && sessionId) {
+    // Wait for DOM to be ready
+    setTimeout(() => handlePaymentSuccess(sessionId), 500);
+  } else if (payment === 'cancelled') {
+    window.history.replaceState({}, document.title, '/');
+  }
+})();
+
 validateToken(); 
 // ════════════ FREE TRIAL v2 — ALL GAMES PAID ════════════
 const TRIAL_DURATION = 120;
