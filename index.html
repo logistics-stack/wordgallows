@@ -7,7 +7,44 @@
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WordGallows Plus</title>
+<title>WordGallows Plus — Joc de Cuvinte Online | Word Hangman Game</title>
+<meta name="description" content="WordGallows Plus — joc gratuit de ghicit cuvinte în română, engleză și polonă. Joacă Spânzurătoarea online, single player sau multiplayer. Play hangman online free!">
+<meta name="keywords" content="wordgallows, joc cuvinte online, spanzuratoarea online, hangman game, word game online, joc ghicit cuvinte, word gallows">
+<meta name="author" content="WordGallows Plus">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://wordgallows.com">
+
+<!-- Open Graph / Facebook / WhatsApp -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wordgallows.com">
+<meta property="og:title" content="WordGallows Plus — Joc de Cuvinte Online Gratuit">
+<meta property="og:description" content="Joacă Spânzurătoarea online în română, engleză și polonă. Single player, multiplayer și online cu prietenii. Gratuit!">
+<meta property="og:image" content="https://wordgallows.com/og-image.png">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://wordgallows.com">
+<meta name="twitter:title" content="WordGallows Plus — Hangman Word Game Online">
+<meta name="twitter:description" content="Play hangman online in Romanian, English and Polish. Free word game with multiplayer!">
+
+<!-- Schema.org structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "WordGallows Plus",
+  "url": "https://wordgallows.com",
+  "description": "Online hangman word game in Romanian, English and Polish",
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Web Browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "1.00",
+    "priceCurrency": "GBP"
+  },
+  "inLanguage": ["ro", "en", "pl"]
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -2421,8 +2458,7 @@ const _origShowScreen_trial = showScreen;
 showScreen = function(s) {
   if (!accessToken && (s === 's-game' || s === 's-online' || s === 's-ttt' || s === 's-snake')) {
     if (!trialActive) {
-      _origShowScreen_trial('s-paywall');
-      applyPWL();
+      showScreen('s-paywall');
       return;
     }
     if (!trialInterval) startTrialTimer();
@@ -2452,18 +2488,7 @@ function updatePWPrices() {
 }
 function applyPWL() { const l = pwL(); document.getElementById('pw-title').textContent = l.title; document.getElementById('pw-sub').textContent = l.sub; document.getElementById('pw-cur').textContent = l.cur; document.getElementById('pw-24h-l').textContent = l['24h']; document.getElementById('pw-30d-l').textContent = l['30d']; document.getElementById('pw-info').innerHTML = l.info; document.getElementById('pw-back').textContent = l.back; document.getElementById('pw-24h-btn').textContent = l.get; document.getElementById('pw-30d-btn').textContent = l.get; updatePWPrices(); }
 async function startCheckout(plan) { const priceKey = plan + '_' + pwCurrency; const priceId = STRIPE_PRICES[priceKey]; if (!priceId) { alert('Price not found'); return; } checkout(priceId); }
-// showScreen final layer: online paywall + applyPWL (no recursion)
-const _origShowScreen_online = showScreen;
-showScreen = function(s) {
-  // Redirect online to paywall if not paid
-  if (s === 's-online' && !accessToken) {
-    _origShowScreen_online('s-paywall');
-    applyPWL();
-    return;
-  }
-  _origShowScreen_online(s);
-  if (s === 's-paywall') applyPWL();
-};
+const origShowScreen = showScreen; showScreen = function(s) { origShowScreen(s); if (s === 's-online' && !accessToken) showScreen('s-paywall'); if (s === 's-paywall') applyPWL(); };
 applyPWL();
 </script>
 
