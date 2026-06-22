@@ -2473,7 +2473,7 @@ async function handlePaymentSuccess(sessionId) {
   }
 })();
 
-validateToken(); 
+// validateToken is called inside initApp below
 // ════════════ FREE TRIAL v2 — ALL GAMES PAID ════════════
 const TRIAL_DURATION = 120;
 let trialActive = false;
@@ -2524,7 +2524,7 @@ showScreen = function(s) {
   _origShowScreen_trial(s);
 };
 
-initTrial();
+// initTrial is called inside initApp below
 
 let pwCurrency = 'gbp';
 const PWL = {
@@ -2546,6 +2546,13 @@ function updatePWPrices() {
 }
 function applyPWL() { const l = pwL(); document.getElementById('pw-title').textContent = l.title; document.getElementById('pw-sub').textContent = l.sub; document.getElementById('pw-cur').textContent = l.cur; document.getElementById('pw-24h-l').textContent = l['24h']; document.getElementById('pw-30d-l').textContent = l['30d']; document.getElementById('pw-info').innerHTML = l.info; document.getElementById('pw-back').textContent = l.back; document.getElementById('pw-24h-btn').textContent = l.get; document.getElementById('pw-30d-btn').textContent = l.get; updatePWPrices(); }
 async function startCheckout(plan) { const priceKey = plan + '_' + pwCurrency; const priceId = STRIPE_PRICES[priceKey]; if (!priceId) { alert('Price not found'); return; } checkout(priceId); }
+// ════ INIT APP — wait for token validation before trial ════
+async function initApp() {
+  await validateToken();
+  initTrial();
+}
+initApp();
+
 const origShowScreen = showScreen; showScreen = function(s) { origShowScreen(s); if (s === 's-online' && !accessToken) showScreen('s-paywall'); if (s === 's-paywall') applyPWL(); };
 applyPWL();
 </script>
