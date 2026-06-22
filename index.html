@@ -45,6 +45,12 @@
   "inLanguage": ["ro", "en", "pl"]
 }
 </script>
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="WordGallows">
+<meta name="theme-color" content="#3a8a4a">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -2331,7 +2337,16 @@ setLang=function(l){_origSetLang3(l);try{applyT3();}catch(e){}};
 applyT3();
 </script>
 <!-- ════════════════ END ONLINE MULTIPLAYER v9 ════════════════ --> 
-<!-- PAYWALL SCREEN — Insert before </body> in index.html -->
+<!-- PAYWALL SCREEN — Insert before <script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js')
+      .then(() => console.log('SW registered'))
+      .catch(e => console.log('SW error:', e));
+  });
+}
+</script>
+</body> in index.html -->
 <div id="s-paywall" class="screen">
 <button class="back-btn" onclick="backHome()" id="pw-back">← Înapoi</button>
 <main><div class="mini-wrap" style="max-width:520px;">
