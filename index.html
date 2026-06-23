@@ -442,7 +442,21 @@ input[type=text]:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--glo
     <button class="gswitch" id="gsw-ttt" onclick="selectGame('ttt')">❌⭕ <span id="gsw-ttt-l">X și 0</span></button>
     <button class="gswitch" id="gsw-snake" onclick="selectGame('snake')">🐍 <span id="gsw-snake-l">Snake</span></button>
   </div>
-  <div class="diff-row">
+  <!-- PWA INSTALL BANNER -->
+<div id="pwa-install-banner" style="display:none;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:18px;padding:16px 20px;margin:0 0 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 8px 26px var(--glow);animation:fadeUp 0.8s 0.6s both;">
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span style="font-size:2rem;">📱</span>
+    <div>
+      <div style="font-weight:800;color:white;font-size:0.95rem;">Instalează aplicația!</div>
+      <div style="color:rgba(255,255,255,0.85);font-size:0.78rem;">Joacă offline, fără browser</div>
+    </div>
+  </div>
+  <div style="display:flex;gap:8px;">
+    <button onclick="installPWA()" style="background:white;color:var(--accent);border:none;border-radius:20px;padding:8px 16px;font-weight:800;font-size:0.85rem;cursor:pointer;">⬇️ Instalează</button>
+    <button onclick="document.getElementById('pwa-install-banner').style.display='none'" style="background:rgba(255,255,255,0.2);color:white;border:none;border-radius:20px;padding:8px 12px;font-weight:700;font-size:0.85rem;cursor:pointer;">✕</button>
+  </div>
+</div>
+<div class="diff-row">
     <button class="diff-btn" id="d-easy" onclick="setDiff('easy')">🌿 Ușor</button>
     <button class="diff-btn active" id="d-medium" onclick="setDiff('medium')">🔥 Mediu</button>
     <button class="diff-btn" id="d-hard" onclick="setDiff('hard')">💀 Greu</button>
@@ -2338,6 +2352,29 @@ applyT3();
 </script>
 <!-- ════════════════ END ONLINE MULTIPLAYER v9 ════════════════ --> 
 <!-- PAYWALL SCREEN — Insert before <script>
+// PWA Install prompt
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  const banner = document.getElementById('pwa-install-banner');
+  if (banner) banner.style.display = 'flex';
+});
+function installPWA() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(() => {
+    deferredPrompt = null;
+    const banner = document.getElementById('pwa-install-banner');
+    if (banner) banner.style.display = 'none';
+  });
+}
+window.addEventListener('appinstalled', () => {
+  const banner = document.getElementById('pwa-install-banner');
+  if (banner) banner.style.display = 'none';
+});
+</script>
+<script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js')
@@ -2529,14 +2566,23 @@ function endTrial() {
 
 const _origShowScreen_trial = showScreen;
 showScreen = function(s) {
-  if (!accessToken && (s === 's-game' || s === 's-online' || s === 's-ttt' || s === 's-snake')) {
+  // Paid access — allow everything
+  if (accessToken) {
+    _origShowScreen_trial(s);
+    if (s === 's-paywall') applyPWL();
+    return;
+  }
+  // No access — check trial
+  if (s === 's-game' || s === 's-online' || s === 's-ttt' || s === 's-snake') {
     if (!trialActive) {
-      showScreen('s-paywall');
+      _origShowScreen_trial('s-paywall');
+      applyPWL();
       return;
     }
     if (!trialInterval) startTrialTimer();
   }
   _origShowScreen_trial(s);
+  if (s === 's-paywall') applyPWL();
 };
 
 // initTrial is called inside initApp below
@@ -2568,7 +2614,7 @@ async function initApp() {
 }
 initApp();
 
-const origShowScreen = showScreen; showScreen = function(s) { origShowScreen(s); if (s === 's-online' && !accessToken) showScreen('s-paywall'); if (s === 's-paywall') applyPWL(); };
+// showScreen is already fully configured above
 applyPWL();
 </script>
 
