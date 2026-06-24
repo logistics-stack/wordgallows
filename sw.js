@@ -1,29 +1,9 @@
-const CACHE_NAME = 'wordgallows-v1';
-const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-];
-
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
-  );
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
-    )
-  );
-  self.clients.claim();
-});
-
+// Minimal SW - no caching to preserve URL params
+self.addEventListener('install', e => { self.skipWaiting(); });
+self.addEventListener('activate', e => { self.clients.claim(); });
 self.addEventListener('fetch', e => {
-  // API calls — always network
-  if (e.request.url.includes('/api/')) {
+  // Always network for HTML and API
+  if (e.request.mode === 'navigate' || e.request.url.includes('/api/')) {
     return;
   }
   e.respondWith(
