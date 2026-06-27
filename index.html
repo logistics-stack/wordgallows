@@ -2361,13 +2361,25 @@ window.addEventListener('beforeinstallprompt', (e) => {
   if (banner) banner.style.display = 'flex';
 });
 function installPWA() {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(() => {
-    deferredPrompt = null;
-    const banner = document.getElementById('pwa-install-banner');
-    if (banner) banner.style.display = 'none';
-  });
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => {
+      deferredPrompt = null;
+      const banner = document.getElementById('pwa-install-banner');
+      if (banner) banner.style.display = 'none';
+    });
+    return;
+  }
+  // Fallback: show manual install instructions
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isAndroid = /android/i.test(navigator.userAgent);
+  if (isIOS) {
+    alert('Pe iPhone/iPad:\n1. Apasă butonul Share (pătratul cu săgeată)\n2. Selectează "Add to Home Screen"\n3. Apasă "Add"');
+  } else if (isAndroid) {
+    alert('Pe Android:\n1. Apasă meniul Chrome (3 puncte sus dreapta)\n2. Selectează "Add to Home Screen"\n3. Apasă "Add"');
+  } else {
+    alert('Pe Desktop:\n1. Apasă iconița de instalare din bara de adrese (sus dreapta)\n2. Sau apasă butonul "Install" din bara Chrome');
+  }
 }
 window.addEventListener('appinstalled', () => {
   const banner = document.getElementById('pwa-install-banner');
@@ -2485,7 +2497,8 @@ async function handlePaymentSuccess(sessionId) {
       localStorage.setItem('wg_access_token', j.token);
       accessToken = j.token;
       // Clear URL params
-      window.history.replaceState({}, document.title, '/');
+      window.history.replaceState({}, document.title, window.location.pathname);
+      window.location.hash = '';
       // Show success
       document.getElementById('m-emoji').textContent = '🎉';
       document.getElementById('m-title').textContent = 'Acces activat!';
@@ -2514,14 +2527,17 @@ async function handlePaymentSuccess(sessionId) {
 
 // Check URL for payment result on page load
 (function checkPaymentResult() {
-  const params = new URLSearchParams(window.location.search);
+  // Read from hash (#payment=success&session=...) since query params get lost in redirects
+  const hash = window.location.hash.replace('#', '');
+  const params = new URLSearchParams(hash);
   const payment = params.get('payment');
   const sessionId = params.get('session');
   if (payment === 'success' && sessionId) {
     // Wait for DOM to be ready
     setTimeout(() => handlePaymentSuccess(sessionId), 500);
   } else if (payment === 'cancelled') {
-    window.history.replaceState({}, document.title, '/');
+    window.history.replaceState({}, document.title, window.location.pathname);
+      window.location.hash = '';
   }
 })();
 
