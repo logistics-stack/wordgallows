@@ -2370,16 +2370,25 @@ function installPWA() {
     });
     return;
   }
-  // Fallback: show manual install instructions
+  // Show visual modal with instructions
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
   const isAndroid = /android/i.test(navigator.userAgent);
+  let msg = '';
   if (isIOS) {
-    alert('Pe iPhone/iPad:\n1. Apasă butonul Share (pătratul cu săgeată)\n2. Selectează "Add to Home Screen"\n3. Apasă "Add"');
+    msg = '<div style="text-align:center;padding:10px"><div style="font-size:2rem">🍎</div><h3 style="margin:10px 0">iPhone / iPad</h3><p style="color:var(--muted);line-height:1.8">1. Apasă <b>Share</b> (pătratul cu săgeată ↑)<br>2. Selectează <b>"Add to Home Screen"</b><br>3. Apasă <b>"Add"</b></p></div>';
   } else if (isAndroid) {
-    alert('Pe Android:\n1. Apasă meniul Chrome (3 puncte sus dreapta)\n2. Selectează "Add to Home Screen"\n3. Apasă "Add"');
+    msg = '<div style="text-align:center;padding:10px"><div style="font-size:2rem">🤖</div><h3 style="margin:10px 0">Android Chrome</h3><p style="color:var(--muted);line-height:1.8">1. Apasă <b>meniul ⋮</b> (3 puncte sus dreapta)<br>2. Selectează <b>"Add to Home Screen"</b><br>3. Apasă <b>"Add"</b></p></div>';
   } else {
-    alert('Pe Desktop:\n1. Apasă iconița de instalare din bara de adrese (sus dreapta)\n2. Sau apasă butonul "Install" din bara Chrome');
+    msg = '<div style="text-align:center;padding:10px"><div style="font-size:2rem">💻</div><h3 style="margin:10px 0">Desktop</h3><p style="color:var(--muted);line-height:1.8">Apasă iconița <b>⊕ Install</b><br>din bara de adrese Chrome</p></div>';
   }
+  // Show in modal
+  document.getElementById('m-emoji').textContent = '📱';
+  document.getElementById('m-title').textContent = 'Instalează aplicația';
+  document.getElementById('m-msg').innerHTML = msg;
+  document.getElementById('m-word').textContent = '';
+  document.getElementById('m-btn1').textContent = '✕ Închide';
+  document.getElementById('m-btn1').onclick = () => closeModal();
+  document.getElementById('modal').classList.add('show');
 }
 window.addEventListener('appinstalled', () => {
   const banner = document.getElementById('pwa-install-banner');
@@ -2477,23 +2486,7 @@ const STRIPE_PRICES = {
   '30d_pln': 'price_1Tid951sBFQIZzS46hiQSEf6',
 };
 let accessToken = null;
-async function validateToken(){
-  try{
-    // Check simple session stored in localStorage
-    const stored = localStorage.getItem('wg_session');
-    if(!stored) return false;
-    const session = JSON.parse(stored);
-    // Check if expired
-    const now = Math.floor(Date.now() / 1000);
-    if(session.exp && session.exp > now){
-      accessToken = session.sid;
-      return true;
-    }
-    // Expired - remove
-    localStorage.removeItem('wg_session');
-    return false;
-  }catch(e){ return false; }
-}
+async function validateToken(){try{const tok=localStorage.getItem('wg_access_token');if(!tok)return false;const r=await fetch('/api/validate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:tok})});const j=await r.json();if(j.valid){accessToken=tok;return true;}localStorage.removeItem('wg_access_token');return false;}catch(e){return false;}}
 async function checkout(priceId){try{const r=await fetch('/api/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({priceId})});const j=await r.json();if(j.url)window.location=j.url;else alert('❌ Checkout failed: '+(j.error||'unknown error'));}catch(e){alert('❌ Error: '+e.message);}}
 
 // ════════ PAYMENT SUCCESS HANDLER ════════
@@ -2510,12 +2503,8 @@ async function handlePaymentSuccess(sessionId) {
     const j = await r.json();
 
     if (j.success && j.token) {
-      // Save simple session with expiry
-      const expiresIn = j.duration === '24h' ? 86400 : 2592000;
-      const expiry = Math.floor(Date.now() / 1000) + expiresIn;
-      const session = { sid: j.token || sessionId, exp: expiry, duration: j.duration };
-      localStorage.setItem('wg_session', JSON.stringify(session));
-      accessToken = sessionId;
+      localStorage.setItem('wg_access_token', j.token);
+      accessToken = j.token;
       // Clear URL params
       window.history.replaceState({}, document.title, window.location.pathname);
       window.location.hash = '';
