@@ -13,8 +13,8 @@ export default async function handler(req, res) {
     const session = await stripe.checkout.sessions.create({
       line_items: [{ price: priceId, quantity: 1 }],
       mode: 'payment',
-     success_url: 'https://www.wordgallows.com?payment=success&session={CHECKOUT_SESSION_ID}',
-cancel_url: 'https://www.wordgallows.com?payment=cancelled',
+     success_url: 'https://www.wordgallows.com/#payment=success&session={CHECKOUT_SESSION_ID}',
+cancel_url: 'https://www.wordgallows.com/#payment=cancelled',
     });
     res.status(200).json({ url: session.url });
   } catch (error) {
